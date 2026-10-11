@@ -1,0 +1,275 @@
+[
+  {
+    "slug": "tuck-box",
+    "label": "Tuck box",
+    "source_name": "TuckBox_80x50x120",
+    "blank_mm": [
+      275.9,
+      250.45
+    ],
+    "caliper_mm": 0.5,
+    "preview_available": true,
+    "continuity": {
+      "valid": true,
+      "tolerance_mm": 0.5,
+      "samples": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "checked_edges": 12,
+      "max_gap_mm": 5.859285502108464e-14,
+      "worst": {
+        "progress": 0.75,
+        "faces": [
+          2,
+          3
+        ],
+        "endpoint": [
+          15.0,
+          120.0
+        ]
+      }
+    },
+    "files": {
+      "svg": "assets/models/tuck-box.svg",
+      "pdf": "assets/models/tuck-box.pdf",
+      "dxf": "assets/models/tuck-box.dxf"
+    }
+  },
+  {
+    "slug": "hex-petal",
+    "label": "Hexagonal petal box",
+    "source_name": "OrigamiHexPetal_R40_H55",
+    "blank_mm": [
+      235.28203230275514,
+      203.76021702821686
+    ],
+    "caliper_mm": 0.4,
+    "preview_available": true,
+    "continuity": {
+      "valid": true,
+      "tolerance_mm": 0.5,
+      "samples": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "checked_edges": 12,
+      "max_gap_mm": 6.87625433923236e-08,
+      "worst": {
+        "progress": 1.0,
+        "faces": [
+          0,
+          1
+        ],
+        "endpoint": [
+          239.6410162,
+          130.0
+        ]
+      }
+    },
+    "files": {
+      "svg": "assets/models/hex-petal.svg",
+      "pdf": "assets/models/hex-petal.pdf",
+      "dxf": "assets/models/hex-petal.dxf"
+    }
+  },
+  {
+    "slug": "diamond-box",
+    "label": "Diamond faceted box",
+    "source_name": "OrigamiDiamond_60x80",
+    "blank_mm": [
+      240.0,
+      80.0
+    ],
+    "caliper_mm": 0.45,
+    "preview_available": false,
+    "continuity": {
+      "valid": false,
+      "tolerance_mm": 0.5,
+      "samples": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "checked_edges": 22,
+      "max_gap_mm": 94.62966089696852,
+      "worst": {
+        "progress": 1.0,
+        "faces": [
+          14,
+          15
+        ],
+        "endpoint": [
+          240.0,
+          40.0
+        ]
+      }
+    },
+    "files": {
+      "svg": "assets/models/diamond-box.svg",
+      "pdf": "assets/models/diamond-box.pdf",
+      "dxf": "assets/models/diamond-box.dxf"
+    }
+  },
+  {
+    "slug": "zero-glue-tray",
+    "label": "Zero-glue tray",
+    "source_name": "ZeroGlueTray_100x70x30",
+    "blank_mm": [
+      220.0,
+      190.0
+    ],
+    "caliper_mm": 0.5,
+    "preview_available": false,
+    "continuity": {
+      "valid": false,
+      "tolerance_mm": 0.5,
+      "samples": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "checked_edges": 12,
+      "max_gap_mm": 42.42640687119285,
+      "worst": {
+        "progress": 1.0,
+        "faces": [
+          4,
+          5
+        ],
+        "endpoint": [
+          40.0,
+          40.0
+        ]
+      }
+    },
+    "files": {
+      "svg": "assets/models/zero-glue-tray.svg",
+      "pdf": "assets/models/zero-glue-tray.pdf",
+      "dxf": "assets/models/zero-glue-tray.dxf"
+    }
+  },
+  {
+    "slug": "gable-box",
+    "label": "Gable handle box",
+    "source_name": "GableHandleBox_160x110x110",
+    "blank_mm": [
+      567.9,
+      281.64625
+    ],
+    "caliper_mm": 0.5,
+    "preview_available": true,
+    "continuity": {
+      "valid": true,
+      "tolerance_mm": 0.5,
+      "samples": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "checked_edges": 22,
+      "max_gap_mm": 1.1368683772161603e-13,
+      "worst": {
+        "progress": 1.0,
+        "faces": [
+          9,
+          14
+        ],
+        "endpoint": [
+          125.225,
+          0.0
+        ]
+      }
+    },
+    "files": {
+      "svg": "assets/models/gable-box.svg",
+      "pdf": "assets/models/gable-box.pdf",
+      "dxf": "assets/models/gable-box.dxf"
+    }
+  },
+  {
+    "slug": "pillow-box",
+    "label": "Pillow box",
+    "source_name": "PillowBox_90x40x110",
+    "blank_mm": [
+      272.9,
+      110.0
+    ],
+    "caliper_mm": 0.5,
+    "preview_available": true,
+    "continuity": {
+      "valid": true,
+      "tolerance_mm": 0.5,
+      "samples": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "checked_edges": 4,
+      "max_gap_mm": 6.550880341146756e-14,
+      "worst": {
+        "progress": 1.0,
+        "faces": [
+          3,
+          4
+        ],
+        "endpoint": [
+          232.675,
+          6.2170691
+        ]
+      }
+    },
+    "files": {
+      "svg": "assets/models/pillow-box.svg",
+      "pdf": "assets/models/pillow-box.pdf",
+      "dxf": "assets/models/pillow-box.dxf"
+    }
+  },
+  {
+    "slug": "crash-lock-box",
+    "label": "Crash-lock box",
+    "source_name": "CrashLockBox_80x60x100",
+    "blank_mm": [
+      295.9,
+      196.35999999999999
+    ],
+    "caliper_mm": 0.5,
+    "preview_available": false,
+    "continuity": {
+      "valid": false,
+      "tolerance_mm": 0.5,
+      "samples": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "checked_edges": 20,
+      "max_gap_mm": 80.22500000000001,
+      "worst": {
+        "progress": 1.0,
+        "faces": [
+          1,
+          9
+        ],
+        "endpoint": [
+          155.45,
+          100.0
+        ]
+      }
+    },
+    "files": {
+      "svg": "assets/models/crash-lock-box.svg",
+      "pdf": "assets/models/crash-lock-box.pdf",
+      "dxf": "assets/models/crash-lock-box.dxf"
+    }
+  }
+]

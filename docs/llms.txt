@@ -1,0 +1,26 @@
+# DESIGN:OS Origami
+
+> DESIGN:OS Origami generates parametric carton dielines, printer exchange files and source-derived folding previews from Python.
+
+Python ≥3.10 · MIT. Seven carton CLI choices: tuck-box, hex-petal, diamond-box, zero-glue-tray, gable-box, pillow-box, crash-lock-box. Miura-ori and deer-base are separate research patterns.
+
+Presentation mode writes SVG, R12 DXF and viewer HTML. Printer mode writes a five-spot PDF (CutContour, CreaseLine, Perforation, Bleed, GlueArea), with 1 pt strokes, a legend and 3 mm default bleed, plus R2000 mm/y-up DXF.
+
+The shown tuck, hexagonal petal, gable and pillow examples have available source-derived 3D previews. Diamond, tray and crash-lock previews are unavailable. Continuity is sampled at 25%, 50%, 75%, 100% with 0.5 mm tolerance. Recipient RIP/CAD import, physical fold/fit, continuous-time motion and collision avoidance are not verified.
+
+This index uses the planned canonical URL; publication and remote availability are not verified.
+
+## Guides
+
+- [Overview](https://jangtrinh.github.io/design-os-origami/): Static marketing site and quickstart.
+- [Source guide](https://github.com/jangtrinh/design-os-origami#readme): Repository README and checkout commands.
+- [Printer profile](https://jangtrinh.github.io/design-os-origami/printer-profile.md): Named spots, scale, bleed and recipient limits.
+- [Fold preview](https://jangtrinh.github.io/design-os-origami/fold-preview.md): Source extraction, continuity and motion limits.
+
+## Real generated examples
+
+- [Carton catalogue](https://jangtrinh.github.io/design-os-origami/assets/catalog.json): Seven examples with dimensions, caliper, paths and sampled-continuity results.
+- [Tuck-box viewer](https://jangtrinh.github.io/design-os-origami/demo/tuck-box.html): Standalone 2D/3D viewer; requires JavaScript, WebGL and pinned Three.js r128 CDN for 3D.
+- [Tuck-box SVG](https://jangtrinh.github.io/design-os-origami/assets/models/tuck-box.svg): Full presentation blank.
+- [Tuck-box printer PDF](https://jangtrinh.github.io/design-os-origami/assets/models/tuck-box.pdf): Vector spot-colour exchange example.
+- [Tuck-box printer DXF](https://jangtrinh.github.io/design-os-origami/assets/models/tuck-box.dxf): R2000 mm/y-up exchange example.

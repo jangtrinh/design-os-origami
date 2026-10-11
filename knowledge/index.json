@@ -1,0 +1,47 @@
+[
+  {
+    "id": "origami-geometry-theorems",
+    "path": "origami-geometry-theorems.md",
+    "sha256": "95555f71db168a573006eb68139eb1171375fa8d73b0ce329d257bf2fe3e6bd3"
+  },
+  {
+    "id": "crease-kinematics-folding",
+    "path": "crease-kinematics-folding.md",
+    "sha256": "6a92e5183a662fe6449099faff634f2c7eb44d79fc0c18fb667753c6a6a94c37"
+  },
+  {
+    "id": "packaging-dieline-standards",
+    "path": "packaging-dieline-standards.md",
+    "sha256": "efde6e274da5f0a26e89572ea5405a5ccdfe6fb01c4fcc368997182fa974a0dd"
+  },
+  {
+    "id": "zero-glue-self-locking-tray",
+    "path": "catalog/zero-glue-self-locking-tray.md",
+    "sha256": "108e1e73578ac4377df6ebbceb19aa3d8716ad5f60cbcccdd3696413be416781"
+  },
+  {
+    "id": "diamond-faceted-box",
+    "path": "catalog/diamond-faceted-box.md",
+    "sha256": "bce062fbf8172127e28838212fb535045a40088955b42fe5c05f40b285e73ff5"
+  },
+  {
+    "id": "creative-packaging-taxonomy",
+    "path": "catalog/creative-packaging-taxonomy.md",
+    "sha256": "f5f3f6e14474ca531fbfab09516684be4b07a285249867b3c088b5276aa39619"
+  },
+  {
+    "id": "tree-theory-uniaxial-bases",
+    "path": "tree-theory-uniaxial-bases.md",
+    "sha256": "9d76401ef4cd3ae00ec6f4b053e55be15fe0f412ddb16d0b474aedf36659690b"
+  },
+  {
+    "id": "crease-pattern-verification-limits",
+    "path": "crease-pattern-verification-limits.md",
+    "sha256": "983a3387819de4a7be688768393d5c3580fd804b7de3f9c134a28817332d3fa6"
+  },
+  {
+    "id": "lang-white-tailed-deer-reference",
+    "path": "lang-white-tailed-deer-reference.md",
+    "sha256": "8da409cf3ed8ad91f7018fafad68595282f6caf13f1744ad088a59701ac3f05a"
+  }
+]

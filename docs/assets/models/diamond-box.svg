@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270.00 110.00" width="270.00mm" height="110.00mm" style="background:#FFFFFF;">
+  <defs>
+    <style>
+      .cut { stroke: #FF0000; stroke-width: 1.2; fill: none; stroke-linecap: round; }
+      .crease { stroke: #00FF00; stroke-width: 1.0; stroke-dasharray: 4, 3; fill: none; }
+      .perf { stroke: #0000FF; stroke-width: 1.0; stroke-dasharray: 2, 2; fill: none; }
+      .glue { stroke: #FF00FF; stroke-width: 1.2; stroke-dasharray: 1, 2; fill: none; }
+    </style>
+  </defs>
+  <g id="DIELINE_LAYER">
+    <g id="CREASE" class="crease">
+      <line x1="75.00" y1="15.00" x2="75.00" y2="95.00"/>
+      <line x1="135.00" y1="15.00" x2="135.00" y2="95.00"/>
+      <line x1="195.00" y1="15.00" x2="195.00" y2="95.00"/>
+      <line x1="45.00" y1="15.00" x2="45.00" y2="55.00" data-fold="mountain"/>
+      <line x1="45.00" y1="95.00" x2="45.00" y2="55.00" data-fold="mountain"/>
+      <line x1="105.00" y1="15.00" x2="105.00" y2="55.00" data-fold="mountain"/>
+      <line x1="105.00" y1="95.00" x2="105.00" y2="55.00" data-fold="mountain"/>
+      <line x1="165.00" y1="15.00" x2="165.00" y2="55.00" data-fold="mountain"/>
+      <line x1="165.00" y1="95.00" x2="165.00" y2="55.00" data-fold="mountain"/>
+      <line x1="225.00" y1="15.00" x2="225.00" y2="55.00" data-fold="mountain"/>
+      <line x1="225.00" y1="95.00" x2="225.00" y2="55.00" data-fold="mountain"/>
+      <line x1="15.00" y1="55.00" x2="45.00" y2="55.00" data-fold="valley"/>
+      <line x1="75.00" y1="55.00" x2="45.00" y2="55.00" data-fold="valley"/>
+      <line x1="75.00" y1="55.00" x2="105.00" y2="55.00" data-fold="valley"/>
+      <line x1="135.00" y1="55.00" x2="105.00" y2="55.00" data-fold="valley"/>
+      <line x1="135.00" y1="55.00" x2="165.00" y2="55.00" data-fold="valley"/>
+      <line x1="195.00" y1="55.00" x2="165.00" y2="55.00" data-fold="valley"/>
+      <line x1="195.00" y1="55.00" x2="225.00" y2="55.00" data-fold="valley"/>
+      <line x1="255.00" y1="55.00" x2="225.00" y2="55.00" data-fold="valley"/>
+    </g>
+    <g id="GLUE" class="glue">
+    </g>
+    <g id="CUT" class="cut">
+      <line x1="15.00" y1="15.00" x2="75.00" y2="15.00"/>
+      <line x1="15.00" y1="95.00" x2="75.00" y2="95.00"/>
+      <line x1="15.00" y1="15.00" x2="15.00" y2="95.00"/>
+      <line x1="75.00" y1="15.00" x2="135.00" y2="15.00"/>
+      <line x1="75.00" y1="95.00" x2="135.00" y2="95.00"/>
+      <line x1="135.00" y1="15.00" x2="195.00" y2="15.00"/>
+      <line x1="135.00" y1="95.00" x2="195.00" y2="95.00"/>
+      <line x1="195.00" y1="15.00" x2="255.00" y2="15.00"/>
+      <line x1="195.00" y1="95.00" x2="255.00" y2="95.00"/>
+      <line x1="255.00" y1="15.00" x2="255.00" y2="95.00"/>
+    </g>
+    <g id="PERFORATE" class="perf">
+    </g>
+  </g>
+</svg>
