@@ -105,7 +105,7 @@ def validate_closure(payloads):
                 target = posixpath.normpath("docs/" + path.lstrip("/"))
             elif name.endswith("/marketplace.json") and path:
                 target = posixpath.normpath(path)
-            elif (name.endswith(("/.claude-plugin/plugin.json", "/.codex-plugin/plugin.json", "/.factory-plugin/plugin.json")) or name in {".claude-plugin/plugin.json", ".codex-plugin/plugin.json", ".factory-plugin/plugin.json"}) and path:
+            elif name.endswith("/.claude-plugin/plugin.json") and path:
                 target = posixpath.normpath(str(PurePosixPath(name).parent.parent / path))
             elif path:
                 target = posixpath.normpath(str(PurePosixPath(name).parent / path))
