@@ -6,15 +6,20 @@ from pathlib import Path
 import re
 import subprocess
 
-TREES = ("src", "tests", "docs", "knowledge", "skills", "bundles")
-ROOT_FILES = ("README.md", "LICENSE", "pyproject.toml", ".gitignore")
+TREES = ("src", "tests", "docs", "knowledge", "skills", "bundles", "commands", "prompts")
+ROOT_FILES = ("README.md", "LICENSE", "PRIVACY.md", "SECURITY.md", "CONTRIBUTING.md",
+              "CODE_OF_CONDUCT.md", "CHANGELOG.md", "llms.txt", "pyproject.toml", ".gitignore")
 PUBLIC_SCRIPTS = ("build_public_snapshot.py", "e2e_figurative_gate.py",
                   "public_snapshot_policy.py", "public_snapshot_links.py", "public_manifest.txt",
                   "skill_contract.py", "sync_host_bundles.py", "host_config.py",
-                  "run_mcp.py", "capture-viewer.cjs", "check_host_bundle_release.py")
+                  "run_mcp.py", "capture-viewer.cjs", "check_host_bundle_release.py",
+                  "self_check.py")
 PUBLIC_FIXED = (".claude-plugin/marketplace.json", ".agents/plugins/marketplace.json",
-                ".grok-plugin/marketplace.json", ".github/workflows/ci.yml")
-HIDDEN_ROOTS = (".claude-plugin", ".agents", ".grok-plugin", ".github")
+                ".grok-plugin/marketplace.json", ".codex-plugin/plugin.json",
+                ".factory-plugin/plugin.json", ".factory-plugin/marketplace.json",
+                ".github/workflows/ci.yml")
+HIDDEN_ROOTS = (".claude-plugin", ".agents", ".grok-plugin", ".codex-plugin",
+                ".factory-plugin", ".github")
 MANIFEST = Path("scripts/public_manifest.txt")
 EXCLUDED = {"plans", ".brv", "AGENTS.md", "CONTEXT.md", "HANDOFF.md", "__pycache__"}
 # Fragment assembly lets the policy and its tests undergo the same raw-byte scan.

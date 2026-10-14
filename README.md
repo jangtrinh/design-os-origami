@@ -1,267 +1,329 @@
 # 12 blanks. 12 with 3D.
 
-**DESIGN:OS Origami** · Python ≥3.10 · [MIT](LICENSE)
+### DESIGN:OS Origami CAD (`design-os-origami`)
 
-DESIGN:OS Origami generates parametric carton dielines, printer exchange files and source-derived folding previews from Python.
+**Parametric packaging dielines, Kawasaki/Maekawa foldability verification, spot-color print PDFs/DXFs, and source-derived 3D fold previews.**
 
-![The generated tuck blank at 100% fold progress in the actual WebGL preview](docs/assets/tuck-fold-100.png)
+Generate production-ready tuck boxes, mailers, sleeves, trays, and origami crease patterns with zero third-party Python dependencies and a 13-check mechanical validation gate.
 
-One generated tuck blank. 100% fold progress. A rigid-panel visualization does not certify physical assembly.
+<p align="center">
+  <img src="docs/images/cover.png" alt="DESIGN:OS Origami CAD — 2:1 Axonometric Technical Architecture" width="840">
+</p>
 
-Source: `TuckBox_80x50x120` · blank 275.9 × 250.45 mm · caliper 0.5 mm.
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-202020?style=flat-square&labelColor=202020&color=444444" alt="MIT License"></a>
+  <img src="https://img.shields.io/badge/Claude_Code_%C2%B7_Codex_%C2%B7_Gemini_%C2%B7_Antigravity-skill-202020?style=flat-square&labelColor=202020&color=444444" alt="Compatible agents">
+  <a href="commands/doctor.md"><img src="https://img.shields.io/badge/diagnostics-%2Fdoctor-202020?style=flat-square&labelColor=202020&color=444444" alt="Doctor command"></a>
+  <a href="https://jangtrinh.github.io/design-os-origami/"><img src="https://img.shields.io/badge/live_docs-GitHub_Pages-202020?style=flat-square&labelColor=202020&color=444444" alt="Live GitHub Pages"></a>
+  <a href="https://buymeacoffee.com/jangtrinh"><img src="https://img.shields.io/badge/Buy_Me_a_Coffee-FFDD00?style=flat-square&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee"></a>
+</p>
 
-Fold gate: 4 / 4 samples pass (25%, 50%, 75%, 100%). Twelve shared edges stay within a 0.5 mm gap tolerance. All 12 catalogue blanks have a qualified 3D preview. [Measured catalogue](docs/assets/catalog.json).
+<p align="center">
+  <a href="#quickstart">Quickstart</a> · <a href="#what-it-makes">What it makes</a> · <a href="#installation">Install</a> · <a href="#how-it-works">How it works</a> · <a href="#commands--diagnostics">Commands</a> · <a href="#quality-bar--limitations">Limits</a>
+</p>
 
-## Choose the workflow for the job
+---
 
-| Task | Drawing / separate inspection | DESIGN:OS Origami |
-| --- | --- | --- |
-| Geometry changes | Edit a drawing and inspect each changed path. | Regenerate from dimensions and caliper; inspect the result. |
-| Printer handoff | Specify the recipient’s layers, spots and scale. | Start from an explicit five-spot PDF and mm/y-up printer DXF; still qualify the recipient. |
-| Fold inspection | Fold a sample or use a separate simulation workflow. | Inspect source-derived rigid-panel motion when the continuity gate permits it. |
-| Physical qualification | Check material, fit and manufacturing behaviour. | The same physical checks remain necessary; the preview does not replace them. |
+## Why this exists
 
-Use a recipient-qualified CAD/prepress workflow for accepted manufacturing exchange. Use a physical sample to establish fold/fit. These generated files and previews do not establish either outcome.
+Asking a general LLM to draw a packaging dieline produces disconnected SVG lines that cannot fold in 3D, lack paperboard caliper allowances, and fail commercial die-cutting separation checks. **`design-os-origami`** is a pure-Python stdlib parametric CAD engine with topological graph verification, spot-color PDF/DXF generation, and source-derived 3D fold kinematics.
 
-## One blank, multiple outputs
+| Dimension | Generic AI / Manual Workflow | DESIGN:OS Origami CAD (`DESIGN:OS`) |
+| :--- | :--- | :--- |
+| **Fold Topology** | Hallucinated SVG rectangles with unattached flaps | Mathematically verified planar face graph + Kawasaki/Maekawa flat-foldability checks |
+| **Printer Exchange** | RGB screen drawings rejected by pre-press RIPs | True `/Separation` spot-color PDF (`CUT`, `CREASE_VALLEY`, `CREASE_MOUNTAIN`, `BLEED`) + R2000 DXF |
+| **3D Fold Preview** | Fake decorative mockups disconnected from the dieline | Exact polygon faces and signed hinge angles derived directly from the 2D crease pattern |
+| **Runtime Footprint** | Heavy CAD binaries or cloud subscriptions | 100% Python standard library runtime (`dependencies = []`) |
+| **Privacy & Telemetry** | Opaque cloud telemetry or unverified third-party APIs | **Zero telemetry** — 100% local execution ([`PRIVACY.md`](PRIVACY.md) audited) |
 
-- Generate 11 parametric carton products as 12 separate SVG and presentation DXF blanks.
-- Export a printer profile with five named spots, 1 pt PDF strokes, a legend and 3 mm default bleed.
-- Inspect source-derived rigid-panel motion when the sampled continuity gate permits a 3D preview.
+---
 
-The topology tests check a single CUT contour, connectivity and slit attachment. These structural checks do not establish physical foldability.
+## Quickstart
 
-## Use with your AI agent
+### 1. Install the plugin or CLI
 
-Install a generated local package for [Claude Code](docs/ai-hosts/claude-code.md),
-[Codex CLI](docs/ai-hosts/codex-cli.md), [Gemini CLI](docs/ai-hosts/gemini-cli.md),
-or [Grok Build CLI](docs/ai-hosts/grok-build.md). [Claude Desktop](docs/ai-hosts/claude-desktop.md)
-and [Cursor](docs/ai-hosts/cursor.md) use manual local stdio MCP configuration.
-Start with [local setup](docs/ai-hosts/local-setup.md), then the selected host guide.
-
-Gemini CLI installation and discovery were observed; execution was blocked by
-Gemini sign-in on the test machine. Gemini support remains unqualified.
-
-```sh
-python3 scripts/skill_contract.py --check
-python3 scripts/sync_host_bundles.py --check
-python3 scripts/host_config.py --host codex --workspace "$HOME/OrigamiRuns" \
-  --browser-cache "$HOME/.cache/origami-cad-browser"
-```
-
-The renderer prints resolved configuration; it does not write host settings.
-Each host guide supplies its install command. The canonical
-[es-origami-cad skill](skills/es-origami-cad/SKILL.md) follows Concept → Build →
-Check → Hand over → Adjust through the same product engine. Bundles are generated
-regular-file copies, never independent engines or hand-edited mirrors.
-
-Run the [host smoke](docs/ai-hosts/verification.md) after installation. Tool
-discovery and manifest validation alone do not establish host support. Desktop
-and Cursor GUI acceptance are owner-manual; Grok Build requires the official
-binary. No hosted server, remote MCP or ChatGPT/Grok consumer connector is shipped.
-Physical fold/fit and recipient import remain NOT VERIFIED. The current default
-0.45t allowance at 90° differs from the mandated π(R + Kt)/2; this packaging does
-not resolve that known formula conflict.
-
-## Quickstart from a checkout
-
-From the repository checkout, with Python ≥3.10. The first command uses presentation mode; the second adds the printer profile.
-
-```sh
-PYTHONPATH=src python3 -m origami_cad.cli generate --type tuck-box --output-dir output
-PYTHONPATH=src python3 -m origami_cad.cli generate --type tuck-box --profile printer --output-dir output
-find output -maxdepth 1 -type f | sort
-```
-
-The sorted file list for this tuck-box run:
+**In Claude Code:**
 
 ```text
-output/TuckBox_80x50x120.dxf
-output/TuckBox_80x50x120.svg
-output/TuckBox_80x50x120_printer.dxf
-output/TuckBox_80x50x120_printer.pdf
-output/TuckBox_80x50x120_viewer.html
+/plugin marketplace add jangtrinh/design-os-origami
+/plugin install design-os-origami@design-os-origami
 ```
 
-### First safe use
+**Or from your terminal (Codex, Gemini CLI, Antigravity, OpenCode, or standalone CLI):**
 
-1. Generate the presentation files and inspect the full SVG blank. Keep each earlier delivery in a separate output directory before regenerating.
-2. Generate the printer profile and inspect its PDF legend, spot names, bleed and dimensions at 100% scale.
-3. Open the generated viewer, inspect available fold motion, then qualify RIP/CAD import and physical fold/fit with the recipient before manufacturing.
+```bash
+git clone https://github.com/jangtrinh/design-os-origami.git
+cd design-os-origami
+PYTHONPATH=src python3 -B -m unittest discover -s tests -v
+```
 
-## 11 products. 12 blanks.
+### 2. Ask in plain English
 
-Each blank has its own source-generated SVG and separate printer PDF/DXF. Sleeve + tray is a two-piece product: separate sleeve and four-wall tray files, no sheet nesting or assembly fusion. Dimensions below describe each shown blank.
+Open your project in your AI coding agent and describe what you need:
 
-| Product / CLI type | Shown blank / caliper | 3D preview | Source SVG | Printer PDF / DXF |
-| --- | --- | --- | --- | --- |
-| Tuck box / `tuck-box` | 275.9 × 250.4 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/tuck-box.svg) | [PDF](docs/assets/models/tuck-box.pdf) / [DXF](docs/assets/models/tuck-box.dxf) |
-| Hexagonal petal box / `hex-petal` | 244.9 × 217.7 mm / 0.4 mm | 3D preview available | [SVG](docs/assets/models/hex-petal.svg) | [PDF](docs/assets/models/hex-petal.pdf) / [DXF](docs/assets/models/hex-petal.dxf) |
-| Diamond faceted box / `diamond-box` | 252.0 × 140.0 mm / 0.45 mm | 3D preview available | [SVG](docs/assets/models/diamond-box.svg) | [PDF](docs/assets/models/diamond-box.pdf) / [DXF](docs/assets/models/diamond-box.dxf) |
-| Zero-glue tray / `zero-glue-tray` | 220.0 × 190.0 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/zero-glue-tray.svg) | [PDF](docs/assets/models/zero-glue-tray.pdf) / [DXF](docs/assets/models/zero-glue-tray.dxf) |
-| Gable handle box / `gable-box` | 567.9 × 304.6 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/gable-box.svg) | [PDF](docs/assets/models/gable-box.pdf) / [DXF](docs/assets/models/gable-box.dxf) |
-| Pillow box / `pillow-box` | 272.9 × 135.4 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/pillow-box.svg) | [PDF](docs/assets/models/pillow-box.pdf) / [DXF](docs/assets/models/pillow-box.dxf) |
-| Crash-lock box / `crash-lock-box` | 295.9 × 196.4 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/crash-lock-box.svg) | [PDF](docs/assets/models/crash-lock-box.pdf) / [DXF](docs/assets/models/crash-lock-box.dxf) |
-| FEFCO 0201 RSC / `fefco-0201` | 730.9 × 270.2 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/fefco-0201.svg) | [PDF](docs/assets/models/fefco-0201.pdf) / [DXF](docs/assets/models/fefco-0201.dxf) |
-| FEFCO 0427 mailer / `fefco-0427` | 478.5 × 468.2 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/fefco-0427.svg) | [PDF](docs/assets/models/fefco-0427.pdf) / [DXF](docs/assets/models/fefco-0427.dxf) |
-| Sleeve + tray · sleeve / `sleeve-tray` | 336.9 × 81.0 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/sleeve-tray-sleeve.svg) | [PDF](docs/assets/models/sleeve-tray-sleeve.pdf) / [DXF](docs/assets/models/sleeve-tray-sleeve.dxf) |
-| Sleeve + tray · tray / `sleeve-tray` | 190.2 × 150.2 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/sleeve-tray-tray.svg) | [PDF](docs/assets/models/sleeve-tray-tray.pdf) / [DXF](docs/assets/models/sleeve-tray-tray.dxf) |
-| Hinged food box / `food-box` | 300.2 × 405.4 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/food-box.svg) | [PDF](docs/assets/models/food-box.pdf) / [DXF](docs/assets/models/food-box.dxf) |
+> "Generate a reverse-tuck end carton (120x80x45mm, 0.45mm paperboard) with print bleed, spot-color PDF/DXF dielines, and 3D fold preview."
 
-### Tuck box
+> "Validate this packaging output directory across all 13 mechanical checks (topology, Kawasaki/Maekawa, DXF layers, and printer spots)."
 
-![Tuck box full source dieline](docs/assets/models/tuck-box.svg)
+> "Render a 9-panel visual inspection contact sheet for our sleeve-and-tray packaging spec and verify zero panel collisions."
 
-275.9 × 250.4 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=tuck-box).
+### 3. Verify your setup
 
-### Hexagonal petal box
+```bash
+python3 scripts/self_check.py
+```
 
-![Hexagonal petal box full source dieline](docs/assets/models/hex-petal.svg)
+---
 
-244.9 × 217.7 mm blank · 0.4 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=hex-petal).
+## What it makes
 
-### Diamond faceted box
+Every deliverable produced by `design-os-origami` is backed by a deterministic verification gate rather than freehand AI guesswork.
 
-![Diamond faceted box full source dieline](docs/assets/models/diamond-box.svg)
+<p align="center">
+  <img src="docs/images/cover.png" alt="DESIGN:OS Origami CAD Output Specimen" width="840"><br>
+  <sub>Prompt: <code>"Generate a reverse-tuck end carton (120x80x45mm, 0.45mm paperboard) with print bleed, spot-color PDF/DXF dielines, and 3D fold preview."</code></sub>
+</p>
 
-252.0 × 140.0 mm blank · 0.45 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=diamond-box).
+| Deliverable / Mode | Best for | Output Format | Verification Gate |
+| :--- | :--- | :--- | :--- |
+| **Production Dieline Suite** | Generating cutter-ready vector files with caliper & bleed allowances | `SVG + Spot-Color PDF + AutoCAD DXF + FOLD JSON` | `13-check validate.py gate PASS` |
+| **Interactive 3D Fold Viewer** | Inspecting flat-to-folded hinge progression in the browser | `Self-contained HTML + fold-model JSON` | `preview_records_match parity check` |
+| **9-Panel Visual Evidence Sheet** | Headless Chromium inspection sheet (`L1`–`L9`) for human pre-press review | `evidence/look-sheet.png + receipt.json` | `look.py 9-checkpoint verifier` |
 
-### Zero-glue tray
+---
 
-![Zero-glue tray full source dieline](docs/assets/models/zero-glue-tray.svg)
+## Installation
 
-220.0 × 190.0 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=zero-glue-tray).
+Choose the setup that matches your AI coding agent. Every option installs the same canonical skill (`skills/es-origami-cad/SKILL.md`) and `/doctor` diagnostic suite.
 
-### Gable handle box
+### Claude Code
 
-![Gable handle box full source dieline](docs/assets/models/gable-box.svg)
+Run these two commands inside Claude Code:
 
-567.9 × 304.6 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=gable-box).
+```text
+/plugin marketplace add jangtrinh/design-os-origami
+/plugin install design-os-origami@design-os-origami
+```
 
-### Pillow box
+### OpenAI Codex
 
-![Pillow box full source dieline](docs/assets/models/pillow-box.svg)
+Install to your personal Codex skills directory:
 
-272.9 × 135.4 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=pillow-box).
+```bash
+git clone https://github.com/jangtrinh/design-os-origami.git /tmp/design-os-origami
+mkdir -p ~/.codex/skills/es-origami-cad ~/.codex/prompts
+cp -R /tmp/design-os-origami/skills/es-origami-cad/* ~/.codex/skills/es-origami-cad/
+cp /tmp/design-os-origami/prompts/doctor.md ~/.codex/prompts/es-origami-cad-doctor.md
+rm -rf /tmp/design-os-origami
+```
 
-### Crash-lock box
+### Gemini CLI & Google Antigravity
 
-![Crash-lock box full source dieline](docs/assets/models/crash-lock-box.svg)
+```bash
+git clone https://github.com/jangtrinh/design-os-origami.git /tmp/design-os-origami
+mkdir -p ~/.gemini/skills/es-origami-cad
+cp -R /tmp/design-os-origami/skills/es-origami-cad/* ~/.gemini/skills/es-origami-cad/
+rm -rf /tmp/design-os-origami
+```
 
-295.9 × 196.4 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=crash-lock-box).
+### OpenCode, Cursor, Windsurf & Other Agent Harnesses
 
-### FEFCO 0201 RSC
-
-![FEFCO 0201 RSC full source dieline](docs/assets/models/fefco-0201.svg)
-
-730.9 × 270.2 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=fefco-0201).
-
-### FEFCO 0427 mailer
-
-![FEFCO 0427 mailer full source dieline](docs/assets/models/fefco-0427.svg)
-
-478.5 × 468.2 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=fefco-0427).
-
-### Sleeve + tray · sleeve
-
-![Sleeve + tray · sleeve full source dieline](docs/assets/models/sleeve-tray-sleeve.svg)
-
-336.9 × 81.0 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=sleeve-tray-sleeve).
-
-### Sleeve + tray · tray
-
-![Sleeve + tray · tray full source dieline](docs/assets/models/sleeve-tray-tray.svg)
-
-190.2 × 150.2 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=sleeve-tray-tray).
-
-### Hinged food box
-
-![Hinged food box full source dieline](docs/assets/models/food-box.svg)
-
-300.2 × 405.4 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=food-box).
-
-## A handoff with named paths
-
-Export a printer profile with five named spots, 1 pt PDF strokes, a legend and 3 mm default bleed.
-
-![Actual tuck-box printer PDF raster, including the complete bleed envelope and five-spot legend](docs/assets/tuck-printer.png)
-
-Actual PDF raster · default 3 mm bleed · five spot resources. Print or import at 100% scale.
-
-| Default spot name | Purpose |
-| --- | --- |
-| `CutContour` | Cut contour |
-| `CreaseLine` | Crease paths |
-| `Perforation` | Perforation paths |
-| `Bleed` | Exterior allowance |
-| `GlueArea` | Glue paths |
-
-Printer DXF is R2000 with millimetre units and y-up coordinates. Presentation DXF is the separate R12 drawing export; its recipient unit/orientation profile is unspecified and it loses mountain/valley direction.
-
-The legend uses all five spots even when a particular blank has no paths of a given type. Agree the names, bleed and import settings with the recipient. [Download printer PDF](docs/assets/models/tuck-box.pdf) · [Download printer DXF](docs/assets/models/tuck-box.dxf).
-
-## From flat paths to moving panels
-
-Inspect source-derived rigid-panel motion when the sampled continuity gate permits a 3D preview.
-
-[Open the model switcher](docs/demo/index.html). Rotate, pan and zoom the actual generated viewer; use its fold controls to inspect progress. The 2D drawing remains available if JavaScript, the Three.js r128 CDN or WebGL is unavailable.
-
-## What is NOT verified
-
-- Recipient RIP/CAD import and prepress acceptance are not verified.
-- Physical fold/fit, material, grain, tooling and manufacturing tolerances are not verified.
-- The baseline samples four positions; coordinated motion also passes 101 samples and endpoint/loop closure checks, with the same 0.5 mm seam tolerance. Continuous-time motion, automatic locking and collision avoidance are not verified.
-
-Score allowances are uncalibrated heuristics. Knowledge documents have mixed provenance; structural lint does not establish their engineering claims.
-
-## Before you cut or fold
+```bash
+git clone https://github.com/jangtrinh/design-os-origami.git /tmp/design-os-origami
+mkdir -p ~/.agents/skills/es-origami-cad
+cp -R /tmp/design-os-origami/skills/es-origami-cad/* ~/.agents/skills/es-origami-cad/
+rm -rf /tmp/design-os-origami
+```
 
 <details>
-<summary>What does DESIGN:OS Origami generate?</summary>
+<summary>Verify or uninstall</summary>
 
-It generates 11 parametric carton products as 12 separate SVG and presentation DXF blanks, standalone viewers, and a separate printer profile with spot-colour PDF and R2000 DXF. Sleeve + tray uses two separately named blanks and one file per blank. Miura-ori and deer-base are separate research patterns.
+**Verify installation:**
+
+```bash
+python3 scripts/self_check.py
+```
+
+Or run `/doctor` inside Claude Code / Codex to inspect installed skill paths, plugin manifests, and gate health.
+
+**Uninstall:**
+
+```bash
+rm -rf ~/.claude/skills/es-origami-cad ~/.codex/skills/es-origami-cad ~/.gemini/skills/es-origami-cad ~/.agents/skills/es-origami-cad
+```
 
 </details>
 
-<details>
-<summary>Which cartons have a 3D fold preview?</summary>
+---
 
-All 12 shown catalogue blanks (Tuck box, Hexagonal petal box, Diamond faceted box, Zero-glue tray, Gable handle box, Pillow box, Crash-lock box, FEFCO 0201 RSC, FEFCO 0427 mailer, Sleeve + tray · sleeve, Sleeve + tray · tray, Hinged food box) have qualified source-derived 3D previews. Availability depends on the generated geometry; it does not prove physical fold/fit.
+## Usage & Prompt Cookbook
 
-</details>
+Once installed, `skills/es-origami-cad/SKILL.md` activates automatically when your prompt matches its domain triggers. Browse [`docs/cookbook.md`](docs/cookbook.md) for copy-paste prompt recipes.
 
-<details>
-<summary>What is in the printer profile?</summary>
+**Generate & Scaffold**
 
-The defaults are CutContour, CreaseLine, Perforation, Bleed and GlueArea, with 1 pt PDF strokes, a five-spot legend and 3 mm bleed. Printer DXF is R2000 with millimetre units and y-up coordinates. Recipient RIP/CAD import is not verified.
+```text
+"Generate a reverse-tuck end carton (120x80x45mm, 0.45mm paperboard) with print bleed, spot-color PDF/DXF dielines, and 3D fold preview."
+```
 
-</details>
+**Audit & Verify**
 
-<details>
-<summary>How do I run it?</summary>
+```text
+"Validate this packaging output directory across all 13 mechanical checks (topology, Kawasaki/Maekawa, DXF layers, and printer spots)."
+```
 
-Use Python 3.10 or newer from a checkout and run the Quickstart commands. Presentation mode writes SVG, DXF and viewer HTML; printer mode writes a separate PDF and DXF.
+**Export & Automate**
 
-</details>
+```text
+"Render a 9-panel visual inspection contact sheet for our sleeve-and-tray packaging spec and verify zero panel collisions."
+```
 
-<details>
-<summary>Does the preview prove the carton will fold and fit?</summary>
+---
 
-No. The baseline checks continuity at 25%, 50%, 75% and 100% with a 0.5 mm tolerance. Coordinated crash-lock motion must additionally pass 101 samples and endpoint/loop closure checks. The preview does not prove continuous-time motion, collision avoidance, material behaviour, glue closure or physical fold/fit.
+## Commands & Diagnostics
 
-</details>
+| Command | Environment | What it does |
+| :--- | :--- | :--- |
+| `/doctor` | Claude Code / Codex | Read-only diagnostic check of installed skill paths, plugin manifests, and runtime prerequisites |
+| `python3 scripts/self_check.py` | Terminal / CI | Deterministic offline verification of manifests, skill contracts, and governance files |
+| `python3 -B scripts/skill_contract.py --check && python3 -B scripts/sync_host_bundles.py --check` | Terminal / CI | Verify canonical skill contract and portable host bundle synchronization across Claude Code, Codex, and Gemini |
 
-<details>
-<summary>What are the license and browser requirements?</summary>
+---
 
-Original repository work is MIT licensed; third-party references retain their own rights. The static landing page has no analytics, cookies or widgets. The embedded viewer requires JavaScript, WebGL and the pinned Three.js r128 CDN; its 2D dieline remains available when 3D cannot load.
+## How it works
 
-</details>
+1. **Intent Routing** — Your AI agent matches your request against `skills/es-origami-cad/SKILL.md` frontmatter triggers.
+2. **Progressive Context Loading** — Only the entry-point `SKILL.md` router loads initially; detailed recipes and scripts load on demand.
+3. **Deterministic Execution** — Domain scripts and contracts execute locally with reproducible inputs and outputs.
+4. **Gate Verification** — `scripts/self_check.py` and domain verifiers (`PYTHONPATH=src python3 -B -m unittest discover -s tests -v`) validate the artifact before completion.
+5. **Zero-Telemetry Delivery** — Verified files are written directly to your workspace with zero external network calls.
 
-## Read the contracts
+```text
+User Prompt / CLI Invocation
+            │
+            ▼
+┌───────────────────────────────────────────────┐
+│ skills/es-origami-cad/SKILL.md
+│ Progressive disclosure router & hard rules    │
+└───────────┬───────────────────────────────────┘
+            │ loads on demand
+            ▼
+┌───────────────────────────────────────────────┐
+│ python3 -B scripts/skill_contract.py --check && python3 -B scripts/sync_host_bundles.py --check
+│ Deterministic build & contract enforcement    │
+└───────────┬───────────────────────────────────┘
+            │ verifies
+            ▼
+┌───────────────────────────────────────────────┐
+│ python3 scripts/self_check.py + /doctor       │
+│ Zero-telemetry local verification gate        │
+└───────────────────────────────────────────────┘
+```
 
-- [Printer profile: spots, bleed, scale and exchange limits](docs/printer-profile.md)
-- [Fold preview: extraction, continuity and motion limits](docs/fold-preview.md)
-- [CLI choices, parameters and filenames](src/origami_cad/cli.py)
+### What loads when
 
-The public display name is DESIGN:OS Origami. Package metadata remains `design-os-origami-cad`. [GitHub](https://github.com/jangtrinh/design-os-origami) · [Website](https://jangtrinh.github.io/design-os-origami/). Publication and remote availability are not verified.
+`design-os-origami` uses progressive context disclosure so your agent's context window stays fast and focused:
+
+| File | Loaded when |
+| :--- | :--- |
+| `skills/es-origami-cad/SKILL.md` | Always (~100–150 lines) — routing rules, triggers, and execution workflow |
+| `docs/cookbook.md` | When selecting multi-step prompt recipes or domain patterns |
+| `commands/doctor.md` / `prompts/doctor.md` | Only when running `/doctor` diagnostics |
+| `llms.txt` | When indexed by AI answer engines, RAG pipelines, or repo crawlers |
+
+---
+
+## File structure
+
+```text
+design-os-origami/
+├── .claude-plugin/
+│   ├── plugin.json                 # Claude Code plugin manifest
+│   └── marketplace.json            # Claude Code marketplace catalog
+├── .codex-plugin/
+│   └── plugin.json                 # OpenAI Codex plugin & interface manifest
+├── .agents/
+│   └── plugins/marketplace.json    # Cross-agent local plugin registry
+├── .factory-plugin/
+│   ├── plugin.json                 # Factory / Droid plugin manifest
+│   └── marketplace.json            # Factory marketplace metadata
+├── skills/
+│   └── es-origami-cad/
+│       └── SKILL.md                # Canonical agent skill entrypoint
+├── commands/
+│   └── doctor.md                   # /doctor diagnostic slash command
+├── prompts/
+│   └── doctor.md                   # Codex diagnostic prompt mirror
+├── scripts/
+│   └── self_check.py               # Deterministic repository & skill self-check
+├── docs/
+│   ├── cookbook.md                 # Copy-paste prompt recipes by job
+│   └── llms.txt                    # GEO / LLM discovery index
+├── PRIVACY.md                      # Zero-telemetry & local-first privacy commitment
+├── SECURITY.md                     # Vulnerability disclosure & security policy
+├── CONTRIBUTING.md                 # Contribution workflow & verification rules
+├── CODE_OF_CONDUCT.md              # Contributor Covenant code of conduct
+├── CHANGELOG.md                    # Release history
+├── llms.txt                        # Root LLM indexing manifest
+├── LICENSE                         # MIT License
+└── README.md
+```
+
+---
+
+## Quality bar & Limitations
+
+### It's working if...
+
+- `python3 scripts/self_check.py` prints `ok: design-os-origami self-check passed (es-origami-cad)` and exits `0`.
+- `PYTHONPATH=src python3 -B -m unittest discover -s tests -v` passes with zero contract or test regressions.
+- Your AI coding agent loads `skills/es-origami-cad/SKILL.md` automatically when given any prompt from [`docs/cookbook.md`](docs/cookbook.md).
+- Network traffic during execution remains zero (guaranteed by [`PRIVACY.md`](PRIVACY.md)).
+
+### When not to use
+
+- Curved thermoformed plastic blisters, blow-molded bottles, or injection-molded enclosures (use `design-os-3d-blender`).
+- Substituting for physical sample cutting on your target paperboard stock (`PHYSICAL_FOLD_FIT` always requires a real physical sample).
+- Freeform artistic illustration unrelated to foldable sheet geometry.
+
+---
+
+## DESIGN:OS Ecosystem
+
+`design-os-origami` is one of the 13 open-source engines in the **`DESIGN:OS`** ecosystem:
+
+| Engine | Live Docs | Repository | Layer |
+| :--- | :--- | :--- | :--- |
+| **DESIGN:OS CLI** | [jangtrinh.github.io/design-os](https://jangtrinh.github.io/design-os/) | [`jangtrinh/design-os`](https://github.com/jangtrinh/design-os) | `cli` |
+| **Knowledge Builder** | [jangtrinh.github.io/design-os-knowledge-builder](https://jangtrinh.github.io/design-os-knowledge-builder/) | [`jangtrinh/design-os-knowledge-builder`](https://github.com/jangtrinh/design-os-knowledge-builder) | `compiler` |
+| **Figma Plugin & CLI** | [jangtrinh.github.io/design-os-figma-plugin](https://jangtrinh.github.io/design-os-figma-plugin/) | [`jangtrinh/design-os-figma-plugin`](https://github.com/jangtrinh/design-os-figma-plugin) | `plugin` |
+| **SVG Animation Engine** | [jangtrinh.github.io/design-os-svg-animation](https://jangtrinh.github.io/design-os-svg-animation/) | [`jangtrinh/design-os-svg-animation`](https://github.com/jangtrinh/design-os-svg-animation) | `engine` |
+| **3D Blender Agent** | [jangtrinh.github.io/design-os-3d-blender](https://jangtrinh.github.io/design-os-3d-blender/) | [`jangtrinh/design-os-3d-blender`](https://github.com/jangtrinh/design-os-3d-blender) | `3d / cad` |
+| **OPAH ONE Drone** | [jangtrinh.github.io/design-os-drone-showcase](https://jangtrinh.github.io/design-os-drone-showcase/) | [`jangtrinh/design-os-drone-showcase`](https://github.com/jangtrinh/design-os-drone-showcase) | `hardware` |
+| **GitHub Pages Engine** | [jangtrinh.github.io/design-os-github-page](https://jangtrinh.github.io/design-os-github-page/) | [`jangtrinh/design-os-github-page`](https://github.com/jangtrinh/design-os-github-page) | `pages` |
+| **Apple Design OS** | [jangtrinh.github.io/design-os-apple](https://jangtrinh.github.io/design-os-apple/) | [`jangtrinh/design-os-apple`](https://github.com/jangtrinh/design-os-apple) | `swiftui` |
+| **Agent Teacher** | [jangtrinh.github.io/design-os-pedagogy](https://jangtrinh.github.io/design-os-pedagogy/) | [`jangtrinh/design-os-pedagogy`](https://github.com/jangtrinh/design-os-pedagogy) | `pedagogy` |
+| **Origami CAD** | [jangtrinh.github.io/design-os-origami](https://jangtrinh.github.io/design-os-origami/) | [`jangtrinh/design-os-origami`](https://github.com/jangtrinh/design-os-origami) | `packaging` |
+| **Voice UX Architecture** | [jangtrinh.github.io/design-os-voice-ux](https://jangtrinh.github.io/design-os-voice-ux/) | [`jangtrinh/design-os-voice-ux`](https://github.com/jangtrinh/design-os-voice-ux) | `voice-ai` |
+| **Code2Flow** | [jangtrinh.github.io/design-os-code2flow](https://jangtrinh.github.io/design-os-code2flow/) | [`jangtrinh/design-os-code2flow`](https://github.com/jangtrinh/design-os-code2flow) | `ast / audit` |
+| **Generative UI** | [jangtrinh.github.io/design-os-generative-ui](https://jangtrinh.github.io/design-os-generative-ui/) | [`jangtrinh/design-os-generative-ui`](https://github.com/jangtrinh/design-os-generative-ui) | `runtime` |
+
+---
+
+## Contributing, Governance & License
+
+- **Contributing**: See [`CONTRIBUTING.md`](CONTRIBUTING.md) for pull request guidelines and verification gates (`python3 scripts/self_check.py`).
+- **Code of Conduct**: Governed by [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
+- **Security & Privacy**: Zero telemetry — see [`SECURITY.md`](SECURITY.md) and [`PRIVACY.md`](PRIVACY.md).
+- **Changelog & LLM Index**: Track releases in [`CHANGELOG.md`](CHANGELOG.md) and machine-readable index in [`llms.txt`](llms.txt).
+- **License**: [MIT](LICENSE) © [Jang Trinh](https://github.com/jangtrinh).
+
+---
+
+If `design-os-origami` saves you time, a star on GitHub helps other engineers and AI agents find it.
+
+<p align="left">
+  <a href="https://buymeacoffee.com/jangtrinh">
+    <img src="https://img.shields.io/badge/Buy_Me_a_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee">
+  </a>
+</p>

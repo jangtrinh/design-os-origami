@@ -1,10 +1,18 @@
 .agents/plugins/marketplace.json
 .claude-plugin/marketplace.json
+.codex-plugin/plugin.json
+.factory-plugin/marketplace.json
+.factory-plugin/plugin.json
 .github/workflows/ci.yml
 .gitignore
 .grok-plugin/marketplace.json
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
 LICENSE
+PRIVACY.md
 README.md
+SECURITY.md
 bundles/claude-code/.claude-plugin/plugin.json
 bundles/claude-code/skills/es-origami-cad/ATTRIBUTION.md
 bundles/claude-code/skills/es-origami-cad/SKILL.md
@@ -72,6 +80,7 @@ bundles/grok-build/skills/es-origami-cad/references/origami-mathematics.md
 bundles/grok-build/skills/es-origami-cad/references/packaging-thickness-mechanics.md
 bundles/grok-build/skills/es-origami-cad/rules.md
 bundles/grok-build/skills/es-origami-cad/validate.py
+commands/doctor.md
 docs/.nojekyll
 docs/DESIGN.md
 docs/ai-hosts/claude-code.md
@@ -129,6 +138,7 @@ docs/assets/tuck-fold-50.png
 docs/assets/tuck-fold-75.png
 docs/assets/tuck-printer.png
 docs/assets/viewer-embed.js
+docs/cookbook.md
 docs/demo/crash-lock-box.html
 docs/demo/diamond-box.html
 docs/demo/fefco-0201.html
@@ -143,6 +153,7 @@ docs/demo/sleeve-tray-tray.html
 docs/demo/tuck-box.html
 docs/demo/zero-glue-tray.html
 docs/fold-preview.md
+docs/images/cover.png
 docs/index.html
 docs/llms.txt
 docs/new-style-fefco.md
@@ -160,6 +171,8 @@ knowledge/lang-white-tailed-deer-reference.md
 knowledge/origami-geometry-theorems.md
 knowledge/packaging-dieline-standards.md
 knowledge/tree-theory-uniaxial-bases.md
+llms.txt
+prompts/doctor.md
 pyproject.toml
 scripts/build_public_snapshot.py
 scripts/capture-viewer.cjs
@@ -170,6 +183,7 @@ scripts/public_manifest.txt
 scripts/public_snapshot_links.py
 scripts/public_snapshot_policy.py
 scripts/run_mcp.py
+scripts/self_check.py
 scripts/skill_contract.py
 scripts/sync_host_bundles.py
 skills/es-origami-cad/ATTRIBUTION.md
