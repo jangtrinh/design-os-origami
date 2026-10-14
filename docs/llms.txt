@@ -34,3 +34,19 @@ This index uses the planned canonical URL; publication and remote availability a
 - [Tuck-box SVG](https://jangtrinh.github.io/design-os-origami/assets/models/tuck-box.svg): Full presentation blank.
 - [Tuck-box printer PDF](https://jangtrinh.github.io/design-os-origami/assets/models/tuck-box.pdf): Vector spot-colour exchange example.
 - [Tuck-box printer DXF](https://jangtrinh.github.io/design-os-origami/assets/models/tuck-box.dxf): R2000 mm/y-up exchange example.
+
+## DESIGN:OS Ecosystem
+
+- [design-os](https://jangtrinh.github.io/design-os/): DESIGN:OS CLI — Multi-runtime design CLI for Claude Code, Codex & Antigravity
+- [design-os-knowledge-builder](https://jangtrinh.github.io/design-os-knowledge-builder/): Knowledge Builder — Multimodal knowledge compiler with UKMC.v1 contract & epistemic gate
+- [design-os-figma-plugin](https://jangtrinh.github.io/design-os-figma-plugin/): Figma Plugin & CLI — Live canvas bridge for AI coding agents on Figma Free
+- [design-os-svg-animation](https://jangtrinh.github.io/design-os-svg-animation/): SVG Animation Engine — Deterministic vector animation & 1080p 60fps video pipeline
+- [design-os-3d-blender](https://jangtrinh.github.io/design-os-3d-blender/): 3D Blender Agent — Mechanical parts generation with embedded Three.js CAD viewer
+- [design-os-drone-showcase](https://jangtrinh.github.io/design-os-drone-showcase/): OPAH ONE — 249g indoor drone showcase with scroll-scrub kinematics
+- [design-os-github-page](https://jangtrinh.github.io/design-os-github-page/): GitHub Pages Engine — 9-tier zero-dependency scaffolder with SEO, AEO & GEO
+- [design-os-apple](https://jangtrinh.github.io/design-os-apple/): Apple Design OS — Native SwiftUI 6.2 component system for iOS, iPadOS & macOS
+- [design-os-pedagogy](https://jangtrinh.github.io/design-os-pedagogy/): Agent Teacher — Evidence-graded pedagogy library and curriculum tree runtime
+- [design-os-origami](https://jangtrinh.github.io/design-os-origami/): Origami CAD — Parametric packaging dielines, spot-color PDFs & 3D fold previews
+- [design-os-voice-ux](https://jangtrinh.github.io/design-os-voice-ux/): Voice UX & AI Agent Architecture — Full-duplex barge-in FSMs & sub-500ms voice specs
+- [design-os-code2flow](https://jangtrinh.github.io/design-os-code2flow/): Code2Flow — Local-first codebase-to-user-flow audit CLI across 7 UI frameworks
+- [design-os-generative-ui](https://jangtrinh.github.io/design-os-generative-ui/): Generative UI — Streaming interactive visual runtime with morphdom & WebGL
