@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from origami_cad.geometry import OrigamiCreasePattern
-from origami_cad.fold_faces import build_fold_model
+from origami_cad.preview_model import build_preview_model
 from origami_cad.viewer_style import VIEWER_STYLE
 from origami_cad.viewer_scene import VIEWER_SCENE
 from origami_cad.viewer_controls import VIEWER_CONTROLS
@@ -45,12 +45,14 @@ def _script_json(value):
 
 def generate_viewer_html(cp: OrigamiCreasePattern, output_path: str) -> str:
     """Write and return HTML; geometry and signed angles come only from the CP."""
-    model = build_fold_model(cp)
+    model = build_preview_model(cp)
     name = html.escape(cp.name, quote=True)
     title_name = html.escape(cp.name if len(cp.name) <= 80 else cp.name[:77] + '…', quote=True)
     x0, y0, x1, y1 = cp.bounding_box()
     dimensions = f'Blank {x1-x0:g} × {y1-y0:g} mm · Caliper {cp.thickness_mm:g} mm'
     status = html.escape(model['status'] or 'Loading 3D fold preview…')
+    coordinated = model.get('coordination', {}).get('candidate') == 'locked-seams'
+    note = ('<p class="dimensions">Coordinated preview: rigidly joined diagonal faces stay flat. Automatic locking, collisions and physical fit are not verified.</p>' if coordinated else '')
     page = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +63,7 @@ def generate_viewer_html(cp: OrigamiCreasePattern, output_path: str) -> str:
 </head>
 <body>
 <main>
-  <header><h1>{name}</h1><p class="dimensions">{dimensions}</p></header>
+  <header><h1>{name}</h1><p class="dimensions">{dimensions}</p>{note}</header>
   <div class="panes">
     <section class="pane" aria-labelledby="dieline-title">
       <h2 id="dieline-title">2D dieline</h2>

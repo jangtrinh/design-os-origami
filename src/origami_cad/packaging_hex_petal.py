@@ -51,18 +51,38 @@ def generate_hexagonal_petal_box(
         # Crease at wall top to petal flap
         cp.add_crease(w1, w2, CreaseType.CREASE, 90.0, f"PetalHinge_{i}")
 
-        # Petal apex (interlocking triangular flap)
-        petal_h = side * 0.7
-        mid_x = (w1.x + w2.x) / 2.0 + nx * petal_h
-        mid_y = (w1.y + w2.y) / 2.0 + ny * petal_h
-        apex = Point2D(mid_x, mid_y)
+        # Asymmetric blooming petal flap (swept outer curve + locking nose)
+        tx = edge_dx / edge_len
+        ty = edge_dy / edge_len
+        petal_h = side * 0.82
+        shoulder_l = Point2D(w1.x + tx * (side * 0.12) + nx * (petal_h * 0.55),
+                             w1.y + ty * (side * 0.12) + ny * (petal_h * 0.55))
+        apex = Point2D((w1.x + w2.x) / 2.0 + tx * (side * 0.14) + nx * petal_h,
+                       (w1.y + w2.y) / 2.0 + ty * (side * 0.14) + ny * petal_h)
+        shoulder_r = Point2D(w2.x - tx * (side * 0.06) + nx * (petal_h * 0.62),
+                             w2.y - ty * (side * 0.06) + ny * (petal_h * 0.62))
 
-        # Outer cut lines for petal
-        cp.add_crease(w1, apex, CreaseType.CUT, 0.0)
-        cp.add_crease(apex, w2, CreaseType.CUT, 0.0)
+        # Outer cut lines for sculpted blooming petal
+        cp.add_crease(w1, shoulder_l, CreaseType.CUT, 0.0)
+        cp.add_crease(shoulder_l, apex, CreaseType.CUT, 0.0)
+        cp.add_crease(apex, shoulder_r, CreaseType.CUT, 0.0)
+        cp.add_crease(shoulder_r, w2, CreaseType.CUT, 0.0)
 
-        # Outer side wall cuts
-        cp.add_crease(p1, w1, CreaseType.CUT, 0.0)
+        # Outer side wall cuts (Wall 0 carries a 60-degree side glue tab that bonds inside Wall 5)
+        if i == 0:
+            glue_w = min(12.0, side * 0.35, height * 0.3)
+            taper = glue_w * 0.6
+            cp.add_crease(p1, w1, CreaseType.CREASE, 60.0, "HexGlueHinge")
+            g1 = Point2D(p1.x - tx * glue_w + nx * taper, p1.y - ty * glue_w + ny * taper)
+            g2 = Point2D(w1.x - tx * glue_w - nx * taper, w1.y - ty * glue_w - ny * taper)
+            cp.add_crease(p1, g1, CreaseType.CUT, 0.0, "HexGlueCut")
+            cp.add_crease(g1, g2, CreaseType.CUT, 0.0, "HexGlueCut")
+            cp.add_crease(g2, w1, CreaseType.CUT, 0.0, "HexGlueCut")
+            g_mid1 = Point2D((p1.x + g1.x) / 2.0 + nx * taper, (p1.y + g1.y) / 2.0 + ny * taper)
+            g_mid2 = Point2D((w1.x + g2.x) / 2.0 - nx * taper, (w1.y + g2.y) / 2.0 - ny * taper)
+            cp.add_crease(g_mid1, g_mid2, CreaseType.GLUE, 0.0, "HexGlueLine")
+        else:
+            cp.add_crease(p1, w1, CreaseType.CUT, 0.0)
         cp.add_crease(p2, w2, CreaseType.CUT, 0.0)
 
     # Base facet

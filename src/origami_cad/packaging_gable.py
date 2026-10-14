@@ -1,4 +1,6 @@
 """Handled roof and gusset carton geometry."""
+import math
+from origami_cad.packaging_constraints import validate_glue_flap
 from origami_cad.geometry import OrigamiCreasePattern, Point2D, CreaseType
 
 
@@ -22,9 +24,10 @@ def generate_gable_handle_box(
     w = width + c_allow
     d = depth + c_allow
     h = height
-    hg = gable_height
+    hg = max(gable_height, (d / 2.0) / math.sin(math.radians(45.0)))
     hh = handle_height
     glue_w = 15.0
+    validate_glue_flap(glue_w, w)
 
     # Panel progression along X: Glue Tab -> Left Side (D) -> Front (W) -> Right Side (D) -> Back (W)
     x0 = 0.0
@@ -55,7 +58,8 @@ def generate_gable_handle_box(
     cp.add_crease(Point2D(x_right, y_body_top), Point2D(x_right, y_body_bottom), CreaseType.CREASE, 90.0, "Crease_RightBack")
 
     # 2. Main Horizontal Creases (Top & Bottom of main body)
-    cp.add_crease(Point2D(x_glue, y_body_top), Point2D(x_back, y_body_top), CreaseType.CREASE, 90.0, "Crease_BodyTop")
+    for px1, px2 in ((x_glue, x_left), (x_left, x_front), (x_front, x_right), (x_right, x_back)):
+        cp.add_crease(Point2D(px1, y_body_top), Point2D(px2, y_body_top), CreaseType.CREASE, 45.0, "Crease_BodyTop")
     cp.add_crease(Point2D(x_glue, y_body_bottom), Point2D(x_back, y_body_bottom), CreaseType.CREASE, 90.0, "Crease_BodyBottom")
 
     # 3. Left Side Triangular Inward Gusset (x_glue to x_left)
@@ -78,8 +82,8 @@ def generate_gable_handle_box(
     cp.add_crease(Point2D(x_mid_r, y_roof_top), Point2D(x_right, y_roof_top + 10.0), CreaseType.CUT, 0.0)
 
     # 5. Front Roof & Carry Handle (x_left to x_front)
-    # Roof to handle hinge crease
-    cp.add_crease(Point2D(x_left, y_roof_top), Point2D(x_front, y_roof_top), CreaseType.CREASE, 45.0, "Front_RoofHandle_Hinge")
+    # Roof to handle hinge crease (counter-folds -45 deg to stand vertical at the ridge)
+    cp.add_crease(Point2D(x_left, y_roof_top), Point2D(x_front, y_roof_top), CreaseType.MOUNTAIN, 45.0, "Front_RoofHandle_Hinge")
     # Front handle outer perimeter with rounded shoulders and locking ear
     ear_w = 12.0
     cp.add_crease(Point2D(x_left, y_body_top), Point2D(x_left, y_roof_top + 10.0), CreaseType.CUT, 0.0, "GussetFrontSlit")
@@ -108,7 +112,7 @@ def generate_gable_handle_box(
     cp.add_crease(Point2D(s_x1, slot_cy), Point2D(s_x1 + 10, s_y1), CreaseType.CUT, 0.0, "HandleSlot_L2")
 
     # 6. Back Roof & Carry Handle (x_right to x_back)
-    cp.add_crease(Point2D(x_right, y_roof_top), Point2D(x_back, y_roof_top), CreaseType.CREASE, 45.0, "Back_RoofHandle_Hinge")
+    cp.add_crease(Point2D(x_right, y_roof_top), Point2D(x_back, y_roof_top), CreaseType.MOUNTAIN, 45.0, "Back_RoofHandle_Hinge")
     cp.add_crease(Point2D(x_right, y_body_top), Point2D(x_right, y_roof_top + 10.0), CreaseType.CUT, 0.0, "RightBackSlit")
     cp.add_crease(Point2D(x_right, y_roof_top + 10.0), Point2D(x_right, y_roof_top), CreaseType.CUT, 0.0)
     cp.add_crease(Point2D(x_right, y_roof_top), Point2D(x_right - ear_w, y_roof_top - hh * 0.4), CreaseType.CUT, 0.0)

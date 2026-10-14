@@ -1,4 +1,5 @@
 """Faceted strip geometry preserving the specified mountain/valley network."""
+import math
 from origami_cad.geometry import OrigamiCreasePattern, Point2D, CreaseType
 
 
@@ -10,49 +11,60 @@ def generate_diamond_faceted_box(
 ) -> OrigamiCreasePattern:
     """
     Generates a Diamond-Faceted Origami Box (Luxury jewelry & perfume packaging).
-    Employs triangular facet triangulation with alternating mountain/valley diagonal
-    creases that create a gem-faceted 3D profile when folded.
+    Employs diagonal diamond facet triangulation with alternating mountain/valley
+    creases, top/bottom pyramid closure flaps, and a side seam glue tab.
     """
     cp = OrigamiCreasePattern(name=f"OrigamiDiamond_{int(width)}x{int(height)}", thickness_mm=thickness)
     h_half = height / 2.0
     panel_w = width
+    turn_angle = 360.0 / facets
+    flap_h = (panel_w / 2.0) / math.tan(math.pi / facets)
+    glue_w = min(12.0, panel_w * 0.3)
+    taper = min(8.0, height * 0.15)
 
-    # 4 side panels along X
+    # Left side glue flap at x in [-glue_w, 0]
+    cp.add_crease(Point2D(0.0, 0.0), Point2D(0.0, height), CreaseType.CREASE, turn_angle, "GlueHinge")
+    cp.add_crease(Point2D(0.0, 0.0), Point2D(-glue_w, taper), CreaseType.CUT, 0.0, "GlueFlapTop")
+    cp.add_crease(Point2D(-glue_w, taper), Point2D(-glue_w, height - taper), CreaseType.CUT, 0.0, "GlueOuterCut")
+    cp.add_crease(Point2D(-glue_w, height - taper), Point2D(0.0, height), CreaseType.CUT, 0.0, "GlueFlapBottom")
+    cp.add_crease(Point2D(-glue_w * 0.5, taper + 4.0), Point2D(-glue_w * 0.5, height - taper - 4.0),
+                  CreaseType.GLUE, 0.0, "GlueLine")
+
+    # Side panels along X with true diagonal diamond facets and top/bottom closure flaps
     for i in range(facets):
         x1 = i * panel_w
         x2 = (i + 1) * panel_w
         mid_x = (x1 + x2) / 2.0
 
-        # Boundary cuts top & bottom
-        cp.add_crease(Point2D(x1, 0), Point2D(x2, 0), CreaseType.CUT, 0.0)
-        cp.add_crease(Point2D(x1, height), Point2D(x2, height), CreaseType.CUT, 0.0)
+        # Top and bottom closure flap hinges + triangular pyramid closure flaps
+        cp.add_crease(Point2D(x1, 0.0), Point2D(x2, 0.0), CreaseType.CREASE, 90.0, f"TopFlapHinge_{i}")
+        cp.add_crease(Point2D(x1, 0.0), Point2D(mid_x, -flap_h), CreaseType.CUT, 0.0, "TopFlapCut")
+        cp.add_crease(Point2D(mid_x, -flap_h), Point2D(x2, 0.0), CreaseType.CUT, 0.0, "TopFlapCut")
+
+        cp.add_crease(Point2D(x1, height), Point2D(x2, height), CreaseType.CREASE, 90.0, f"BottomFlapHinge_{i}")
+        cp.add_crease(Point2D(x1, height), Point2D(mid_x, height + flap_h), CreaseType.CUT, 0.0, "BottomFlapCut")
+        cp.add_crease(Point2D(mid_x, height + flap_h), Point2D(x2, height), CreaseType.CUT, 0.0, "BottomFlapCut")
 
         # Vertical crease between panels
-        # The first boundary is the free outer edge, not a panel hinge.
-        cp.add_crease(Point2D(x1, 0), Point2D(x1, height),
-                      CreaseType.CUT if i == 0 else CreaseType.CREASE, 0.0 if i == 0 else 90.0)
+        if i > 0:
+            cp.add_crease(Point2D(x1, 0.0), Point2D(x1, height), CreaseType.CREASE, turn_angle, f"Hinge_{i - 1}")
 
-        # Diamond creases: X-pattern in center of panel
-        # Mid-level vertices
-        v_top = Point2D(mid_x, 0)
+        # True oblique diamond facet inside each panel
+        v_top = Point2D(mid_x, height * 0.18)
         v_mid_left = Point2D(x1, h_half)
         v_mid_right = Point2D(x2, h_half)
-        v_bottom = Point2D(mid_x, height)
-        v_center = Point2D(mid_x, h_half)
+        v_bottom = Point2D(mid_x, height * 0.82)
 
-        # Diagonals forming diamond facet
-        cp.add_crease(v_top, v_center, CreaseType.MOUNTAIN, 45.0)
-        cp.add_crease(v_bottom, v_center, CreaseType.MOUNTAIN, 45.0)
-        cp.add_crease(v_mid_left, v_center, CreaseType.VALLEY, -45.0)
-        cp.add_crease(v_mid_right, v_center, CreaseType.VALLEY, -45.0)
-
-        # The two valley half-scores already cover the midline. A generic
-        # score here would duplicate them and prescribe a conflicting angle.
+        cp.add_crease(v_mid_left, v_top, CreaseType.MOUNTAIN, 45.0, "DiamondDiag")
+        cp.add_crease(v_top, v_mid_right, CreaseType.MOUNTAIN, 45.0, "DiamondDiag")
+        cp.add_crease(v_mid_left, v_bottom, CreaseType.VALLEY, -45.0, "DiamondDiag")
+        cp.add_crease(v_bottom, v_mid_right, CreaseType.VALLEY, -45.0, "DiamondDiag")
 
     # Right edge cut
     total_w = facets * panel_w
-    cp.add_crease(Point2D(total_w, 0), Point2D(total_w, height), CreaseType.CUT, 0.0)
+    cp.add_crease(Point2D(total_w, 0.0), Point2D(total_w, height), CreaseType.CUT, 0.0)
 
     # Base facet
-    cp.add_facet("BaseFacet", [Point2D(0, 0), Point2D(panel_w, 0), Point2D(panel_w, height), Point2D(0, height)])
+    cp.add_facet("BaseFacet", [Point2D(0.0, 0.0), Point2D(panel_w, 0.0),
+                               Point2D(panel_w, height), Point2D(0.0, height)])
     return cp

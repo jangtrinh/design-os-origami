@@ -1,71 +1,55 @@
-# Creative Origami Packaging Catalog Taxonomy
+# Creative catalogue: ideas versus generators
 
-Classification of 305+ creative packaging applications organized into 5 geometric and structural families.
+The legacy taxonomy contains 305 application ideas across five structural
+families. They are not 305 independently validated CAD models. Executable types,
+parameters and defaults are owned by [contract.md](../contract.md).
 
-Illustrative taxonomy, not an inventory of independently validated CAD models.
-The legacy totals and mechanisms below are retained as concept guidance; no
-production qualification, physical sample acceptance, or load performance is
-established by these entries.
+| Concept family | Legacy idea count | Implemented starting point | Trade-off |
+| --- | --- | --- | --- |
+| Blooming petal/flower closures | 65 | hex-petal | No arbitrary polygon/petal generator implied |
+| Polyhedral/diamond facets | 62 | diamond-box | Retain honest unavailable preview where gated |
+| Twist/spiral closures | 58 | Research concept | No implemented twist carton implied |
+| Zero-glue interlocks | 64 | zero-glue-tray | Closure idea does not establish physical locking |
+| Kinetic tessellations | 56 | miura-ori research CLI | No cushioning/load certification |
 
-## 1. Family Architecture & Distribution
+## Select a buildable concept
 
+Right: select `hex-petal` and explicit radius/height/caliper from the contract,
+then build [the presentation example](../examples/hex-petal-presentation.json).
+Wrong: translate “octagonal rose box” into `--type octagonal-rose` when that
+choice is absent from the executable contract.
+
+```json
+{"type":"hex-petal","parameters":{"radius":45,"height":60,"thickness":0.5}}
 ```
-Total Creative Models: 305
-├── Family 1: Blooming Petal & Flower Closures     (65 models)  [Cosmetics, Luxury, Gifts]
-├── Family 2: Polyhedral & Diamond-Faceted Boxes    (62 models)  [Jewelry, Perfume, Confectionery]
-├── Family 3: Twist & Spiral Polygonal Folding      (58 models)  [Gourmet Tea, Spices, Candleware]
-├── Family 4: Zero-Glue Interlocking Origami        (64 models)  [Eco Electronics, Organic Beauty]
-└── Family 5: Kinetic Tessellations & Shock Sleeves (56 models)  [Wine, Glassware, Premium Tech]
-```
 
----
+This fragment explains family selection; use the complete example's schema,
+profiles and preview requirement when building. Application ideas may require
+new topology research rather than a relabelled existing net.
 
-## 2. Family 1: Blooming Petal & Flower Closures (65 Models)
-- **Mechanism**: Radial symmetrical polygons ($N = 3, 4, 5, 6, 8$) with interlocking curved or triangular petals that fold inward to seal without adhesive.
-- **Parametric Inputs**: Base radius $R$, side wall height $H$, petal curvature ratio $k_p$, caliper $t$.
-- **Flagship Applications**:
-  1. Hexagonal Lotus Box (Luxury night cream jar container)
-  2. Octagonal Rose Bud Box (Solid perfume and wedding favors)
-  3. Triangular Lily Gift Box (Single macaron or chocolate truffle)
-  4. Pentagonal Star Bloom (Handmade soap and organic bath bombs)
+## Additional carton choices
 
----
+Tuck, gable, pillow, crash-lock, FEFCO 0201/0427, sleeve-tray and food-box are
+source-derived generator choices, alongside hex-petal, diamond and zero-glue
+tray. The contract owns the current list; this narrative is not a registry.
+Sleeve-tray delivers separately named sleeve and tray blanks; do not merge
+parts or imply sheet nesting/assembly acceptance. Research types stay separate.
 
-## 3. Family 2: Polyhedral & Diamond-Faceted Boxes (62 Models)
-- **Mechanism**: Tapered faceted prisms featuring alternating mountain/valley diagonal creases (Yoshimura and Resch triangulations) that snap into 3D gem profiles.
-- **Parametric Inputs**: Width $W$, depth $D$, height $H$, facet frequency $F$, crease angle $\theta$.
-- **Flagship Applications**:
-  1. Truncated Diamond Bipyramid (Fine jewelry and engagement rings)
-  2. Hexagonal Faceted Column (Artisanal gin and fragrance flacons)
-  3. Rhombus Buckle Gift Carton (High-end artisanal chocolates)
-  4. Origami Obelisk Box (Exclusive seasonal cosmetics)
+| Need | Decision | When NOT to use |
+| --- | --- | --- |
+| Known family with new dimensions | Parameterize a registered generator | When new hinge/lock topology is required |
+| New aesthetic/application | Record concept, inspect generator limits | Never invent supported flags |
+| Two-piece assembly | Preserve each named blank and outputs | Not a combined mesh or nested sheet |
+| Catalogue reproduction | Use its recorded inputs before comparison | Not unrelated custom dimensions |
 
----
+## Common pitfalls and diagnostics
 
-## 4. Family 3: Twist & Spiral Polygonal Folding (58 Models)
-- **Mechanism**: Rigid origami flashers where the top or bottom collapses through a rotational spiral motion ($1$-DOF rotational fold).
-- **Parametric Inputs**: Side length $S$, polygon order $N$, spiral pitch $\phi$, neck height $h_n$.
-- **Flagship Applications**:
-  1. Octagonal Twist-Top Tea Caddy (Loose-leaf matcha and herbal blends)
-  2. Hexagonal Spiral Cookie Drum (Handmade French butter biscuits)
-  3. Square Twist Scented Candle Box (Luxury soy wax candles)
+| Failure | Action | Home |
+| --- | --- | --- |
+| Unknown family/ignored parameter | Use contract choices and applicability | `input` |
+| Missing second blank | Deliver each requested named artifact | `artifact-files` |
+| Catalogue mismatch | Regenerate the actual recorded inputs | `catalog-consistency` |
+| Unavailable preview | Preserve its explicit status and 2D exports | `preview-status` |
 
----
-
-## 5. Family 4: Zero-Glue Interlocking Origami (64 Models)
-- **Mechanism**: 100% glue-free single-sheet dielines utilizing Japanese Masu-style double-wall rollover flaps, friction notch detents, and locking gusset corners.
-- **Parametric Inputs**: Width $W$, depth $D$, wall height $H$, lock tab length $L_{\text{tab}}$, caliper $t$.
-- **Flagship Applications**:
-  1. Sustainable Masu Tray (E-commerce protective tray for smartphones)
-  2. Self-Locking Envelope Folder (Apparel, silk scarves, stationery)
-  3. Single-Sheet Bento Box (Artisanal confectionery gift sets)
-
----
-
-## 6. Family 5: Kinetic Tessellations & Shock Sleeves (56 Models)
-- **Mechanism**: Periodic crease patterns (Miura-ori, Ron Resch waterbomb, diagonal pleats) providing flexible radial compliance and compressive energy absorption.
-- **Parametric Inputs**: Unit cell width $w_c$, height $h_c$, skew angle $\alpha$, row count $M$, column count $N$.
-- **Flagship Applications**:
-  1. Miura-Ori Wine Bottle Sleeve (Self-conforming shock wrapper)
-  2. Collapsible Honeycomb Cushion (Zero-plastic electronic packaging insert)
-  3. Expandable Origami Mailer Sleeve (Books, tablets, eyewear)
+When NOT to use: a concept entry as proof of fit, load capacity, food-contact
+compliance, global foldability, recipient approval or available 3D motion.

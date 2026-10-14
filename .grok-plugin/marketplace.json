@@ -1,0 +1,15 @@
+{
+  "name": "design-os-origami-local",
+  "owner": {
+    "name": "DESIGN:OS"
+  },
+  "plugins": [
+    {
+      "name": "design-os-origami",
+      "source": {
+        "type": "local",
+        "path": "./bundles/grok-build"
+      }
+    }
+  ]
+}

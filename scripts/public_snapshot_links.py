@@ -1,6 +1,7 @@
 """Resolve public HTML/Markdown file references against captured snapshot bytes."""
 
 from html.parser import HTMLParser
+import json
 from pathlib import PurePosixPath
 import posixpath
 import re
@@ -40,6 +41,40 @@ def markdown_links(text):
     return [target.strip("<>") for target in targets] + References(text).links
 
 
+def manifest_links(name, data):
+    """Check local package sources and declared component paths; not MCP argv."""
+    try:
+        manifest = json.loads(data)
+    except (ValueError, UnicodeError) as exc:
+        raise SnapshotError(f"Malformed public manifest: {name}") from exc
+    if not isinstance(manifest, dict):
+        raise SnapshotError(f"Public manifest must be an object: {name}")
+    if name.endswith('/marketplace.json'):
+        links = []
+        for entry in manifest.get('plugins', []):
+            source = entry.get('source')
+            if isinstance(source, dict):
+                if source.get('source', source.get('type')) != 'local':
+                    raise SnapshotError(f"Public marketplace source must be local: {name}")
+                source = source.get('path')
+            if not isinstance(source, str) or not source.startswith('./'):
+                raise SnapshotError(f"Public marketplace path must start with ./ in {name}")
+            links.append(source)
+        return links
+    links = []
+    for field in ('skills', 'commands', 'agents', 'mcpServers', 'hooks', 'contextFileName'):
+        value = manifest.get(field)
+        if isinstance(value, str):
+            links.append(value)
+        elif isinstance(value, list):
+            links.extend(item for item in value if isinstance(item, str))
+    overlay = manifest.get('extensions', {}).get('com.openai', {})
+    for field in ('apps', 'hooks', 'onboardingSkill'):
+        if isinstance(overlay.get(field), str):
+            links.append(overlay[field])
+    return links
+
+
 def validate_closure(payloads):
     """Validate the same bytes that will be copied, before staging any output."""
     files = {path.as_posix(): data for path, data in payloads}
@@ -49,7 +84,11 @@ def validate_closure(payloads):
     pages = {name: References(data.decode("utf-8")) for name, data in files.items()
              if name.startswith("docs/") and name.endswith(".html")}
     sources = {name: page.links for name, page in pages.items()}
-    sources["README.md"] = markdown_links(files["README.md"].decode("utf-8"))
+    sources.update({name: markdown_links(data.decode("utf-8"))
+                    for name, data in files.items() if name.endswith(".md")})
+    for name, data in files.items():
+        if name.endswith("/marketplace.json") or name.endswith("/plugin.json") or name.endswith("/gemini-extension.json"):
+            sources[name] = manifest_links(name, data)
     checked = 0
     for name, links in sources.items():
         for link in links:
@@ -64,12 +103,20 @@ def validate_closure(payloads):
             path = unquote(url.path)
             if path.startswith("/"):
                 target = posixpath.normpath("docs/" + path.lstrip("/"))
+            elif name.endswith("/marketplace.json") and path:
+                target = posixpath.normpath(path)
+            elif name.endswith("/.claude-plugin/plugin.json") and path:
+                target = posixpath.normpath(str(PurePosixPath(name).parent.parent / path))
             elif path:
                 target = posixpath.normpath(str(PurePosixPath(name).parent / path))
             else:
                 target = name
             if target.endswith("/") or target == "docs" or target + "/index.html" in files:
                 target = target.rstrip("/") + "/index.html"
+            if target not in files and any(candidate.startswith(target.rstrip("/") + "/")
+                                            for candidate in files):
+                checked += 1
+                continue
             if target not in files:
                 raise SnapshotError(f"Unresolved local reference: {name} -> {link}")
             fragment = unquote(url.fragment)

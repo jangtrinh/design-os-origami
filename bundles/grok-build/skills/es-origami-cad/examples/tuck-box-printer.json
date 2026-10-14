@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "type": "tuck-box",
+  "parameters": {"width": 80, "depth": 50, "height": 120, "thickness": 0.5},
+  "profiles": ["presentation", "printer"],
+  "printer": {"bleed_mm": 3},
+  "preview_requirement": "available"
+}

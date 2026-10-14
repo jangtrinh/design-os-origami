@@ -2,6 +2,8 @@
   {
     "slug": "tuck-box",
     "label": "Tuck box",
+    "product": "tuck-box",
+    "part": null,
     "source_name": "TuckBox_80x50x120",
     "blank_mm": [
       275.9,
@@ -32,19 +34,48 @@
         ]
       }
     },
+    "dense_continuity": null,
     "files": {
       "svg": "assets/models/tuck-box.svg",
       "pdf": "assets/models/tuck-box.pdf",
       "dxf": "assets/models/tuck-box.dxf"
+    },
+    "demo": "demo/index.html?model=tuck-box",
+    "inputs": {
+      "schema_version": 1,
+      "type": "tuck-box",
+      "parameters": {
+        "width": 80.0,
+        "depth": 50.0,
+        "height": 120.0,
+        "thickness": 0.5
+      },
+      "profiles": [
+        "presentation",
+        "printer"
+      ],
+      "preview_requirement": "allow-unavailable",
+      "printer": {
+        "bleed_mm": 3.0,
+        "spots": {
+          "cut": "CutContour",
+          "crease": "CreaseLine",
+          "perforation": "Perforation",
+          "bleed": "Bleed",
+          "glue": "GlueArea"
+        }
+      }
     }
   },
   {
     "slug": "hex-petal",
     "label": "Hexagonal petal box",
+    "product": "hex-petal",
+    "part": null,
     "source_name": "OrigamiHexPetal_R40_H55",
     "blank_mm": [
-      235.28203230275514,
-      203.76021702821686
+      244.88203230275508,
+      217.67406090454742
     ],
     "caliper_mm": 0.4,
     "preview_available": true,
@@ -57,7 +88,7 @@
         0.75,
         1.0
       ],
-      "checked_edges": 12,
+      "checked_edges": 13,
       "max_gap_mm": 6.87625433923236e-08,
       "worst": {
         "progress": 1.0,
@@ -71,97 +102,376 @@
         ]
       }
     },
+    "dense_continuity": null,
     "files": {
       "svg": "assets/models/hex-petal.svg",
       "pdf": "assets/models/hex-petal.pdf",
       "dxf": "assets/models/hex-petal.dxf"
+    },
+    "demo": "demo/index.html?model=hex-petal",
+    "inputs": {
+      "schema_version": 1,
+      "type": "hex-petal",
+      "parameters": {
+        "radius": 40.0,
+        "height": 55.0,
+        "thickness": 0.4
+      },
+      "profiles": [
+        "presentation",
+        "printer"
+      ],
+      "preview_requirement": "allow-unavailable",
+      "printer": {
+        "bleed_mm": 3.0,
+        "spots": {
+          "cut": "CutContour",
+          "crease": "CreaseLine",
+          "perforation": "Perforation",
+          "bleed": "Bleed",
+          "glue": "GlueArea"
+        }
+      }
     }
   },
   {
     "slug": "diamond-box",
     "label": "Diamond faceted box",
+    "product": "diamond-box",
+    "part": null,
     "source_name": "OrigamiDiamond_60x80",
     "blank_mm": [
-      240.0,
-      80.0
+      252.0,
+      140.0
     ],
     "caliper_mm": 0.45,
-    "preview_available": false,
+    "preview_available": true,
     "continuity": {
-      "valid": false,
+      "valid": true,
       "tolerance_mm": 0.5,
       "samples": [
+        0.0,
+        0.01,
+        0.02,
+        0.03,
+        0.04,
+        0.05,
+        0.06,
+        0.07,
+        0.08,
+        0.09,
+        0.1,
+        0.11,
+        0.12,
+        0.13,
+        0.14,
+        0.15,
+        0.16,
+        0.17,
+        0.18,
+        0.19,
+        0.2,
+        0.21,
+        0.22,
+        0.23,
+        0.24,
         0.25,
+        0.26,
+        0.27,
+        0.28,
+        0.29,
+        0.3,
+        0.31,
+        0.32,
+        0.33,
+        0.34,
+        0.35,
+        0.36,
+        0.37,
+        0.38,
+        0.39,
+        0.4,
+        0.41,
+        0.42,
+        0.43,
+        0.44,
+        0.45,
+        0.46,
+        0.47,
+        0.48,
+        0.49,
         0.5,
+        0.51,
+        0.52,
+        0.53,
+        0.54,
+        0.55,
+        0.56,
+        0.57,
+        0.58,
+        0.59,
+        0.6,
+        0.61,
+        0.62,
+        0.63,
+        0.64,
+        0.65,
+        0.66,
+        0.67,
+        0.68,
+        0.69,
+        0.7,
+        0.71,
+        0.72,
+        0.73,
+        0.74,
         0.75,
+        0.76,
+        0.77,
+        0.78,
+        0.79,
+        0.8,
+        0.81,
+        0.82,
+        0.83,
+        0.84,
+        0.85,
+        0.86,
+        0.87,
+        0.88,
+        0.89,
+        0.9,
+        0.91,
+        0.92,
+        0.93,
+        0.94,
+        0.95,
+        0.96,
+        0.97,
+        0.98,
+        0.99,
         1.0
       ],
-      "checked_edges": 22,
-      "max_gap_mm": 94.62966089696852,
+      "checked_edges": 32,
+      "max_gap_mm": 4.0194366942304644e-14,
       "worst": {
-        "progress": 1.0,
+        "progress": 0.76,
         "faces": [
-          14,
-          15
+          3,
+          4
         ],
         "endpoint": [
-          240.0,
-          40.0
+          0.0,
+          80.0
         ]
       }
     },
+    "dense_continuity": null,
     "files": {
       "svg": "assets/models/diamond-box.svg",
       "pdf": "assets/models/diamond-box.pdf",
       "dxf": "assets/models/diamond-box.dxf"
+    },
+    "demo": "demo/index.html?model=diamond-box",
+    "inputs": {
+      "schema_version": 1,
+      "type": "diamond-box",
+      "parameters": {
+        "width": 60.0,
+        "height": 80.0,
+        "thickness": 0.45
+      },
+      "profiles": [
+        "presentation",
+        "printer"
+      ],
+      "preview_requirement": "allow-unavailable",
+      "printer": {
+        "bleed_mm": 3.0,
+        "spots": {
+          "cut": "CutContour",
+          "crease": "CreaseLine",
+          "perforation": "Perforation",
+          "bleed": "Bleed",
+          "glue": "GlueArea"
+        }
+      }
     }
   },
   {
     "slug": "zero-glue-tray",
     "label": "Zero-glue tray",
+    "product": "zero-glue-tray",
+    "part": null,
     "source_name": "ZeroGlueTray_100x70x30",
     "blank_mm": [
       220.0,
       190.0
     ],
     "caliper_mm": 0.5,
-    "preview_available": false,
+    "preview_available": true,
     "continuity": {
-      "valid": false,
+      "valid": true,
       "tolerance_mm": 0.5,
       "samples": [
+        0.0,
+        0.01,
+        0.02,
+        0.03,
+        0.04,
+        0.05,
+        0.06,
+        0.07,
+        0.08,
+        0.09,
+        0.1,
+        0.11,
+        0.12,
+        0.13,
+        0.14,
+        0.15,
+        0.16,
+        0.17,
+        0.18,
+        0.19,
+        0.2,
+        0.21,
+        0.22,
+        0.23,
+        0.24,
         0.25,
+        0.26,
+        0.27,
+        0.28,
+        0.29,
+        0.3,
+        0.31,
+        0.32,
+        0.33,
+        0.34,
+        0.35,
+        0.36,
+        0.37,
+        0.38,
+        0.39,
+        0.4,
+        0.41,
+        0.42,
+        0.43,
+        0.44,
+        0.45,
+        0.46,
+        0.47,
+        0.48,
+        0.49,
         0.5,
+        0.51,
+        0.52,
+        0.53,
+        0.54,
+        0.55,
+        0.56,
+        0.57,
+        0.58,
+        0.59,
+        0.6,
+        0.61,
+        0.62,
+        0.63,
+        0.64,
+        0.65,
+        0.66,
+        0.67,
+        0.68,
+        0.69,
+        0.7,
+        0.71,
+        0.72,
+        0.73,
+        0.74,
         0.75,
+        0.76,
+        0.77,
+        0.78,
+        0.79,
+        0.8,
+        0.81,
+        0.82,
+        0.83,
+        0.84,
+        0.85,
+        0.86,
+        0.87,
+        0.88,
+        0.89,
+        0.9,
+        0.91,
+        0.92,
+        0.93,
+        0.94,
+        0.95,
+        0.96,
+        0.97,
+        0.98,
+        0.99,
         1.0
       ],
-      "checked_edges": 12,
-      "max_gap_mm": 42.42640687119285,
+      "checked_edges": 20,
+      "max_gap_mm": 6.355287432313019e-14,
       "worst": {
-        "progress": 1.0,
+        "progress": 0.84,
         "faces": [
-          4,
-          5
+          1,
+          13
         ],
         "endpoint": [
-          40.0,
-          40.0
+          70.0,
+          170.0
         ]
       }
     },
+    "dense_continuity": null,
     "files": {
       "svg": "assets/models/zero-glue-tray.svg",
       "pdf": "assets/models/zero-glue-tray.pdf",
       "dxf": "assets/models/zero-glue-tray.dxf"
+    },
+    "demo": "demo/index.html?model=zero-glue-tray",
+    "inputs": {
+      "schema_version": 1,
+      "type": "zero-glue-tray",
+      "parameters": {
+        "width": 100.0,
+        "depth": 70.0,
+        "thickness": 0.5,
+        "height": 30.0
+      },
+      "profiles": [
+        "presentation",
+        "printer"
+      ],
+      "preview_requirement": "allow-unavailable",
+      "printer": {
+        "bleed_mm": 3.0,
+        "spots": {
+          "cut": "CutContour",
+          "crease": "CreaseLine",
+          "perforation": "Perforation",
+          "bleed": "Bleed",
+          "glue": "GlueArea"
+        }
+      }
     }
   },
   {
     "slug": "gable-box",
     "label": "Gable handle box",
+    "product": "gable-box",
+    "part": null,
     "source_name": "GableHandleBox_160x110x110",
     "blank_mm": [
       567.9,
-      281.64625
+      304.5870949562872
     ],
     "caliper_mm": 0.5,
     "preview_available": true,
@@ -175,32 +485,430 @@
         1.0
       ],
       "checked_edges": 22,
-      "max_gap_mm": 1.1368683772161603e-13,
+      "max_gap_mm": 3.3456323350944794e-08,
       "worst": {
         "progress": 1.0,
         "faces": [
-          9,
-          14
+          1,
+          17
         ],
         "endpoint": [
-          125.225,
-          0.0
+          395.675,
+          -77.940845
         ]
       }
     },
+    "dense_continuity": null,
     "files": {
       "svg": "assets/models/gable-box.svg",
       "pdf": "assets/models/gable-box.pdf",
       "dxf": "assets/models/gable-box.dxf"
+    },
+    "demo": "demo/index.html?model=gable-box",
+    "inputs": {
+      "schema_version": 1,
+      "type": "gable-box",
+      "parameters": {
+        "width": 160.0,
+        "depth": 110.0,
+        "height": 110.0,
+        "thickness": 0.5
+      },
+      "profiles": [
+        "presentation",
+        "printer"
+      ],
+      "preview_requirement": "allow-unavailable",
+      "printer": {
+        "bleed_mm": 3.0,
+        "spots": {
+          "cut": "CutContour",
+          "crease": "CreaseLine",
+          "perforation": "Perforation",
+          "bleed": "Bleed",
+          "glue": "GlueArea"
+        }
+      }
     }
   },
   {
     "slug": "pillow-box",
     "label": "Pillow box",
+    "product": "pillow-box",
+    "part": null,
     "source_name": "PillowBox_90x40x110",
     "blank_mm": [
       272.9,
-      110.0
+      135.38596748434907
+    ],
+    "caliper_mm": 0.5,
+    "preview_available": true,
+    "continuity": {
+      "valid": true,
+      "tolerance_mm": 0.5,
+      "samples": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "checked_edges": 8,
+      "max_gap_mm": 2.7822454868790218e-08,
+      "worst": {
+        "progress": 1.0,
+        "faces": [
+          6,
+          7
+        ],
+        "endpoint": [
+          232.675,
+          103.7829309
+        ]
+      }
+    },
+    "dense_continuity": null,
+    "files": {
+      "svg": "assets/models/pillow-box.svg",
+      "pdf": "assets/models/pillow-box.pdf",
+      "dxf": "assets/models/pillow-box.dxf"
+    },
+    "demo": "demo/index.html?model=pillow-box",
+    "inputs": {
+      "schema_version": 1,
+      "type": "pillow-box",
+      "parameters": {
+        "width": 90.0,
+        "depth": 40.0,
+        "height": 110.0,
+        "thickness": 0.5
+      },
+      "profiles": [
+        "presentation",
+        "printer"
+      ],
+      "preview_requirement": "allow-unavailable",
+      "printer": {
+        "bleed_mm": 3.0,
+        "spots": {
+          "cut": "CutContour",
+          "crease": "CreaseLine",
+          "perforation": "Perforation",
+          "bleed": "Bleed",
+          "glue": "GlueArea"
+        }
+      }
+    }
+  },
+  {
+    "slug": "crash-lock-box",
+    "label": "Crash-lock box",
+    "product": "crash-lock-box",
+    "part": null,
+    "source_name": "CrashLockBox_80x60x100",
+    "blank_mm": [
+      295.9,
+      196.35999999999999
+    ],
+    "caliper_mm": 0.5,
+    "preview_available": true,
+    "continuity": {
+      "valid": true,
+      "tolerance_mm": 0.5,
+      "samples": [
+        0.0,
+        0.01,
+        0.02,
+        0.03,
+        0.04,
+        0.05,
+        0.06,
+        0.07,
+        0.08,
+        0.09,
+        0.1,
+        0.11,
+        0.12,
+        0.13,
+        0.14,
+        0.15,
+        0.16,
+        0.17,
+        0.18,
+        0.19,
+        0.2,
+        0.21,
+        0.22,
+        0.23,
+        0.24,
+        0.25,
+        0.26,
+        0.27,
+        0.28,
+        0.29,
+        0.3,
+        0.31,
+        0.32,
+        0.33,
+        0.34,
+        0.35,
+        0.36,
+        0.37,
+        0.38,
+        0.39,
+        0.4,
+        0.41,
+        0.42,
+        0.43,
+        0.44,
+        0.45,
+        0.46,
+        0.47,
+        0.48,
+        0.49,
+        0.5,
+        0.51,
+        0.52,
+        0.53,
+        0.54,
+        0.55,
+        0.56,
+        0.57,
+        0.58,
+        0.59,
+        0.6,
+        0.61,
+        0.62,
+        0.63,
+        0.64,
+        0.65,
+        0.66,
+        0.67,
+        0.68,
+        0.69,
+        0.7,
+        0.71,
+        0.72,
+        0.73,
+        0.74,
+        0.75,
+        0.76,
+        0.77,
+        0.78,
+        0.79,
+        0.8,
+        0.81,
+        0.82,
+        0.83,
+        0.84,
+        0.85,
+        0.86,
+        0.87,
+        0.88,
+        0.89,
+        0.9,
+        0.91,
+        0.92,
+        0.93,
+        0.94,
+        0.95,
+        0.96,
+        0.97,
+        0.98,
+        0.99,
+        1.0
+      ],
+      "checked_edges": 20,
+      "max_gap_mm": 8.644125458514252e-14,
+      "worst": {
+        "progress": 0.76,
+        "faces": [
+          12,
+          15
+        ],
+        "endpoint": [
+          215.675,
+          0.0
+        ]
+      }
+    },
+    "dense_continuity": null,
+    "files": {
+      "svg": "assets/models/crash-lock-box.svg",
+      "pdf": "assets/models/crash-lock-box.pdf",
+      "dxf": "assets/models/crash-lock-box.dxf"
+    },
+    "demo": "demo/index.html?model=crash-lock-box",
+    "inputs": {
+      "schema_version": 1,
+      "type": "crash-lock-box",
+      "parameters": {
+        "width": 80.0,
+        "depth": 60.0,
+        "height": 100.0,
+        "thickness": 0.5
+      },
+      "profiles": [
+        "presentation",
+        "printer"
+      ],
+      "preview_requirement": "allow-unavailable",
+      "printer": {
+        "bleed_mm": 3.0,
+        "spots": {
+          "cut": "CutContour",
+          "crease": "CreaseLine",
+          "perforation": "Perforation",
+          "bleed": "Bleed",
+          "glue": "GlueArea"
+        }
+      }
+    }
+  },
+  {
+    "slug": "fefco-0201",
+    "label": "FEFCO 0201 RSC",
+    "product": "fefco-0201",
+    "part": null,
+    "source_name": "FEFCO0201_200x150x120",
+    "blank_mm": [
+      730.9,
+      270.225
+    ],
+    "caliper_mm": 0.5,
+    "preview_available": true,
+    "continuity": {
+      "valid": true,
+      "tolerance_mm": 0.5,
+      "samples": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "checked_edges": 12,
+      "max_gap_mm": 1.1368683772161603e-13,
+      "worst": {
+        "progress": 0.75,
+        "faces": [
+          6,
+          9
+        ],
+        "endpoint": [
+          580.675,
+          0.0
+        ]
+      }
+    },
+    "dense_continuity": null,
+    "files": {
+      "svg": "assets/models/fefco-0201.svg",
+      "pdf": "assets/models/fefco-0201.pdf",
+      "dxf": "assets/models/fefco-0201.dxf"
+    },
+    "demo": "demo/index.html?model=fefco-0201",
+    "inputs": {
+      "schema_version": 1,
+      "type": "fefco-0201",
+      "parameters": {
+        "width": 200.0,
+        "depth": 150.0,
+        "height": 120.0,
+        "thickness": 0.5
+      },
+      "profiles": [
+        "presentation",
+        "printer"
+      ],
+      "preview_requirement": "allow-unavailable",
+      "printer": {
+        "bleed_mm": 3.0,
+        "spots": {
+          "cut": "CutContour",
+          "crease": "CreaseLine",
+          "perforation": "Perforation",
+          "bleed": "Bleed",
+          "glue": "GlueArea"
+        }
+      }
+    }
+  },
+  {
+    "slug": "fefco-0427",
+    "label": "FEFCO 0427 mailer",
+    "product": "fefco-0427",
+    "part": null,
+    "source_name": "FEFCO0427_200x150x60",
+    "blank_mm": [
+      478.45000000000005,
+      468.225
+    ],
+    "caliper_mm": 0.5,
+    "preview_available": true,
+    "continuity": {
+      "valid": true,
+      "tolerance_mm": 0.5,
+      "samples": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "checked_edges": 16,
+      "max_gap_mm": 8.038873388460929e-14,
+      "worst": {
+        "progress": 1.0,
+        "faces": [
+          3,
+          5
+        ],
+        "endpoint": [
+          420.45,
+          0.0
+        ]
+      }
+    },
+    "dense_continuity": null,
+    "files": {
+      "svg": "assets/models/fefco-0427.svg",
+      "pdf": "assets/models/fefco-0427.pdf",
+      "dxf": "assets/models/fefco-0427.dxf"
+    },
+    "demo": "demo/index.html?model=fefco-0427",
+    "inputs": {
+      "schema_version": 1,
+      "type": "fefco-0427",
+      "parameters": {
+        "width": 200.0,
+        "depth": 150.0,
+        "height": 60.0,
+        "thickness": 0.5
+      },
+      "profiles": [
+        "presentation",
+        "printer"
+      ],
+      "preview_requirement": "allow-unavailable",
+      "printer": {
+        "bleed_mm": 3.0,
+        "spots": {
+          "cut": "CutContour",
+          "crease": "CreaseLine",
+          "perforation": "Perforation",
+          "bleed": "Bleed",
+          "glue": "GlueArea"
+        }
+      }
+    }
+  },
+  {
+    "slug": "sleeve-tray-sleeve",
+    "label": "Sleeve + tray \u00b7 sleeve",
+    "product": "sleeve-tray",
+    "part": "sleeve",
+    "source_name": "TwoPieceSleeve_120x80x35",
+    "blank_mm": [
+      336.9,
+      81.0
     ],
     "caliper_mm": 0.5,
     "preview_available": true,
@@ -214,37 +922,66 @@
         1.0
       ],
       "checked_edges": 4,
-      "max_gap_mm": 6.550880341146756e-14,
+      "max_gap_mm": 8.038873388460929e-14,
       "worst": {
-        "progress": 1.0,
+        "progress": 0.75,
         "faces": [
-          3,
+          2,
           4
         ],
         "endpoint": [
-          232.675,
-          6.2170691
+          299.175,
+          0.0
         ]
       }
     },
+    "dense_continuity": null,
     "files": {
-      "svg": "assets/models/pillow-box.svg",
-      "pdf": "assets/models/pillow-box.pdf",
-      "dxf": "assets/models/pillow-box.dxf"
+      "svg": "assets/models/sleeve-tray-sleeve.svg",
+      "pdf": "assets/models/sleeve-tray-sleeve.pdf",
+      "dxf": "assets/models/sleeve-tray-sleeve.dxf"
+    },
+    "demo": "demo/index.html?model=sleeve-tray-sleeve",
+    "inputs": {
+      "schema_version": 1,
+      "type": "sleeve-tray",
+      "parameters": {
+        "width": 120.0,
+        "depth": 80.0,
+        "height": 35.0,
+        "thickness": 0.5
+      },
+      "profiles": [
+        "presentation",
+        "printer"
+      ],
+      "preview_requirement": "allow-unavailable",
+      "printer": {
+        "bleed_mm": 3.0,
+        "spots": {
+          "cut": "CutContour",
+          "crease": "CreaseLine",
+          "perforation": "Perforation",
+          "bleed": "Bleed",
+          "glue": "GlueArea"
+        }
+      }
     }
   },
   {
-    "slug": "crash-lock-box",
-    "label": "Crash-lock box",
-    "source_name": "CrashLockBox_80x60x100",
+    "slug": "sleeve-tray-tray",
+    "label": "Sleeve + tray \u00b7 tray",
+    "product": "sleeve-tray",
+    "part": "tray",
+    "source_name": "TwoPieceTray_120x80x35",
     "blank_mm": [
-      295.9,
-      196.35999999999999
+      190.225,
+      150.225
     ],
     "caliper_mm": 0.5,
-    "preview_available": false,
+    "preview_available": true,
     "continuity": {
-      "valid": false,
+      "valid": true,
       "tolerance_mm": 0.5,
       "samples": [
         0.25,
@@ -252,24 +989,119 @@
         0.75,
         1.0
       ],
-      "checked_edges": 20,
-      "max_gap_mm": 80.22500000000001,
+      "checked_edges": 8,
+      "max_gap_mm": 3.1776437161565096e-14,
       "worst": {
-        "progress": 1.0,
+        "progress": 0.75,
         "faces": [
-          1,
-          9
+          7,
+          8
         ],
         "endpoint": [
-          155.45,
-          100.0
+          155.225,
+          80.225
         ]
       }
     },
+    "dense_continuity": null,
     "files": {
-      "svg": "assets/models/crash-lock-box.svg",
-      "pdf": "assets/models/crash-lock-box.pdf",
-      "dxf": "assets/models/crash-lock-box.dxf"
+      "svg": "assets/models/sleeve-tray-tray.svg",
+      "pdf": "assets/models/sleeve-tray-tray.pdf",
+      "dxf": "assets/models/sleeve-tray-tray.dxf"
+    },
+    "demo": "demo/index.html?model=sleeve-tray-tray",
+    "inputs": {
+      "schema_version": 1,
+      "type": "sleeve-tray",
+      "parameters": {
+        "width": 120.0,
+        "depth": 80.0,
+        "height": 35.0,
+        "thickness": 0.5
+      },
+      "profiles": [
+        "presentation",
+        "printer"
+      ],
+      "preview_requirement": "allow-unavailable",
+      "printer": {
+        "bleed_mm": 3.0,
+        "spots": {
+          "cut": "CutContour",
+          "crease": "CreaseLine",
+          "perforation": "Perforation",
+          "bleed": "Bleed",
+          "glue": "GlueArea"
+        }
+      }
+    }
+  },
+  {
+    "slug": "food-box",
+    "label": "Hinged food box",
+    "product": "food-box",
+    "part": null,
+    "source_name": "FoodBoxHingedLid_160x120x70",
+    "blank_mm": [
+      300.225,
+      405.45
+    ],
+    "caliper_mm": 0.5,
+    "preview_available": true,
+    "continuity": {
+      "valid": true,
+      "tolerance_mm": 0.5,
+      "samples": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "checked_edges": 12,
+      "max_gap_mm": 3.1776437161565096e-14,
+      "worst": {
+        "progress": 0.25,
+        "faces": [
+          9,
+          11
+        ],
+        "endpoint": [
+          158.725,
+          -190.225
+        ]
+      }
+    },
+    "dense_continuity": null,
+    "files": {
+      "svg": "assets/models/food-box.svg",
+      "pdf": "assets/models/food-box.pdf",
+      "dxf": "assets/models/food-box.dxf"
+    },
+    "demo": "demo/index.html?model=food-box",
+    "inputs": {
+      "schema_version": 1,
+      "type": "food-box",
+      "parameters": {
+        "width": 160.0,
+        "depth": 120.0,
+        "height": 70.0,
+        "thickness": 0.5
+      },
+      "profiles": [
+        "presentation",
+        "printer"
+      ],
+      "preview_requirement": "allow-unavailable",
+      "printer": {
+        "bleed_mm": 3.0,
+        "spots": {
+          "cut": "CutContour",
+          "crease": "CreaseLine",
+          "perforation": "Perforation",
+          "bleed": "Bleed",
+          "glue": "GlueArea"
+        }
+      }
     }
   }
 ]

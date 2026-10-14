@@ -24,11 +24,12 @@ def blank_area(cp):
 
 class FoldFaces(unittest.TestCase):
     def test_all_generators_defaults_variants_area_tree_and_immutability(self):
-        counts = {'tuck-box': 13, 'zero-glue-tray': 9, 'crash-lock-box': 17,
-                  'gable-box': 21, 'diamond-box': 16, 'pillow-box': 5, 'hex-petal': 13}
+        counts = {'tuck-box': 13, 'zero-glue-tray': 17, 'crash-lock-box': 17,
+                  'gable-box': 21, 'diamond-box': 21, 'pillow-box': 9, 'hex-petal': 14}
         generators = {f for n, f in inspect.getmembers(packaging, inspect.isfunction)
                       if n.startswith('generate_') and n != 'generate_miura_ori_sleeve'}
-        self.assertEqual(generators, set(MODELS.values()))
+        from origami_cad.product_registry import PRODUCTS
+        self.assertEqual(generators, {getattr(packaging, function) for _, _, function in PRODUCTS})
         for name, generate in MODELS.items():
             for kwargs in ({}, VARIANTS[name], {'thickness': 0}):
                 with self.subTest(name=name, kwargs=kwargs):

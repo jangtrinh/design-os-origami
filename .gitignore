@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 .DS_Store
 .pytest_cache/
+# Private host configuration backups may contain credentials and never enter Git.
+plans/**/backups/

@@ -1,66 +1,65 @@
-# Origami Mathematics & Flat-Foldability Theorems
+# Origami mathematics: local conditions and limits
 
-Comprehensive mathematical foundation for computational origami and crease pattern design.
+These mathematical ideas guide construction; they do not establish physical
+assembly, global flat-foldability, collision avoidance or rigid-carton closure.
+Source attribution and provenance limits are in [ATTRIBUTION.md](../ATTRIBUTION.md).
 
-Draft reference: legacy claims below have no verified source capture in this
-package. Local single-vertex conditions have assumptions and do not certify
-global foldability, rigid motion, collision avoidance, or carton assembly.
+## Single-crease construction
 
-## 1. The 7 Huzita-Justin-Hatori Axioms
+| Axiom | Construction |
+| --- | --- |
+| O1 | Fold through two distinct points |
+| O2 | Fold one point onto another |
+| O3 | Fold one line onto another |
+| O4 | Fold perpendicular to a line through a point |
+| O5 | Fold through one point placing another onto a line |
+| O6 | Place two points onto two respective lines with one fold |
+| O7 | Place a point onto a line with a fold perpendicular to another line |
 
-Every fold in mathematical origami corresponds to an operation placing points/lines onto other points/lines:
+Construction existence depends on geometric preconditions; a named axiom does
+not authorize an arbitrary crease or a fabricated solution. These operations
+are distinct from the product's packaging-family parameter schema.
 
-| Axiom | Input | Operation | Algebraic Degree |
-| :--- | :--- | :--- | :--- |
-| **O1** | Points $p_1, p_2$ | Fold line passing through $p_1$ and $p_2$ | Linear ($d=1$) |
-| **O2** | Points $p_1, p_2$ | Fold placing $p_1$ onto $p_2$ (Perpendicular bisector) | Linear ($d=1$) |
-| **O3** | Lines $l_1, l_2$ | Fold placing $l_1$ onto $l_2$ (Angle bisector) | Quadratic ($d=2$) |
-| **O4** | Point $p_1$, line $l_1$ | Fold perpendicular to $l_1$ passing through $p_1$ | Linear ($d=1$) |
-| **O5** | Points $p_1, p_2$, line $l_1$ | Fold line passing through $p_2$ placing $p_1$ onto $l_1$ | Quadratic ($d=2$) |
-| **O6** | Points $p_1, p_2$, lines $l_1, l_2$ | Fold line placing $p_1$ onto $l_1$ and $p_2$ onto $l_2$ | **Cubic ($d=3$)** |
-| **O7** | Point $p_1$, lines $l_1, l_2$ | Fold line placing $p_1$ onto $l_1$ perpendicular to $l_2$ | Quadratic ($d=2$) |
+## Interior single-vertex checks
 
-*Note: Axiom O6 allows solving general cubic equations, enabling angle trisection and doubling the cube.*
+For an interior vertex of even degree 2n, consecutive sectors must sum to 360°.
+Kawasaki's alternating sectors sum to 180° each for local flat-foldability under
+its idealized assumptions. A assigned flat fold must also satisfy Maekawa's
+`abs(M - V) == 2`. Generic CREASE is not a mountain/valley assignment.
 
----
+Right: sectors `[60, 110, 120, 70]` have alternating sums 180° and 180°.
+Wrong: sectors `[90, 90, 85, 95]` have alternating sums 175° and 185°;
+a four-valent label alone does not establish Kawasaki's condition.
 
-## 2. Local Flat-Foldability Conditions
-
-### Kawasaki's Theorem
-For a flat-foldable interior vertex of degree $2n$ with consecutive sector angles $\theta_1, \theta_2, \dots, \theta_{2n}$:
-$$\sum_{k=1}^n \theta_{2k-1} = \sum_{k=1}^n \theta_{2k} = 180^\circ$$
-
-**Validation Algorithm**:
 ```python
-def check_kawasaki(sector_angles_deg: list[float], tolerance: float = 0.5) -> bool:
-    if len(sector_angles_deg) % 2 != 0:
-        return False  # Maekawa violation: odd degree cannot fold flat
-    odd_sum = sum(sector_angles_deg[0::2])
-    even_sum = sum(sector_angles_deg[1::2])
-    return abs(odd_sum - 180.0) <= tolerance and abs(even_sum - 180.0) <= tolerance
+# Right: local numerical condition, with its scope explicit.
+def alternating_sectors_ok(sectors, tolerance=0.5):
+    return (len(sectors) >= 4 and len(sectors) % 2 == 0
+            and all(angle > 0 for angle in sectors)
+            and abs(sum(sectors) - 360) <= tolerance
+            and abs(sum(sectors[::2]) - 180) <= tolerance
+            and abs(sum(sectors[1::2]) - 180) <= tolerance)
+
+# Wrong: global_foldable = alternating_sectors_ok(sectors)
 ```
 
-### Maekawa's Theorem
-At any flat-foldable interior vertex with $M$ mountain folds and $V$ valley folds:
-$$M - V = \pm 2$$
-- Implication: All flat-foldable interior vertices must have an even number of creases ($\ge 4$).
-- An interior vertex with degree 3 or 5 is mathematically impossible to fold flat without crumpling.
+## Decision guidance
 
----
+| Target | Use | Trade-off / when NOT to use |
+| --- | --- | --- |
+| Ideal interior flat-folding vertex | Local sector and M/V checks | Not a boundary vertex or volumetric carton theorem |
+| Generated carton | Product topology + sampled source-derived continuity | Not proof of physical fit or all-time closure |
+| Research tessellation | Explicit construction and qualification limits | Not an implemented packaging generator by analogy |
+| Manufacturing release | Recipient import and physical sample | Mathematical labels alone are insufficient |
 
-## 3. Decision Matrix: Fold Pattern Selection
+## Common pitfalls and diagnostics
 
-| Pattern Type | Degree of Freedom | Flat Foldable? | Primary Packaging Use |
-| :--- | :--- | :--- | :--- |
-| **Miura-ori** | 1-DOF rigid | Yes | Shock-absorbing sleeves, expandable bottle wrappers |
-| **Yoshimura Pattern** | Multi-DOF buckling | No (Cylindrical) | Crush zones, cylindrical cosmetic tube cartons |
-| **Waterbomb Base** | 1-DOF radial | Yes | Pop-up gift closures, collapsible candy boxes |
-| **Flasher / Twist** | 1-DOF rotational | Yes | Luxury polygonal perfume boxes, spiral opening lids |
+| Failure | Observable evidence | Mechanical home |
+| --- | --- | --- |
+| Odd assigned interior degree | M/V counts cannot differ by 2 | Mathematical review; do not invent a runtime error |
+| Wrong M/V export | SVG differs from source segment assignment | `fold-metadata` |
+| Broken blank connectivity | Product topology check reports invalid material/contour | `topology` |
+| Missing global test | Only local vertex equations were checked | Report NOT VERIFIED; no theorem-to-product upgrade |
 
----
-
-## 4. Failure Modes & Anti-Patterns
-
-1. **Parity Violation**: Designing 4-crease vertices with angles $90^\circ, 90^\circ, 85^\circ, 95^\circ$. Odd sum = $175^\circ \ne 180^\circ$. Sheet will buckle out-of-plane.
-2. **Self-Intersection in Multi-Layer Folds**: Failing to check layer ordering matrix. Local flat-foldability does not guarantee global non-collision.
-3. **Overconstrained Facets**: Rigid origami requires facets to remain planar. If a quadrilateral is non-developable, it must be triangulated with a diagonal crease.
+Diagnostics are check identifiers from [rules.md](../rules.md), not invented
+mathematical exception strings. Local success does not decide layer ordering.

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "origami-cad": {
+      "command": "<absolute-python-executable>",
+      "args": [
+        "-B",
+        "<absolute-checkout>/scripts/run_mcp.py",
+        "--workspace",
+        "<absolute-artifact-workspace>"
+      ]
+    }
+  }
+}

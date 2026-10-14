@@ -1,0 +1,13 @@
+{
+  "name": "design-os-origami-local",
+  "owner": {
+    "name": "DESIGN:OS"
+  },
+  "plugins": [
+    {
+      "name": "design-os-origami",
+      "source": "./bundles/claude-code"
+    }
+  ],
+  "description": "Local packaging CAD workflow, validation and fold evidence."
+}

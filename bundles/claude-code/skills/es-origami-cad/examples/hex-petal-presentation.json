@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "type": "hex-petal",
+  "parameters": {"radius": 45, "height": 60, "thickness": 0.5},
+  "profiles": ["presentation"],
+  "printer": {},
+  "preview_requirement": "available"
+}

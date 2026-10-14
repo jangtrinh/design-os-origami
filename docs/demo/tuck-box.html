@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <link rel="canonical" href="https://jangtrinh.github.io/design-os-origami/demo/tuck-box.html">
-  <meta name="description" content="Inspect a source-derived tuck-box fold preview with camera rotation, pan and zoom.">
+<head><link rel="canonical" href="https://jangtrinh.github.io/design-os-origami/demo/tuck-box.html">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TuckBox_80x50x120 · Fold preview</title>
@@ -61,11 +59,11 @@ button:focus-visible, #fold-slider:focus-visible { outline: 2px solid var(--ink)
   .controls { gap: 8px; }
 }
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
-body{font-size:14px}h2,.controls,button{font-size:12px}.view-controls{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.view-controls button{min-height:44px;padding:8px 16px}header>a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)}header>a:focus-visible,#three-viewport canvas:focus-visible{outline:2px solid var(--ink);outline-offset:3px}#three-viewport canvas{touch-action:pan-y;cursor:grab}.dimensions{max-width:60ch}</style>
+body{font-size:14px}h2,.controls,button{font-size:12px}.dimensions{max-width:60ch}.view-controls{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.view-controls button{min-height:44px;padding:8px 16px}header>a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)}header>a:focus-visible,#three-viewport canvas:focus-visible{outline:2px solid var(--ink);outline-offset:3px}#three-viewport canvas{touch-action:pan-y;cursor:grab}</style>
 </head>
 <body>
 <main>
-  <header><a href="../index.html">Back to DESIGN:OS Origami</a><h1>TuckBox_80x50x120</h1><p class="dimensions">Blank 275.9 × 250.45 mm · Caliper 0.5 mm</p></header>
+  <header><a href="index.html">Choose another blank</a><h1>TuckBox_80x50x120</h1><p class="dimensions">Blank 275.9 × 250.45 mm · Caliper 0.5 mm</p></header>
   <div class="panes">
     <section class="pane" aria-labelledby="dieline-title">
       <h2 id="dieline-title">2D dieline</h2>
@@ -143,9 +141,7 @@ body{font-size:14px}h2,.controls,button{font-size:12px}.view-controls{display:fl
     <button id="play-btn" type="button" disabled>Play</button>
     <button id="reset-btn" type="button" disabled>Reset</button>
   </div>
-  <p class="dimensions">Drag to rotate; Shift-drag to pan; scroll to zoom. Use the view buttons with a keyboard.</p>
-  <nav class="view-controls" aria-label="Camera controls"><button type="button" data-view="left" disabled>Rotate left</button><button type="button" data-view="right" disabled>Rotate right</button><button type="button" data-view="up" disabled>Rotate up</button><button type="button" data-view="down" disabled>Rotate down</button><button type="button" data-view="pan-left" disabled>Pan left</button><button type="button" data-view="pan-right" disabled>Pan right</button><button type="button" data-view="pan-up" disabled>Pan up</button><button type="button" data-view="pan-down" disabled>Pan down</button><button type="button" data-view="in" disabled>Zoom in</button><button type="button" data-view="out" disabled>Zoom out</button><button type="button" data-view="reset" disabled>Reset view</button></nav>
-  <p id="fold-status" role="status" aria-live="polite">Loading 3D fold preview…</p>
+  <p class="dimensions">Drag to rotate; Shift-drag to pan; scroll to zoom. Keyboard view buttons are below.</p><nav class="view-controls" aria-label="Camera controls"><button type="button" data-view="left" disabled>Rotate left</button><button type="button" data-view="right" disabled>Rotate right</button><button type="button" data-view="up" disabled>Rotate up</button><button type="button" data-view="down" disabled>Rotate down</button><button type="button" data-view="pan-left" disabled>Pan left</button><button type="button" data-view="pan-right" disabled>Pan right</button><button type="button" data-view="pan-up" disabled>Pan up</button><button type="button" data-view="pan-down" disabled>Pan down</button><button type="button" data-view="in" disabled>Zoom in</button><button type="button" data-view="out" disabled>Zoom out</button><button type="button" data-view="reset" disabled>Reset view</button></nav><p id="fold-status" role="status" aria-live="polite">Loading 3D fold preview…</p>
   <noscript><p>3D fold preview needs JavaScript. The 2D dieline remains available.</p></noscript>
 </main>
 <script id="fold-model" type="application/json">{"available": true, "status": "", "faces": [{"id": 0, "vertices": [[15.0, 0.0], [15.0, 120.0], [4.0, 116.0], [0.0, 112.0], [0.0, 8.0], [4.0, 4.0]], "area_mm2": 1708.0}, {"id": 1, "vertices": [[15.0, 0.0], [18.0, -40.18000000000001], [62.224999999999994, -40.18000000000001], [65.225, 0.0]], "area_mm2": 1897.5005}, {"id": 2, "vertices": [[15.0, 0.0], [65.225, 0.0], [65.225, 120.0], [15.0, 120.0]], "area_mm2": 6026.999999999999}, {"id": 3, "vertices": [[15.0, 120.0], [65.225, 120.0], [62.224999999999994, 160.18], [18.0, 160.18]], "area_mm2": 1897.5005000000003}, {"id": 4, "vertices": [[65.225, 0.0], [65.225, -50.225], [145.45, -50.225], [145.45, 0.0]], "area_mm2": 4029.300625}, {"id": 5, "vertices": [[65.225, 0.0], [145.45, 0.0], [145.45, 120.0], [65.225, 120.0]], "area_mm2": 9627.0}, {"id": 6, "vertices": [[65.225, -50.225], [69.225, -65.225], [141.45, -65.225], [145.45, -50.225]], "area_mm2": 1143.3749999999989}, {"id": 7, "vertices": [[145.45, 0.0], [148.45, -40.18000000000001], [192.67499999999998, -40.18000000000001], [195.67499999999998, 0.0]], "area_mm2": 1897.5005}, {"id": 8, "vertices": [[145.45, 0.0], [195.67499999999998, 0.0], [195.67499999999998, 120.0], [145.45, 120.0]], "area_mm2": 6026.999999999996}, {"id": 9, "vertices": [[195.67499999999998, 0.0], [275.9, 0.0], [275.9, 120.0], [195.67499999999998, 120.0]], "area_mm2": 9627.000000000004}, {"id": 10, "vertices": [[275.9, 120.0], [275.9, 170.225], [195.67499999999998, 170.225], [195.67499999999998, 120.0]], "area_mm2": 4029.3006249999926}, {"id": 11, "vertices": [[145.45, 120.0], [195.67499999999998, 120.0], [192.67499999999998, 160.18], [148.45, 160.18]], "area_mm2": 1897.5005000000037}, {"id": 12, "vertices": [[195.67499999999998, 170.225], [275.9, 170.225], [271.9, 185.225], [199.67499999999998, 185.225]], "area_mm2": 1143.3749999999964}], "root": 9, "hinges": [{"parent": 9, "child": 8, "axis": [[195.67499999999998, 120.0], [195.67499999999998, 0.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 9, "child": 10, "axis": [[275.9, 120.0], [195.67499999999998, 120.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 8, "child": 5, "axis": [[145.45, 120.0], [145.45, 0.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 8, "child": 7, "axis": [[145.45, 0.0], [195.67499999999998, 0.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 8, "child": 11, "axis": [[195.67499999999998, 120.0], [145.45, 120.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 10, "child": 12, "axis": [[275.9, 170.225], [195.67499999999998, 170.225]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 5, "child": 2, "axis": [[65.225, 120.0], [65.225, 0.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 5, "child": 4, "axis": [[65.225, 0.0], [145.45, 0.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 2, "child": 0, "axis": [[15.0, 120.0], [15.0, 0.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 2, "child": 1, "axis": [[15.0, 0.0], [65.225, 0.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 2, "child": 3, "axis": [[65.225, 120.0], [15.0, 120.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 4, "child": 6, "axis": [[65.225, -50.225], [145.45, -50.225]], "angle_deg": 90.0, "crease_type": "CREASE"}], "non_tree_folds": [], "cut_edges": [[[15.0, 0.0], [4.0, 4.0]], [[4.0, 4.0], [0.0, 8.0]], [[0.0, 8.0], [0.0, 112.0]], [[0.0, 112.0], [4.0, 116.0]], [[4.0, 116.0], [15.0, 120.0]], [[15.0, 0.0], [18.0, -40.18000000000001]], [[18.0, -40.18000000000001], [62.224999999999994, -40.18000000000001]], [[62.224999999999994, -40.18000000000001], [65.225, 0.0]], [[65.225, 0.0], [65.225, -50.225]], [[65.225, -50.225], [69.225, -65.225]], [[69.225, -65.225], [141.45, -65.225]], [[141.45, -65.225], [145.45, -50.225]], [[145.45, -50.225], [145.45, 0.0]], [[145.45, 0.0], [148.45, -40.18000000000001]], [[148.45, -40.18000000000001], [192.67499999999998, -40.18000000000001]], [[192.67499999999998, -40.18000000000001], [195.67499999999998, 0.0]], [[195.67499999999998, 0.0], [275.9, 0.0]], [[275.9, 0.0], [275.9, 120.0]], [[15.0, 120.0], [18.0, 160.18]], [[18.0, 160.18], [62.224999999999994, 160.18]], [[62.224999999999994, 160.18], [65.225, 120.0]], [[65.225, 120.0], [145.45, 120.0]], [[145.45, 120.0], [148.45, 160.18]], [[148.45, 160.18], [192.67499999999998, 160.18]], [[192.67499999999998, 160.18], [195.67499999999998, 120.0]], [[195.67499999999998, 120.0], [195.67499999999998, 170.225]], [[195.67499999999998, 170.225], [199.67499999999998, 185.225]], [[199.67499999999998, 185.225], [271.9, 185.225]], [[271.9, 185.225], [275.9, 170.225]], [[275.9, 120.0], [275.9, 170.225]]], "continuity": {"valid": true, "tolerance_mm": 0.5, "samples": [0.25, 0.5, 0.75, 1.0], "checked_edges": 12, "max_gap_mm": 5.859285502108464e-14, "worst": {"progress": 0.75, "faces": [2, 3], "endpoint": [15.0, 120.0]}}}</script>
@@ -198,7 +194,8 @@ function createFoldScene(model, viewport) {
   const startCenter = new THREE.Vector3(), direction = new THREE.Vector3(1, -1, 1.3).normalize();
   const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let displayedRadius = 0, startRadius = 0, startedAt = 0, frame = null;
-  // Camera-only navigation for the public generated demo.
+
+// Camera-only navigation for the public generated demo.
 let viewZoom = 1, yaw = -Math.PI/4, pitch = Math.atan(1.3/Math.sqrt(2));
 const viewPan = new THREE.Vector3();
 function changeView(action) {
@@ -249,6 +246,7 @@ renderer.domElement.addEventListener('wheel', event => {
 }, {passive:false});
 renderer.domElement.tabIndex = 0;
 renderer.domElement.setAttribute('aria-label', 'Folded model. Use camera buttons below to rotate, pan or zoom.');
+
 
   function render() {
     const width = Math.max(1, viewport.clientWidth), height = Math.max(1, viewport.clientHeight);
@@ -409,5 +407,10 @@ renderer.domElement.setAttribute('aria-label', 'Folded model. Use camera buttons
   window.addEventListener('pagehide', pause);
 })();
 </script>
-</body>
+<script>
+if (window.parent !== window) {
+  const notify = () => parent.postMessage({type:'origami-viewer-height',height:document.documentElement.scrollHeight}, '*');
+  new ResizeObserver(notify).observe(document.body); addEventListener('load',notify);
+}
+</script></body>
 </html>

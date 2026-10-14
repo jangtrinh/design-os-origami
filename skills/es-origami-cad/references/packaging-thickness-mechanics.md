@@ -1,64 +1,60 @@
-# Packaging Paperboard Thickness & Score Mechanics
+# Caliper, allowance and export semantics
 
-Engineering rules for calculating bend allowances, score deductions, grain orientation, and laser die-board layer standards.
+Material constants and tooling recommendations require measured evidence.
+This package supplies experimental geometry, not a qualified material recipe.
+See [rules.md](../rules.md) and [contract.md](../contract.md) for executable homes.
 
-Draft guidance: material ranges, K factors, grain rules, relief clearances, and
-tooling numbers below lack supporting measured source evidence. The formulas
-are retained for review; the pi-based expression and approximate 0.5t rule are
-not equivalent to the code's default 0.45t allowance. Do not use these values as
-a production recipe. Layer colors are local display conventions; recipient
-spot inks, stroke widths, tools, and import requirements need owner decisions.
+## Known formula conflict
 
-## 1. Neutral Axis & Score Allowance Formula
+The project mandate is `C = π(R + Kt)/2` at 90°. The current executable
+`OrigamiCreasePattern.calculate_score_allowance` is an angle-scaled heuristic,
+with default 0.45t at 90°. These are not equivalent. For R=0, K=0.45,
+the mandated expression yields about 0.707t, not 0.45t or 0.50t.
+Do not silently replace the geometry formula in a packaging/host-bundle task.
+Do not report compliance or use uncalibrated K values as a production recipe.
 
-When paperboard of caliper (thickness) $t$ is creased and folded to angle $\alpha$, the inner surface undergoes compression while the outer surface undergoes tension. The neutral line sits at distance $K \cdot t$ from the inner face.
+Right: record explicit caliper and the actual executable allowance in the run.
+Wrong: change K until a convenient dimensional check passes, or infer caliper
+from grammage alone. Grain, tooling, moisture and material behavior need samples.
 
-### Bending Formula
-$$\Delta L = \frac{\alpha}{180^\circ} \cdot \pi \cdot (R + K \cdot t)$$
-For sharp $90^\circ$ die creases where inside bend radius $R \approx 0$ and $K \approx 0.40 - 0.45$:
-$$\Delta L_{90^\circ} \approx \frac{1}{2} t = 0.50 \cdot t$$
+```python
+# Right: delegate to the owning engine and preserve explicit inputs.
+allowance_mm = cp.calculate_score_allowance(thickness_mm)
+# Wrong: allowance_mm = 0.5 * thickness_mm  # a second, unbound engine rule
+```
 
-For $180^\circ$ rollover folds (double-wall trays, dust flaps, glue tabs):
-$$\Delta L_{180^\circ} \approx 1.0 \cdot t \text{ to } 1.5 \cdot t$$
+## Export decision matrix
 
----
+| Output | Semantics | When NOT to use |
+| --- | --- | --- |
+| SVG presentation | Source lines/layers with M/V `data-fold` where applicable | Not recipient-approved machine setup |
+| R12 presentation DXF | CUT/CREASE/PERFORATE/GLUE; M/V collapsed into CREASE | Not a way to recover M/V assignments |
+| Printer PDF | Five distinct named spot colorants, vector strokes/legend/bleed | Not recipient RIP acceptance |
+| R2000 printer DXF | Millimetres, y-up orientation, printer layer/spot mapping | Not proof of CAD/plotter import |
 
-## 2. Decision Matrix: Paperboard Selection by Application
+| Presentation layer | Exact local color | Meaning |
+| --- | --- | --- |
+| CUT | #FF0000 | Cut knife |
+| CREASE | #00FF00 | Score/fold |
+| PERFORATE | #0000FF | Perforated line |
+| GLUE | #FF00FF | Adhesive area |
 
-| Board Grade | Grammage ($\text{g/m}^2$) | Caliper ($t$) | Bending Stiffness | Best Suited For |
-| :--- | :--- | :--- | :--- | :--- |
-| **SBS (Solid Bleached Sulfate)** | $250 - 450$ | $0.35 - 0.60\text{ mm}$ | High | Luxury cosmetics, pharmaceuticals, perfume |
-| **FBB (Folding Boxboard)** | $200 - 400$ | $0.40 - 0.75\text{ mm}$ | Very High | Confectionery, dry foods, retail consumer goods |
-| **Micro-flute (F/N Flute)** | $300 - 500$ | $0.75 - 1.00\text{ mm}$ | High rigidity | Small electronics, premium e-commerce |
-| **E-Flute Corrugated** | $350 - 600$ | $1.20 - 1.60\text{ mm}$ | Impact resistant | Mailer boxes (FEFCO 0427), subscription boxes |
-| **B-Flute Corrugated** | $450 - 800$ | $2.80 - 3.20\text{ mm}$ | Heavy duty | Master shippers (FEFCO 0201), industrial freight |
+Only required/applicable emitted groups are checked. A closed geometric CUT
+contour can consist of multiple SVG segments; never require one `<path>`.
+Printer defaults are CutContour, CreaseLine, Perforation, Bleed, GlueArea.
+Validated recipient overrides are permitted; presentation colors do not define
+a recipient's spot names, stroke widths or cutting tools.
 
----
+## Common pitfalls and diagnostics
 
-## 3. CNC Laser Die-Board Layer Standard
+| Symptom | Evidence/action | Check home |
+| --- | --- | --- |
+| Fold line becomes a cut | Restore separate layer assignment | `svg-layers`, `dxf-layers` |
+| Spots alias each other | Use five distinct valid recipient names | `printer-spots` |
+| Scale/orientation/bleed wrong | Regenerate and inspect exchange metadata | `printer-exchange` |
+| Caliper missing or invalid | Supply finite positive `thickness` | `input` |
+| Flap fit/load/grain uncertain | Cut and fold a measured material sample | PHYSICAL_FOLD_FIT: NOT VERIFIED |
 
-Packaging prepress requires absolute color and layer separation for automated sample plotters (Zünd, Kongsberg, ESKO):
-
-| Layer Name | Stroke Color | Hex Code | Dash Pattern | Tool Type |
-| :--- | :--- | :--- | :--- | :--- |
-| **CUT** | Red | `#FF0000` / `#FF3344` | Solid | 2pt / 3pt Cutting Knife Rule |
-| **CREASE** | Green | `#00FF00` / `#00E676` | Dashed (`4, 3`) | Creasing Rule + Phenolic Matrix |
-| **PERFORATE** | Blue | `#0000FF` / `#2979FF` | Dotted (`2, 2`) | Perf Rule (e.g. 3mm cut / 3mm skip) |
-| **GLUE** | Magenta | `#FF00FF` / `#E040FB` | Hatch / Solid | PVA or Hot-Melt Adhesive Area |
-| **DIMENSION** | Grey | `#7F7F7F` | Thin Solid | Technical Annotation (Not Cut) |
-
----
-
-## 4. Grain Direction Invariant
-
-Paper fibers align predominantly in the machine direction (MD):
-- **Rule**: Main body score lines MUST run parallel to the grain direction to minimize fold cracking.
-- **Cross-grain scores**: If a crease must run perpendicular to grain, increase score width by $+0.2\text{mm}$ to prevent carton cracking on high-speed folder-gluers.
-
----
-
-## 5. Failure Modes & Anti-Patterns
-
-1. **Zero-Clearance Dust Flaps**: Designing dust flaps with square $90^\circ$ ends causes them to collide with top tuck tabs; always apply a $3^\circ - 5^\circ$ lead-in taper.
-2. **Rollover Pinching**: Folding a double-wall tray without adding an extra $1.0\cdot t$ gap on the inner wall causes the outer wall to bow and crack.
-3. **Over-Creasing**: Using excessive creasing depth on recycled board (WLC) breaks outer liner fibers; inspect score indentation depth to maintain $\ge 60\%$ remaining fiber tensile strength.
+When NOT to use: food-contact, strength, moisture, grain, springback or automated
+folder-gluer claims without material and recipient qualification. No fixed grain
+clearance or score-depth percentage is established by this reference.

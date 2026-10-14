@@ -22,7 +22,8 @@
   <meta name="twitter:image" content="https://jangtrinh.github.io/design-os-origami/assets/tuck-fold-100.png">
   <meta name="twitter:image:alt" content="Actual source-derived tuck-box fold preview at 100% progress">
   <link rel="stylesheet" href="assets/site.css">
-  <script type="application/ld+json">{
+  <script type="application/ld+json">
+{
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -43,7 +44,7 @@
           "name": "What does DESIGN:OS Origami generate?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "It generates seven parametric carton styles as SVG and presentation DXF, a standalone viewer, and a separate printer profile with spot-colour PDF and R2000 DXF. Miura-ori and deer-base are separate research patterns."
+            "text": "It generates 11 parametric carton products as 12 separate SVG and presentation DXF blanks, standalone viewers, and a separate printer profile with spot-colour PDF and R2000 DXF. Sleeve + tray uses two separately named blanks and one file per blank. Miura-ori and deer-base are separate research patterns."
           }
         },
         {
@@ -51,7 +52,7 @@
           "name": "Which cartons have a 3D fold preview?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "The shown tuck box, hexagonal petal box, gable handle box and pillow box pass the sampled continuity gate. Diamond faceted box, zero-glue tray and crash-lock box retain their 2D dielines with no 3D fold preview. Availability depends on the generated geometry."
+            "text": "All 12 shown catalogue blanks (Tuck box, Hexagonal petal box, Diamond faceted box, Zero-glue tray, Gable handle box, Pillow box, Crash-lock box, FEFCO 0201 RSC, FEFCO 0427 mailer, Sleeve + tray \u00b7 sleeve, Sleeve + tray \u00b7 tray, Hinged food box) have qualified source-derived 3D previews. Availability depends on the generated geometry; it does not prove physical fold/fit."
           }
         },
         {
@@ -75,7 +76,7 @@
           "name": "Does the preview prove the carton will fold and fit?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Continuity is checked at 25%, 50%, 75% and 100% fold progress with a 0.5 mm tolerance. The preview does not prove continuous-time motion, collision avoidance, material behaviour, glue closure or physical fold/fit."
+            "text": "No. The baseline checks continuity at 25%, 50%, 75% and 100% with a 0.5 mm tolerance. Coordinated crash-lock motion must additionally pass 101 samples and endpoint/loop closure checks. The preview does not prove continuous-time motion, collision avoidance, material behaviour, glue closure or physical fold/fit."
           }
         },
         {
@@ -89,7 +90,8 @@
       ]
     }
   ]
-}</script>
+}
+</script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -99,7 +101,7 @@
   </header>
   <main id="main" class="wrap">
     <section class="hero" aria-labelledby="proposition">
-      <h1 id="proposition"><span>7 blanks.</span> <span>4 previews.</span></h1>
+      <h1 id="proposition"><span>12 blanks.</span> <span>12 with 3D.</span></h1>
       <div class="hero-art" aria-label="Actual source geometry, its measured fold gate and available preview">
         <figure class="hero-dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/tuck-box.svg" width="640" height="588" fetchpriority="high" alt="The full flat TuckBox_80x50x120 SVG blank, with actual cut and crease paths"><figcaption><a href="assets/models/tuck-box.svg">SVG dieline</a></figcaption></figure>
         <figure class="hero-gate" aria-label="Tuck-box sampled continuity gate"><div class="gate-heading">Fold gate</div><dl class="gate-samples"><div><dt>25%</dt><dd>PASS</dd></div><div><dt>50%</dt><dd>PASS</dd></div><div><dt>75%</dt><dd>PASS</dd></div><div><dt>100%</dt><dd>PASS</dd></div></dl><p class="gate-measure">12 shared edges<br> ≤ 0.5 mm gap</p><figcaption><a href="assets/catalog.json">4 / 4 samples pass</a></figcaption></figure>
@@ -108,48 +110,38 @@
       <div class="hero-copy"><p>DESIGN:OS Origami generates parametric carton dielines, printer exchange files and source-derived folding previews from Python.</p><p class="facts-inline"><span>Python ≥3.10</span> · <span>MIT</span></p><div class="actions"><a class="button" href="#quickstart">Generate your first blank</a><a href="https://github.com/jangtrinh/design-os-origami#readme">README</a></div></div>
     </section>
     <dl class="facts" aria-label="Project facts">
-      <div><dt>Carton choices</dt><dd>Seven parametric styles</dd></div>
+      <div><dt>Carton choices</dt><dd>11 products · 12 blanks</dd></div>
       <div><dt>Interface</dt><dd>Python CLI</dd></div>
       <div><dt>Presentation</dt><dd>SVG · DXF · HTML</dd></div>
       <div><dt>Printer profile</dt><dd>Spot PDF · R2000 DXF</dd></div>
-      <div><dt>Preview gate</dt><dd>Four sampled positions</dd></div>
+      <div><dt>Preview gate</dt><dd>Source-dependent continuity</dd></div>
       <div><dt>Site</dt><dd>Static · no build step</dd></div>
     </dl>
     <section class="section" id="blank" aria-labelledby="blank-title">
       <div class="section-head"><h2 id="blank-title">The blank is the common source.</h2><p>A dieline, a printer exchange sheet and a folding view need to describe the same geometry. Start with the full blank and follow its paths through each output.</p></div>
       <p class="topology-note">The topology tests check a single CUT contour, connectivity and slit attachment. These structural checks do not establish physical foldability.</p>
       <ol class="pipeline">
-        <li><span class="step">1 / Dieline</span><h3>Set the geometry.</h3><p>Generate seven parametric carton dielines as SVG and presentation DXF.</p></li>
+        <li><span class="step">1 / Dieline</span><h3>Set the geometry.</h3><p>Generate 11 parametric carton products as 12 separate SVG and presentation DXF blanks.</p></li>
         <li><span class="step">2 / Printer paths</span><h3>Name the handoff.</h3><p>Export a printer profile with five named spots, 1 pt PDF strokes, a legend and 3 mm default bleed.</p></li>
         <li><span class="step">3 / Fold inspection</span><h3>Follow the hinges.</h3><p>Inspect source-derived rigid-panel motion when the sampled continuity gate permits a 3D preview.</p></li>
       </ol>
     </section>
     <section class="section" id="models" aria-labelledby="models-title">
-      <div class="section-head"><h2 id="models-title">Seven cartons.<br>Every blank visible.</h2><p>Individual source-generated examples, with full SVGs and separate printer PDF/DXF downloads. Dimensions below describe the shown blank, not the finished carton.</p></div>
+      <div class="section-head"><h2 id="models-title">11 products.<br>12 blanks.</h2><p>Individual source-generated examples, with full SVGs and separate printer PDF/DXF downloads. Dimensions below describe the shown blank, not the finished carton.</p></div>
       <ul class="gallery">
-        <li class="model" data-model="tuck-box">
-          <a href="assets/models/tuck-box.svg" aria-label="Open the full Tuck box dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/tuck-box.svg" width="640" height="480" loading="lazy" alt="Tuck box full source dieline with CUT, CREASE and GLUE paths"></a>
-          <div class="model-copy"><h3>Tuck box</h3><p class="meta">Blank 275.9 × 250.45 mm · caliper 0.5 mm</p><p>3D preview available</p><div class="downloads"><a href="assets/models/tuck-box.svg" download aria-label="Download Tuck box SVG">SVG</a><a href="assets/models/tuck-box.pdf" download aria-label="Download Tuck box PDF">PDF</a><a href="assets/models/tuck-box.dxf" download aria-label="Download Tuck box DXF">DXF</a></div></div>
-        </li><li class="model" data-model="hex-petal">
-          <a href="assets/models/hex-petal.svg" aria-label="Open the full Hexagonal petal box dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/hex-petal.svg" width="640" height="480" loading="lazy" alt="Hexagonal petal box full source dieline with CUT, CREASE and GLUE paths"></a>
-          <div class="model-copy"><h3>Hexagonal petal box</h3><p class="meta">Blank 235.3 × 203.8 mm · caliper 0.4 mm</p><p>3D preview available</p><div class="downloads"><a href="assets/models/hex-petal.svg" download aria-label="Download Hexagonal petal box SVG">SVG</a><a href="assets/models/hex-petal.pdf" download aria-label="Download Hexagonal petal box PDF">PDF</a><a href="assets/models/hex-petal.dxf" download aria-label="Download Hexagonal petal box DXF">DXF</a></div></div>
-        </li><li class="model" data-model="diamond-box">
-          <a href="assets/models/diamond-box.svg" aria-label="Open the full Diamond faceted box dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/diamond-box.svg" width="640" height="480" loading="lazy" alt="Diamond faceted box full source dieline with CUT, CREASE and GLUE paths"></a>
-          <div class="model-copy"><h3>Diamond faceted box</h3><p class="meta">Blank 240.0 × 80.0 mm · caliper 0.45 mm</p><p>3D preview unavailable</p><div class="downloads"><a href="assets/models/diamond-box.svg" download aria-label="Download Diamond faceted box SVG">SVG</a><a href="assets/models/diamond-box.pdf" download aria-label="Download Diamond faceted box PDF">PDF</a><a href="assets/models/diamond-box.dxf" download aria-label="Download Diamond faceted box DXF">DXF</a></div></div>
-        </li><li class="model" data-model="zero-glue-tray">
-          <a href="assets/models/zero-glue-tray.svg" aria-label="Open the full Zero-glue tray dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/zero-glue-tray.svg" width="640" height="480" loading="lazy" alt="Zero-glue tray full source dieline with CUT, CREASE and GLUE paths"></a>
-          <div class="model-copy"><h3>Zero-glue tray</h3><p class="meta">Blank 220.0 × 190.0 mm · caliper 0.5 mm</p><p>3D preview unavailable</p><div class="downloads"><a href="assets/models/zero-glue-tray.svg" download aria-label="Download Zero-glue tray SVG">SVG</a><a href="assets/models/zero-glue-tray.pdf" download aria-label="Download Zero-glue tray PDF">PDF</a><a href="assets/models/zero-glue-tray.dxf" download aria-label="Download Zero-glue tray DXF">DXF</a></div></div>
-        </li><li class="model" data-model="gable-box">
-          <a href="assets/models/gable-box.svg" aria-label="Open the full Gable handle box dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/gable-box.svg" width="640" height="480" loading="lazy" alt="Gable handle box full source dieline with CUT, CREASE and GLUE paths"></a>
-          <div class="model-copy"><h3>Gable handle box</h3><p class="meta">Blank 567.9 × 281.6 mm · caliper 0.5 mm</p><p>3D preview available</p><div class="downloads"><a href="assets/models/gable-box.svg" download aria-label="Download Gable handle box SVG">SVG</a><a href="assets/models/gable-box.pdf" download aria-label="Download Gable handle box PDF">PDF</a><a href="assets/models/gable-box.dxf" download aria-label="Download Gable handle box DXF">DXF</a></div></div>
-        </li><li class="model" data-model="pillow-box">
-          <a href="assets/models/pillow-box.svg" aria-label="Open the full Pillow box dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/pillow-box.svg" width="640" height="480" loading="lazy" alt="Pillow box full source dieline with CUT, CREASE and GLUE paths"></a>
-          <div class="model-copy"><h3>Pillow box</h3><p class="meta">Blank 272.9 × 110.0 mm · caliper 0.5 mm</p><p>3D preview available</p><div class="downloads"><a href="assets/models/pillow-box.svg" download aria-label="Download Pillow box SVG">SVG</a><a href="assets/models/pillow-box.pdf" download aria-label="Download Pillow box PDF">PDF</a><a href="assets/models/pillow-box.dxf" download aria-label="Download Pillow box DXF">DXF</a></div></div>
-        </li><li class="model" data-model="crash-lock-box">
-          <a href="assets/models/crash-lock-box.svg" aria-label="Open the full Crash-lock box dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/crash-lock-box.svg" width="640" height="480" loading="lazy" alt="Crash-lock box full source dieline with CUT, CREASE and GLUE paths"></a>
-          <div class="model-copy"><h3>Crash-lock box</h3><p class="meta">Blank 295.9 × 196.4 mm · caliper 0.5 mm</p><p>3D preview unavailable</p><div class="downloads"><a href="assets/models/crash-lock-box.svg" download aria-label="Download Crash-lock box SVG">SVG</a><a href="assets/models/crash-lock-box.pdf" download aria-label="Download Crash-lock box PDF">PDF</a><a href="assets/models/crash-lock-box.dxf" download aria-label="Download Crash-lock box DXF">DXF</a></div></div>
-        </li>
-      </ul>
+<li class="model" data-model="tuck-box"><a href="assets/models/tuck-box.svg" aria-label="Open full Tuck box dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/tuck-box.svg" alt="Tuck box full source dieline" width="640" height="480" loading="lazy"></a><div class="model-copy"><h3>Tuck box</h3><p class="meta">275.9 × 250.4 mm blank · 0.5 mm caliper</p><p>3D preview available</p><nav class="downloads" aria-label="Tuck box downloads"><a href="assets/models/tuck-box.svg">SVG</a><a href="assets/models/tuck-box.pdf">PDF</a><a href="assets/models/tuck-box.dxf">DXF</a><a href="demo/index.html?model=tuck-box">Preview</a></nav></div></li>
+<li class="model" data-model="hex-petal"><a href="assets/models/hex-petal.svg" aria-label="Open full Hexagonal petal box dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/hex-petal.svg" alt="Hexagonal petal box full source dieline" width="640" height="480" loading="lazy"></a><div class="model-copy"><h3>Hexagonal petal box</h3><p class="meta">244.9 × 217.7 mm blank · 0.4 mm caliper</p><p>3D preview available</p><nav class="downloads" aria-label="Hexagonal petal box downloads"><a href="assets/models/hex-petal.svg">SVG</a><a href="assets/models/hex-petal.pdf">PDF</a><a href="assets/models/hex-petal.dxf">DXF</a><a href="demo/index.html?model=hex-petal">Preview</a></nav></div></li>
+<li class="model" data-model="diamond-box"><a href="assets/models/diamond-box.svg" aria-label="Open full Diamond faceted box dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/diamond-box.svg" alt="Diamond faceted box full source dieline" width="640" height="480" loading="lazy"></a><div class="model-copy"><h3>Diamond faceted box</h3><p class="meta">252.0 × 140.0 mm blank · 0.45 mm caliper</p><p>3D preview available</p><nav class="downloads" aria-label="Diamond faceted box downloads"><a href="assets/models/diamond-box.svg">SVG</a><a href="assets/models/diamond-box.pdf">PDF</a><a href="assets/models/diamond-box.dxf">DXF</a><a href="demo/index.html?model=diamond-box">Preview</a></nav></div></li>
+<li class="model" data-model="zero-glue-tray"><a href="assets/models/zero-glue-tray.svg" aria-label="Open full Zero-glue tray dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/zero-glue-tray.svg" alt="Zero-glue tray full source dieline" width="640" height="480" loading="lazy"></a><div class="model-copy"><h3>Zero-glue tray</h3><p class="meta">220.0 × 190.0 mm blank · 0.5 mm caliper</p><p>3D preview available</p><nav class="downloads" aria-label="Zero-glue tray downloads"><a href="assets/models/zero-glue-tray.svg">SVG</a><a href="assets/models/zero-glue-tray.pdf">PDF</a><a href="assets/models/zero-glue-tray.dxf">DXF</a><a href="demo/index.html?model=zero-glue-tray">Preview</a></nav></div></li>
+<li class="model" data-model="gable-box"><a href="assets/models/gable-box.svg" aria-label="Open full Gable handle box dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/gable-box.svg" alt="Gable handle box full source dieline" width="640" height="480" loading="lazy"></a><div class="model-copy"><h3>Gable handle box</h3><p class="meta">567.9 × 304.6 mm blank · 0.5 mm caliper</p><p>3D preview available</p><nav class="downloads" aria-label="Gable handle box downloads"><a href="assets/models/gable-box.svg">SVG</a><a href="assets/models/gable-box.pdf">PDF</a><a href="assets/models/gable-box.dxf">DXF</a><a href="demo/index.html?model=gable-box">Preview</a></nav></div></li>
+<li class="model" data-model="pillow-box"><a href="assets/models/pillow-box.svg" aria-label="Open full Pillow box dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/pillow-box.svg" alt="Pillow box full source dieline" width="640" height="480" loading="lazy"></a><div class="model-copy"><h3>Pillow box</h3><p class="meta">272.9 × 135.4 mm blank · 0.5 mm caliper</p><p>3D preview available</p><nav class="downloads" aria-label="Pillow box downloads"><a href="assets/models/pillow-box.svg">SVG</a><a href="assets/models/pillow-box.pdf">PDF</a><a href="assets/models/pillow-box.dxf">DXF</a><a href="demo/index.html?model=pillow-box">Preview</a></nav></div></li>
+<li class="model" data-model="crash-lock-box"><a href="assets/models/crash-lock-box.svg" aria-label="Open full Crash-lock box dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/crash-lock-box.svg" alt="Crash-lock box full source dieline" width="640" height="480" loading="lazy"></a><div class="model-copy"><h3>Crash-lock box</h3><p class="meta">295.9 × 196.4 mm blank · 0.5 mm caliper</p><p>3D preview available</p><nav class="downloads" aria-label="Crash-lock box downloads"><a href="assets/models/crash-lock-box.svg">SVG</a><a href="assets/models/crash-lock-box.pdf">PDF</a><a href="assets/models/crash-lock-box.dxf">DXF</a><a href="demo/index.html?model=crash-lock-box">Preview</a></nav></div></li>
+<li class="model" data-model="fefco-0201"><a href="assets/models/fefco-0201.svg" aria-label="Open full FEFCO 0201 RSC dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/fefco-0201.svg" alt="FEFCO 0201 RSC full source dieline" width="640" height="480" loading="lazy"></a><div class="model-copy"><h3>FEFCO 0201 RSC</h3><p class="meta">730.9 × 270.2 mm blank · 0.5 mm caliper</p><p>3D preview available</p><nav class="downloads" aria-label="FEFCO 0201 RSC downloads"><a href="assets/models/fefco-0201.svg">SVG</a><a href="assets/models/fefco-0201.pdf">PDF</a><a href="assets/models/fefco-0201.dxf">DXF</a><a href="demo/index.html?model=fefco-0201">Preview</a></nav></div></li>
+<li class="model" data-model="fefco-0427"><a href="assets/models/fefco-0427.svg" aria-label="Open full FEFCO 0427 mailer dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/fefco-0427.svg" alt="FEFCO 0427 mailer full source dieline" width="640" height="480" loading="lazy"></a><div class="model-copy"><h3>FEFCO 0427 mailer</h3><p class="meta">478.5 × 468.2 mm blank · 0.5 mm caliper</p><p>3D preview available</p><nav class="downloads" aria-label="FEFCO 0427 mailer downloads"><a href="assets/models/fefco-0427.svg">SVG</a><a href="assets/models/fefco-0427.pdf">PDF</a><a href="assets/models/fefco-0427.dxf">DXF</a><a href="demo/index.html?model=fefco-0427">Preview</a></nav></div></li>
+<li class="model" data-model="sleeve-tray-sleeve"><a href="assets/models/sleeve-tray-sleeve.svg" aria-label="Open full Sleeve + tray · sleeve dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/sleeve-tray-sleeve.svg" alt="Sleeve + tray · sleeve full source dieline" width="640" height="480" loading="lazy"></a><div class="model-copy"><h3>Sleeve + tray · sleeve</h3><p class="meta">336.9 × 81.0 mm blank · 0.5 mm caliper</p><p>3D preview available</p><nav class="downloads" aria-label="Sleeve + tray · sleeve downloads"><a href="assets/models/sleeve-tray-sleeve.svg">SVG</a><a href="assets/models/sleeve-tray-sleeve.pdf">PDF</a><a href="assets/models/sleeve-tray-sleeve.dxf">DXF</a><a href="demo/index.html?model=sleeve-tray-sleeve">Preview</a></nav></div></li>
+<li class="model" data-model="sleeve-tray-tray"><a href="assets/models/sleeve-tray-tray.svg" aria-label="Open full Sleeve + tray · tray dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/sleeve-tray-tray.svg" alt="Sleeve + tray · tray full source dieline" width="640" height="480" loading="lazy"></a><div class="model-copy"><h3>Sleeve + tray · tray</h3><p class="meta">190.2 × 150.2 mm blank · 0.5 mm caliper</p><p>3D preview available</p><nav class="downloads" aria-label="Sleeve + tray · tray downloads"><a href="assets/models/sleeve-tray-tray.svg">SVG</a><a href="assets/models/sleeve-tray-tray.pdf">PDF</a><a href="assets/models/sleeve-tray-tray.dxf">DXF</a><a href="demo/index.html?model=sleeve-tray-tray">Preview</a></nav></div></li>
+<li class="model" data-model="food-box"><a href="assets/models/food-box.svg" aria-label="Open full Hinged food box dieline"><img onerror="this.onerror=null;this.alt='Image unavailable: '+this.alt" src="assets/models/food-box.svg" alt="Hinged food box full source dieline" width="640" height="480" loading="lazy"></a><div class="model-copy"><h3>Hinged food box</h3><p class="meta">300.2 × 405.4 mm blank · 0.5 mm caliper</p><p>3D preview available</p><nav class="downloads" aria-label="Hinged food box downloads"><a href="assets/models/food-box.svg">SVG</a><a href="assets/models/food-box.pdf">PDF</a><a href="assets/models/food-box.dxf">DXF</a><a href="demo/index.html?model=food-box">Preview</a></nav></div></li>
+</ul>
       <p class="gallery-note">These catalogue examples record their own dimensions and caliper in <a href="assets/catalog.json">catalog.json</a>; they are not a promise that every parameter combination folds. Miura-ori and deer-base are separate research patterns, outside this carton catalogue.</p>
     </section>
     <section class="section" id="printer" aria-labelledby="printer-title">
@@ -159,9 +151,9 @@
       </div>
     </section>
     <section class="section" id="preview" aria-labelledby="preview-title">
-      <div class="section-head"><h2 id="preview-title">From flat paths<br>to moving panels.</h2><p>Inspect source-derived rigid-panel motion when the sampled continuity gate permits a 3D preview. Rotate, pan and zoom the actual generated tuck viewer below; use its fold controls to inspect progress.</p></div>
-      <iframe class="demo" src="demo/tuck-box.html" title="Interactive source-derived tuck-box dieline and 3D fold preview" loading="lazy"></iframe>
-      <div class="demo-caption"><p>Rigid-panel visualization; continuity is sampled at 25%, 50%, 75% and 100%, with a 0.5 mm tolerance. The 2D drawing remains available if JavaScript, the Three.js r128 CDN or WebGL is unavailable.</p><a href="demo/tuck-box.html">Open the standalone viewer</a></div>
+      <div class="section-head"><h2 id="preview-title">From flat paths<br>to moving panels.</h2><p>Inspect source-derived rigid-panel motion when the sampled continuity gate permits a 3D preview. Choose a blank, then rotate, pan and zoom its generated viewer; use the fold controls to inspect progress.</p></div>
+      <iframe class="demo" src="demo/index.html" title="Interactive carton model switcher and source-derived fold preview" loading="lazy"></iframe>
+      <div class="demo-caption"><p>Rigid-panel visualization; the baseline checks four positions at a 0.5 mm tolerance. Coordinated crash-lock motion also passes 101 samples and endpoint/loop closure checks. The 2D drawing remains available if JavaScript, the Three.js r128 CDN or WebGL is unavailable.</p><a href="demo/index.html">Open the standalone viewer</a></div>
     </section>
     <section class="section" id="comparison" aria-labelledby="comparison-title">
       <div class="section-head"><h2 id="comparison-title">Choose the workflow<br>for the job.</h2><p>A parameter-driven blank makes regeneration explicit. Drawing, recipient checks and physical sampling still have their own jobs.</p></div>
@@ -172,11 +164,11 @@
 <tr><th scope="row">Physical qualification</th><td>Check material, fit and manufacturing behaviour.</td><td>The same physical checks remain necessary; the preview does not replace them.</td></tr></tbody></table></div>
       <p class="honest-aside">Use a recipient-qualified CAD/prepress workflow for accepted manufacturing exchange. Use a physical sample to establish fold/fit. These generated files and previews do not establish either outcome.</p>
     </section>
-    <section class="section" id="faq" aria-labelledby="faq-title"><div class="faq-layout"><h2 id="faq-title">Before you<br>cut or fold.</h2><div class="faq-list"><details id="faq-1"><summary>What does DESIGN:OS Origami generate?</summary><p>It generates seven parametric carton styles as SVG and presentation DXF, a standalone viewer, and a separate printer profile with spot-colour PDF and R2000 DXF. Miura-ori and deer-base are separate research patterns.</p></details>
-<details id="faq-2"><summary>Which cartons have a 3D fold preview?</summary><p>The shown tuck box, hexagonal petal box, gable handle box and pillow box pass the sampled continuity gate. Diamond faceted box, zero-glue tray and crash-lock box retain their 2D dielines with no 3D fold preview. Availability depends on the generated geometry.</p></details>
+    <section class="section" id="faq" aria-labelledby="faq-title"><div class="faq-layout"><h2 id="faq-title">Before you<br>cut or fold.</h2><div class="faq-list"><details id="faq-1"><summary>What does DESIGN:OS Origami generate?</summary><p>It generates 11 parametric carton products as 12 separate SVG and presentation DXF blanks, standalone viewers, and a separate printer profile with spot-colour PDF and R2000 DXF. Sleeve + tray uses two separately named blanks and one file per blank. Miura-ori and deer-base are separate research patterns.</p></details>
+<details id="faq-2"><summary>Which cartons have a 3D fold preview?</summary><p>All 12 shown catalogue blanks (Tuck box, Hexagonal petal box, Diamond faceted box, Zero-glue tray, Gable handle box, Pillow box, Crash-lock box, FEFCO 0201 RSC, FEFCO 0427 mailer, Sleeve + tray · sleeve, Sleeve + tray · tray, Hinged food box) have qualified source-derived 3D previews. Availability depends on the generated geometry; it does not prove physical fold/fit.</p></details>
 <details id="faq-3"><summary>What is in the printer profile?</summary><p>The defaults are CutContour, CreaseLine, Perforation, Bleed and GlueArea, with 1 pt PDF strokes, a five-spot legend and 3 mm bleed. Printer DXF is R2000 with millimetre units and y-up coordinates. Recipient RIP/CAD import is not verified.</p></details>
 <details id="faq-4"><summary>How do I run it?</summary><p>Use Python 3.10 or newer from a checkout and run the Quickstart commands. Presentation mode writes SVG, DXF and viewer HTML; printer mode writes a separate PDF and DXF.</p></details>
-<details id="faq-5"><summary>Does the preview prove the carton will fold and fit?</summary><p>No. Continuity is checked at 25%, 50%, 75% and 100% fold progress with a 0.5 mm tolerance. The preview does not prove continuous-time motion, collision avoidance, material behaviour, glue closure or physical fold/fit.</p></details>
+<details id="faq-5"><summary>Does the preview prove the carton will fold and fit?</summary><p>No. The baseline checks continuity at 25%, 50%, 75% and 100% with a 0.5 mm tolerance. Coordinated crash-lock motion must additionally pass 101 samples and endpoint/loop closure checks. The preview does not prove continuous-time motion, collision avoidance, material behaviour, glue closure or physical fold/fit.</p></details>
 <details id="faq-6"><summary>What are the license and browser requirements?</summary><p>Original repository work is MIT licensed; third-party references retain their own rights. The static landing page has no analytics, cookies or widgets. The embedded viewer requires JavaScript, WebGL and the pinned Three.js r128 CDN; its 2D dieline remains available when 3D cannot load.</p></details></div></div></section>
     <section class="section quickstart" id="quickstart" aria-labelledby="quickstart-title">
       <h2 id="quickstart-title">Generate your first blank.</h2><p>From the repository checkout, with Python ≥3.10. The first command uses presentation mode; the second adds the printer profile.</p>
@@ -191,10 +183,11 @@ output/TuckBox_80x50x120_viewer.html</code></pre>
       <ol class="safe-loop"><li>Generate the presentation files and inspect the full SVG blank. Keep each earlier delivery in a separate output directory before regenerating.</li><li>Generate the printer profile and inspect its PDF legend, spot names, bleed and dimensions at 100% scale.</li><li>Open the generated viewer, inspect available fold motion, then qualify RIP/CAD import and physical fold/fit with the recipient before manufacturing.</li></ol>
     </section>
     <section class="section" id="limits" aria-labelledby="limits-title">
-      <div class="limits"><h2 id="limits-title">What is NOT verified</h2><ul><li>Recipient RIP/CAD import and prepress acceptance are not verified.</li><li>Physical fold/fit, material, grain, tooling and manufacturing tolerances are not verified.</li><li>Crash-lock box, zero-glue tray and diamond faceted box have no qualified 3D preview.</li><li>Continuity is sampled at 25%, 50%, 75% and 100% with a 0.5 mm tolerance; continuous-time motion and collision avoidance are not verified.</li></ul><p>Score allowances are uncalibrated heuristics. Knowledge documents have mixed provenance; structural lint does not establish their engineering claims.</p></div>
-      <div class="read-next"><h3>Read the contracts.</h3><ul class="link-list"><li><a href="printer-profile.md">Printer profile: spots, bleed, scale and exchange limits</a></li><li><a href="fold-preview.md">Fold preview: extraction, continuity and motion limits</a></li><li><a href="https://github.com/jangtrinh/design-os-origami#readme">README</a></li></ul><p class="publication-note">The public repository name and canonical URL are prepared for publication. Remote availability is not verified.</p></div>
+      <div class="limits"><h2 id="limits-title">What is NOT verified</h2><ul><li>Recipient RIP/CAD import and prepress acceptance are not verified.</li><li>Physical fold/fit, material, grain, tooling and manufacturing tolerances are not verified.</li><li>The baseline samples four positions; coordinated motion also passes 101 samples and endpoint/loop closure checks, with the same 0.5 mm seam tolerance. Continuous-time motion, automatic locking and collision avoidance are not verified.</li></ul><p>Score allowances are uncalibrated heuristics. Knowledge documents have mixed provenance; structural lint does not establish their engineering claims.</p></div>
+      <div class="read-next"><h3>Read the contracts.</h3><ul class="link-list"><li><a href="printer-profile.md">Printer profile: spots, bleed, scale and exchange limits</a></li><li><a href="fold-preview.md">Fold preview: extraction, continuity and motion limits</a></li><li><a href="ai-hosts/index.md">Use with your local AI host</a></li><li><a href="https://github.com/jangtrinh/design-os-origami#readme">README</a></li></ul><p class="publication-note">The public repository name and canonical URL are prepared for publication. Remote availability is not verified.</p></div>
     </section>
   </main>
   <footer class="wrap"><a href="https://github.com/jangtrinh/design-os-origami">GitHub</a><a href="https://github.com/jangtrinh/design-os-origami/blob/main/LICENSE">MIT license</a><a href="#top">Back to top</a></footer>
+<script src="assets/viewer-embed.js"></script>
 </body>
 </html>

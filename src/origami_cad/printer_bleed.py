@@ -56,7 +56,14 @@ def outward_envelope(points, distance):
             if i==j:continue
             ex,ey=d.x-c.x,d.y-c.y
             den=dx*ey-dy*ex
-            if abs(den)<1e-12:continue
+            if abs(den)<1e-12:
+                # Collinear overlap (a notch narrower than the bleed): split at the other
+                # strip's endpoints so every boundary piece shares the same nodes.
+                for e in (c,d):
+                    if abs(dx*(e.y-a.y)-dy*(e.x-a.x))<=EPS*length:
+                        t=((e.x-a.x)*dx+(e.y-a.y)*dy)/(length*length)
+                        if -EPS<=t<=1+EPS:cuts.append(max(0,min(1,t)))
+                continue
             t=((c.x-a.x)*ey-(c.y-a.y)*ex)/den
             u=((c.x-a.x)*dy-(c.y-a.y)*dx)/den
             if -EPS<=t<=1+EPS and -EPS<=u<=1+EPS:cuts.append(max(0,min(1,t)))

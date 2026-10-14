@@ -1,6 +1,7 @@
 """Parametric packaging dieline generators combining origami crease patterns with industrial packaging standards."""
 
 import math
+from origami_cad.packaging_constraints import validate_glue_flap
 from origami_cad.packaging_hex_petal import generate_hexagonal_petal_box
 from origami_cad.packaging_pillow import generate_pillow_box
 from origami_cad.packaging_diamond import generate_diamond_faceted_box
@@ -31,6 +32,7 @@ def generate_tuck_box(
     # Effective panel dimensions
     w = width + c_allow
     d = depth + c_allow
+    validate_glue_flap(glue_flap_width, w)
     h = height
 
     # Horizontal panel progression along X:
@@ -225,3 +227,9 @@ def generate_miura_ori_sleeve(
                 cp.add_crease(Point2D(x, y), Point2D(nx2, ny), c_type, 60.0)
 
     return cp
+
+from origami_cad.packaging_sleeve_tray import generate_sleeve_tray
+from origami_cad.packaging_food_box import generate_food_box
+
+from origami_cad.packaging_fefco_0201 import generate_fefco_0201
+from origami_cad.packaging_fefco_0427 import generate_fefco_0427

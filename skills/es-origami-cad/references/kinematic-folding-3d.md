@@ -1,67 +1,55 @@
-# 3D Kinematic Folding Simulation & WebGL Rendering
+# Source-derived folding preview
 
-Mathematical formulation and Three.js implementation guidelines for real-time origami folding simulation.
+The viewer extracts panels and hinges from generated crease geometry. Qualified
+nets display rigid-panel motion after the product's sampled continuity gate.
+Unsupported nets retain 2D and explicitly unavailable 3D; no decorative fallback
+mesh is evidence of a fold. Physical assembly and collisions remain unqualified.
 
-Draft guidance: the equations and example architecture below are not evidence
-that the repository viewer solves a generated net. The viewer is illustrative;
-rigid closure, collision detection, and physical assembly remain unqualified.
+## Hinge mathematics
 
-## 1. Rodrigues' Rotation Formula around Hinge Vectors
+For unit hinge axis u through p, rotate vertex v by angle ρ:
 
-Given two rigid facets $F_A$ and $F_B$ joined along a crease line with unit axis $\hat{\mathbf{u}} = \frac{\mathbf{p}_2 - \mathbf{p}_1}{\|\mathbf{p}_2 - \mathbf{p}_1\|}$:
+`v' = p + (v-p)cosρ + [u × (v-p)]sinρ + u[u·(v-p)](1-cosρ)`.
 
-For any vertex $\mathbf{v} \in F_B$, rotating by fold angle $\rho$ around hinge passing through $\mathbf{p}_1$:
-$$\mathbf{v}' = \mathbf{p}_1 + (\mathbf{v} - \mathbf{p}_1) \cos \rho + (\hat{\mathbf{u}} \times (\mathbf{v} - \mathbf{p}_1)) \sin \rho + \hat{\mathbf{u}} (\hat{\mathbf{u}} \cdot (\mathbf{v} - \mathbf{p}_1)) (1 - \cos \rho)$$
+A child's transform composes with its parent's transform. The rooted spanning
+tree does not eliminate constraints on the remaining hinges; loop closure needs
+its own source-derived checks. An axis reversal also reverses positive rotation.
 
-In matrix form:
-$$\mathbf{R}(\hat{\mathbf{u}}, \rho) = \mathbf{I} + (\sin \rho) \mathbf{K} + (1 - \cos \rho) \mathbf{K}^2$$
-where $\mathbf{K}$ is the skew-symmetric cross-product matrix:
-$$\mathbf{K} = \begin{bmatrix} 0 & -u_z & u_y \\ u_z & 0 & -u_x \\ -u_y & u_x & 0 \end{bmatrix}$$
+Right: transform a child around its source hinge in its parent coordinate frame.
+Wrong: rotate every panel independently around an arbitrary world-space center.
 
----
-
-## 2. Dual-Graph Kinematic Tree
-
-To avoid cyclic dependency errors:
-1. **Choose Base Panel**: Select the primary ground panel (e.g., `FrontPanel` or `BaseHexagon`) anchored at $Z = 0$.
-2. **Build Spanning Tree**: Construct a directed tree where each node is a facet and each edge is a revolute joint.
-3. **Compound Transformations**:
-   $$\mathbf{T}_{\text{child}} = \mathbf{T}_{\text{parent}} \cdot \mathbf{T}_{\text{hinge}}(\rho)$$
-
----
-
-## 3. Three.js Dual-Pane Architecture
-
-An illustrative packaging interface can use a synchronized dual-pane layout:
-- **Left Pane (2D CAD Canvas)**: Raw SVG dieline displaying laser die CUT (Red), CREASE (Green dashed), and GLUE (Magenta) lines.
-- **Right Pane (3D WebGL Viewport)**: Three.js scene containing `THREE.Group` hierarchical joints driven by a fold progress variable $\tau \in [0, 1]$.
-
-### Hinge Group Construction Pattern
-```javascript
-// Anchor group
-const baseMesh = createPanelMesh(w, h);
-scene.add(baseMesh);
-
-// Hinge joint attached to edge of base panel
-const hingeGroup = new THREE.Group();
-hingeGroup.position.set(-w / 2, 0, 0); // Position on fold line
-baseMesh.add(hingeGroup);
-
-// Child panel attached to hinge
-const childMesh = createPanelMesh(d, h);
-childMesh.position.set(-d / 2, 0, 0);
-hingeGroup.add(childMesh);
-
-// Animate fold:
-function updateFold(angleDeg) {
-  hingeGroup.rotation.y = THREE.MathUtils.degToRad(angleDeg);
-}
+```text
+right: T_child = T_parent × T_source_hinge(rotation)
+wrong: T_child = decorative_animation(requested_family_label)
 ```
 
----
+## Preview qualification decisions
 
-## 4. Failure Modes & Anti-Patterns
+| State | Display | When NOT to infer more |
+| --- | --- | --- |
+| Source extraction + sampled continuity pass | Real source-derived panels/hinges | Not physical fit, collision freedom or continuous-time proof |
+| Coordinated motion passes endpoint/loop constraints | Qualified sampled coordinated candidate | Not all arbitrary custom dimensions |
+| Unsupported extraction/motion | SVG + explicit unavailable status | Never synthesize a substitute mesh |
+| Browser/cache unavailable | LOOK NOT RUN | Unit tests or an old screenshot do not replace a capture |
 
-1. **Inverted Hinge Vector**: If the direction vector $\hat{\mathbf{u}}$ is reversed ($\mathbf{p}_1 \to \mathbf{p}_2$ vs $\mathbf{p}_2 \to \mathbf{p}_1$), positive rotation produces an outward fold instead of an inward fold, turning the carton inside-out.
-2. **Unanchored Floating Mesh**: Failing to anchor one face as the stationary world base causes the entire 3D model to rotate and drift unpredictably during fold animation.
-3. **Double-Sided Face Z-Fighting**: Placing inner and outer liner meshes at identical coordinates $Z = 0$ results in severe visual flicker; offset overlapping panels by caliper $t$ along the facet normal.
+Baseline seam tolerance and samples are the owning engine's contract, not a
+host-specific constant to loosen. Coordinated candidates additionally check
+original endpoints and loop closure. Preserve rejected candidates and status.
+
+## Common pitfalls and diagnostics
+
+| Symptom | Evidence/action | Home |
+| --- | --- | --- |
+| Wrong M/V direction | Compare actual source segments with SVG metadata | `fold-metadata` |
+| Floating or torn panels | Inspect source hinge graph and sampled continuity | `preview-status`, look L7 |
+| Canvas rectangle with no model | Measure pixels and source-model stability | Look L5, L6 |
+| Console/network failures | Keep error receipt and reject unexpected requests | Look L8 |
+| “Available” on unsupported net | Restore honest unavailable state and SVG | `preview-status`, look L9 |
+
+The generated HTML uses pinned Three.js r128. Offline look intercepts only that
+exact request with checksum-verified cache bytes; every other external request
+fails. No download occurs during look. [look.md](../look.md) owns fixed shots and
+[ATTRIBUTION.md](../ATTRIBUTION.md) records renderer provenance.
+
+When NOT to use: certifying mechanical locking, thickness-aware contact,
+continuous collision avoidance, multi-sheet assembly, or recipient import.

@@ -42,11 +42,11 @@ blank uncropped and no baked title or legend text.
 
 ## One blank, multiple outputs
 
-The hero pairs the source-specific proposition “7 blanks. 4 previews.” with two
+The hero pairs the source-specific proposition “12 blanks. 10 with 3D.” with two
 real images: the full flat source SVG and the actual source-derived 100% fold
 capture. Between them, a four-row continuity register displays the real tuck
 gate from catalog.json: 25/50/75/100%, 12 shared edges, 0.5mm gap tolerance.
-The unavailable three catalogue defaults are part of this tool’s identity. The title and every image have a clear 32px separation at all breakpoints.
+The two unavailable catalogue blanks are part of this tool’s identity. The title and every image have a clear 32px separation at all breakpoints.
 The owner explicitly selected separation over the earlier default interlock.
 The actual source-generated forms, technical paths and moving hinge panels
 provide the subject-specific visual identity. The images remain separate,
@@ -60,7 +60,7 @@ large tuck blank and five-image fold strip have been removed; the catalogue
 and interactive viewer already expose those artifacts. Catalogue cards are the
 only repeated card grid.
 
-Gate interpretation: the seven semantic gallery entries contain real images,
+Gate interpretation: the twelve semantic gallery entries contain real images,
 headings and downloads, despite a primitive-shape advisory. Literal-CSS type
 inspection omits the resolved 128px clamp heading. Uppercase SVG/PDF/DXF labels
 are file-format actions rather than ornamental section kickers. Rendered probes
@@ -79,7 +79,8 @@ have at least 44px target height. Running-text links retain the inline exception
 
 Each interactive element has a visible keyboard focus ring and hover/active
 feedback. Hover rules run only under `@media (hover: hover)`. FAQ uses native semantic details/summary as explicitly required by the
-brief. The landing page has no script file or runtime library; JSON-LD is metadata.
+brief. The landing page uses a small local script for iframe sizing; JSON-LD is metadata.
+The embedded source viewer loads the pinned Three.js runtime for its 3D pane.
 Inline image-error handlers preserve the failed source URL and prefix the
 existing alternative text with “Image unavailable”. No replacement artwork is
 presented as evidence. The actual
@@ -117,3 +118,20 @@ The measured four-sample register and dashed seam rules recur through pipeline,
 printer spot rows and viewer caption. They use the existing hairline token; bright
 technical path colours remain confined to generated CAD output. The redundant
 printer raster was removed from the hero and appears once in its printer section.
+
+
+## Source-derived model switcher
+
+The Operate catalogue inherits the light viewer tokens. Mono chips are native
+links: 44px minimum targets, visible focus, selected ink/paper state, wrapping
+rows at narrow widths. Selecting changes the actual standalone source viewer and
+its deep link; unknown choices hide the iframe and announce an error. Unqualified
+models retain a 2D viewer with unavailable status. Existing camera/fold controls
+are reused, not substituted with illustrated animation.
+
+Two-piece products expose each named blank independently. The landing iframe
+accepts bounded height messages only from its own generated catalogue window;
+the catalogue accepts height only from its own blank window. This removes nested
+vertical clipping as model layouts change. The landing's small local script owns
+only iframe sizing; no analytics or third-party widget is added. Source rendering,
+qualification and interaction proof remain separate checks.

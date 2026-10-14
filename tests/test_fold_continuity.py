@@ -20,9 +20,19 @@ class FoldContinuity(unittest.TestCase):
                 self.assertIn('coordinated or non-rigid folding', model['status'])
                 from test_viewer_real_fold import html_for, model_from
                 html = html_for(cp)
-                self.assertEqual(model_from(html), model)
-                self.assertIn(model['status'], html)
-                self.assertIn('aria-disabled="true"', html)
+                from origami_cad.preview_model import build_preview_model
+                preview = build_preview_model(cp)
+                self.assertEqual(model_from(html), preview)
+                if preview['available']:
+                    # New coordinated path may qualify an unchanged source that the
+                    # legacy four-sample source schedule correctly rejects.
+                    self.assertTrue(preview['coordination']['endpoint']['valid'])
+                    self.assertTrue(preview['coordination']['loop']['valid'])
+                    self.assertEqual(len(preview['continuity']['samples']), 101)
+                    self.assertLessEqual(preview['continuity']['max_gap_mm'], .5)
+                else:
+                    self.assertIn(preview['status'], html)
+                    self.assertIn('aria-disabled="true"', html)
                 self.assertIn('<line ', html)
 
     def test_all_models_variants_match_actual_seam_qualification(self):
@@ -56,7 +66,7 @@ class FoldContinuity(unittest.TestCase):
         model['non_tree_folds'] = []
         report = continuity_report(model)
         self.assertFalse(report['valid'])
-        self.assertAlmostEqual(report['max_gap_mm'], 42.426406871, places=6)
+        self.assertAlmostEqual(report['max_gap_mm'], 30.0, places=6)
 
     def test_cut_slits_do_not_become_uncut_seam_constraints(self):
         from origami_cad.fold_faces import _extract_fold_model

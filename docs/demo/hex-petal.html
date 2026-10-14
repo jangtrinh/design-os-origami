@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><link rel="canonical" href="https://jangtrinh.github.io/design-os-origami/demo/hex-petal.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OrigamiHexPetal_R40_H55 · Fold preview</title>
+  <style>
+:root {
+  --paper: #FFFFFF; --ink: #232327; --secondary: #6F6F78;
+  --surface: #F4F4F6; --border: #E0E0E4; --line: #898992;
+  --back: #EEF0F4; font-size: 16px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink);
+  font: 13px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1120px; margin: 0 auto; padding: 32px 20px 60px; }
+header { margin-bottom: 24px; }
+h1 { margin: 0 0 8px; font-size: 20px; font-weight: 600; line-height: 1.3;
+  overflow-wrap: anywhere; }
+.dimensions { margin: 0; color: var(--secondary); }
+.panes { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+.pane { min-width: 0; border: 1px solid var(--border); border-radius: 12px;
+  overflow: hidden; background: var(--paper); }
+h2 { margin: 0; padding: 12px 16px; font: 600 11px/1.5 ui-monospace, monospace;
+  border-radius: 11px 11px 0 0; }
+.cad-canvas, #three-viewport { width: 100%; aspect-ratio: 1 / 1; min-width: 0; }
+.cad-canvas, #three-viewport { border-radius: 0 0 11px 11px; overflow: hidden; }
+.cad-canvas { padding: 16px; display: flex; align-items: center; justify-content: center; }
+.cad-canvas svg { width: 100%; height: 100%; fill: none; stroke-width: 0.9; }
+#three-viewport canvas { display: block; width: 100%; height: 100%; border-radius: inherit; }
+.controls { display: flex; align-items: center; gap: 12px; margin-top: 20px;
+  font: 11px/1.5 ui-monospace, monospace; }
+#fold-slider { --progress: 0%; flex: 1; min-width: 44px; height: 44px;
+  display: flex; align-items: center; cursor: pointer; touch-action: none;
+  padding: 0 8px; border-radius: 6px; }
+.slider-track { display: block; position: relative; height: 1px; width: 100%;
+  background: var(--line); }
+.slider-fill { display: block; height: 1px; width: var(--progress); background: var(--ink); }
+.slider-thumb { position: absolute; left: var(--progress); top: 0; width: 14px; height: 14px;
+  border-radius: 50%; border: 1px solid var(--ink); background: var(--paper);
+  transform: translate(-50%, -50%); }
+#fold-percent { min-width: 4ch; text-align: right; font-variant-numeric: tabular-nums; }
+button { min-height: 44px; min-width: 44px; padding: 6px 12px; border-radius: 6px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+  font: 11px/1.5 ui-monospace, monospace; cursor: pointer; }
+button:active:enabled, button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+button:disabled { color: var(--secondary); cursor: default; }
+#fold-slider[aria-disabled="true"] { opacity: 0.6; cursor: default; }
+@media (hover: hover) {
+  button:hover:enabled { background: var(--back); border-color: var(--line); }
+  #fold-slider:hover:not([aria-disabled="true"]) .slider-thumb { background: var(--surface); }
+}
+button:focus-visible, #fold-slider:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+#fold-status { margin: 12px 0 0; color: var(--secondary); }
+#fold-status:empty { display: none; }
+::selection { background: var(--ink); color: var(--paper); }
+@media (max-width: 767px) {
+  .panes { grid-template-columns: minmax(0, 1fr); }
+  .controls { gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+body{font-size:14px}h2,.controls,button{font-size:12px}.dimensions{max-width:60ch}.view-controls{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.view-controls button{min-height:44px;padding:8px 16px}header>a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink)}header>a:focus-visible,#three-viewport canvas:focus-visible{outline:2px solid var(--ink);outline-offset:3px}#three-viewport canvas{touch-action:pan-y;cursor:grab}</style>
+</head>
+<body>
+<main>
+  <header><a href="index.html">Choose another blank</a><h1>OrigamiHexPetal_R40_H55</h1><p class="dimensions">Blank 244.882 × 217.674 mm · Caliper 0.4 mm</p></header>
+  <div class="panes">
+    <section class="pane" aria-labelledby="dieline-title">
+      <h2 id="dieline-title">2D dieline</h2>
+      <div class="cad-canvas"><svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="2D dieline" viewBox="15.314882233484699 28.918867932588544 269.37023553303061 242.16226413482292">
+<line x1="184.64101615137756" y1="130" x2="184.64101615137756" y2="170" stroke="#6F6F78" stroke-width="2.4" data-presentation="contrast" aria-hidden="true" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="184.64101615137756" y1="130" x2="184.64101615137756" y2="170" stroke="#00FF00" data-fold="crease" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="184.64101615137756" y1="170" x2="150" y2="190" stroke="#6F6F78" stroke-width="2.4" data-presentation="contrast" aria-hidden="true" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="184.64101615137756" y1="170" x2="150" y2="190" stroke="#00FF00" data-fold="crease" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="150" y1="190" x2="115.35898384862244" y2="170" stroke="#6F6F78" stroke-width="2.4" data-presentation="contrast" aria-hidden="true" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="150" y1="190" x2="115.35898384862244" y2="170" stroke="#00FF00" data-fold="crease" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="115.35898384862244" y1="170" x2="115.35898384862246" y2="130" stroke="#6F6F78" stroke-width="2.4" data-presentation="contrast" aria-hidden="true" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="115.35898384862244" y1="170" x2="115.35898384862246" y2="130" stroke="#00FF00" data-fold="crease" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="115.35898384862246" y1="130" x2="150" y2="110" stroke="#6F6F78" stroke-width="2.4" data-presentation="contrast" aria-hidden="true" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="115.35898384862246" y1="130" x2="150" y2="110" stroke="#00FF00" data-fold="crease" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="150" y1="110" x2="184.64101615137756" y2="130" stroke="#6F6F78" stroke-width="2.4" data-presentation="contrast" aria-hidden="true" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="150" y1="110" x2="184.64101615137756" y2="130" stroke="#00FF00" data-fold="crease" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="239.64101615137756" y1="130" x2="239.64101615137756" y2="170" stroke="#6F6F78" stroke-width="2.4" data-presentation="contrast" aria-hidden="true" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="239.64101615137756" y1="130" x2="239.64101615137756" y2="170" stroke="#00FF00" data-fold="crease" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="239.64101615137756" y1="130" x2="257.68101615137755" y2="134.80000000000001" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="257.68101615137755" y1="134.80000000000001" x2="272.44101615137754" y2="155.59999999999999" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="272.44101615137754" y1="155.59999999999999" x2="259.97701615137754" y2="167.59999999999999" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="259.97701615137754" y1="167.59999999999999" x2="239.64101615137756" y2="170" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="184.64101615137756" y1="130" x2="239.64101615137756" y2="130" stroke="#6F6F78" stroke-width="2.4" data-presentation="contrast" aria-hidden="true" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="184.64101615137756" y1="130" x2="239.64101615137756" y2="130" stroke="#00FF00" data-fold="crease" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="184.64101615137756" y1="130" x2="191.84101615137754" y2="118" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="191.84101615137754" y1="118" x2="232.44101615137757" y2="118" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="232.44101615137757" y1="118" x2="239.64101615137756" y2="130" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="195.44101615137754" y1="124" x2="228.84101615137757" y2="124" stroke="#FF00FF" data-fold="glue" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="184.64101615137756" y1="170" x2="239.64101615137756" y2="170" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="212.14101615137756" y1="217.63139720814414" x2="177.5" y2="237.63139720814414" stroke="#6F6F78" stroke-width="2.4" data-presentation="contrast" aria-hidden="true" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="212.14101615137756" y1="217.63139720814414" x2="177.5" y2="237.63139720814414" stroke="#00FF00" data-fold="crease" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="212.14101615137756" y1="217.63139720814414" x2="217.00409421321226" y2="235.65449549241541" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="217.00409421321226" y1="235.65449549241541" x2="206.37076581449594" y2="258.83703045227372" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="206.37076581449594" y1="258.83703045227372" x2="189.74646096908265" y2="254.0428898195045" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="189.74646096908265" y1="254.0428898195045" x2="177.5" y2="237.63139720814414" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="184.64101615137756" y1="170" x2="212.14101615137756" y2="217.63139720814414" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="150" y1="190" x2="177.5" y2="237.63139720814414" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="122.5" y1="237.63139720814414" x2="87.858983848622444" y2="217.63139720814414" stroke="#6F6F78" stroke-width="2.4" data-presentation="contrast" aria-hidden="true" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="122.5" y1="237.63139720814414" x2="87.858983848622444" y2="217.63139720814414" stroke="#00FF00" data-fold="crease" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="122.5" y1="237.63139720814414" x2="109.32307806183469" y2="250.8544954924154" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="109.32307806183469" y1="250.8544954924154" x2="83.929749663118372" y2="253.2370304522737" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="83.929749663118372" y1="253.2370304522737" x2="79.769444817705107" y2="236.44288981950447" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="79.769444817705107" y1="236.44288981950447" x2="87.858983848622444" y2="217.63139720814414" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="150" y1="190" x2="122.5" y2="237.63139720814414" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="115.35898384862244" y1="170" x2="87.858983848622444" y2="217.63139720814414" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="60.358983848622444" y1="169.99999999999997" x2="60.358983848622458" y2="129.99999999999997" stroke="#6F6F78" stroke-width="2.4" data-presentation="contrast" aria-hidden="true" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="60.358983848622444" y1="169.99999999999997" x2="60.358983848622458" y2="129.99999999999997" stroke="#00FF00" data-fold="crease" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="60.358983848622444" y1="169.99999999999997" x2="42.318983848622445" y2="165.19999999999996" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="42.318983848622445" y1="165.19999999999996" x2="27.558983848622454" y2="144.39999999999998" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="27.558983848622454" y1="144.39999999999998" x2="40.022983848622459" y2="132.39999999999998" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="40.022983848622459" y1="132.39999999999998" x2="60.358983848622458" y2="129.99999999999997" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="115.35898384862244" y1="170" x2="60.358983848622444" y2="169.99999999999997" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="115.35898384862246" y1="130" x2="60.358983848622458" y2="129.99999999999997" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="87.858983848622458" y1="82.368602791855878" x2="122.5" y2="62.368602791855878" stroke="#6F6F78" stroke-width="2.4" data-presentation="contrast" aria-hidden="true" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="87.858983848622458" y1="82.368602791855878" x2="122.5" y2="62.368602791855878" stroke="#00FF00" data-fold="crease" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="87.858983848622458" y1="82.368602791855878" x2="82.995905786787773" y2="64.345504507584593" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="82.995905786787773" y1="64.345504507584593" x2="93.629234185504089" y2="41.162969547726298" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="93.629234185504089" y1="41.162969547726298" x2="110.25353903091735" y2="45.95711018049554" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="110.25353903091735" y1="45.95711018049554" x2="122.5" y2="62.368602791855878" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="115.35898384862246" y1="130" x2="87.858983848622458" y2="82.368602791855878" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="150" y1="110" x2="122.5" y2="62.368602791855878" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="177.5" y1="62.368602791855871" x2="212.14101615137756" y2="82.368602791855864" stroke="#6F6F78" stroke-width="2.4" data-presentation="contrast" aria-hidden="true" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="177.5" y1="62.368602791855871" x2="212.14101615137756" y2="82.368602791855864" stroke="#00FF00" data-fold="crease" vector-effect="non-scaling-stroke" stroke-dasharray="4 3"/>
+<line x1="177.5" y1="62.368602791855871" x2="190.67692193816532" y2="49.145504507584597" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="190.67692193816532" y1="49.145504507584597" x2="216.07025033688166" y2="46.762969547726271" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="216.07025033688166" y1="46.762969547726271" x2="220.23055518229492" y2="63.557110180495513" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="220.23055518229492" y1="63.557110180495513" x2="212.14101615137756" y2="82.368602791855864" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="150" y1="110" x2="177.5" y2="62.368602791855871" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+<line x1="184.64101615137756" y1="130" x2="212.14101615137756" y2="82.368602791855864" stroke="#FF0000" data-fold="cut" vector-effect="non-scaling-stroke"/>
+</svg></div>
+    </section>
+    <section class="pane" aria-labelledby="fold-title">
+      <h2 id="fold-title">3D fold preview</h2>
+      <div id="three-viewport" role="group" aria-label="3D fold preview" aria-busy="true"></div>
+    </section>
+  </div>
+  <div class="controls" aria-label="Fold controls">
+    <span id="fold-label">Fold</span>
+    <div id="fold-slider" role="slider" tabindex="-1" aria-labelledby="fold-label"
+      aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0 percent"
+      aria-disabled="true"><span class="slider-track"><span class="slider-fill"></span>
+      <span class="slider-thumb"></span></span></div>
+    <output id="fold-percent" aria-hidden="true">0%</output>
+    <button id="play-btn" type="button" disabled>Play</button>
+    <button id="reset-btn" type="button" disabled>Reset</button>
+  </div>
+  <p class="dimensions">Drag to rotate; Shift-drag to pan; scroll to zoom. Keyboard view buttons are below.</p><nav class="view-controls" aria-label="Camera controls"><button type="button" data-view="left" disabled>Rotate left</button><button type="button" data-view="right" disabled>Rotate right</button><button type="button" data-view="up" disabled>Rotate up</button><button type="button" data-view="down" disabled>Rotate down</button><button type="button" data-view="pan-left" disabled>Pan left</button><button type="button" data-view="pan-right" disabled>Pan right</button><button type="button" data-view="pan-up" disabled>Pan up</button><button type="button" data-view="pan-down" disabled>Pan down</button><button type="button" data-view="in" disabled>Zoom in</button><button type="button" data-view="out" disabled>Zoom out</button><button type="button" data-view="reset" disabled>Reset view</button></nav><p id="fold-status" role="status" aria-live="polite">Loading 3D fold preview…</p>
+  <noscript><p>3D fold preview needs JavaScript. The 2D dieline remains available.</p></noscript>
+</main>
+<script id="fold-model" type="application/json">{"available": true, "status": "", "faces": [{"id": 0, "vertices": [[239.64101615137756, 130.0], [257.68101615137755, 134.8], [272.44101615137754, 155.6], [259.97701615137754, 167.6], [239.64101615137756, 170.0]], "area_mm2": 915.2511999999952}, {"id": 1, "vertices": [[239.64101615137756, 130.0], [239.64101615137756, 170.0], [184.64101615137756, 170.0], [184.64101615137756, 130.0]], "area_mm2": 2200.0000000000036}, {"id": 2, "vertices": [[239.64101615137756, 130.0], [184.64101615137756, 130.0], [191.84101615137754, 118.0], [232.44101615137757, 118.0]], "area_mm2": 573.5999999999985}, {"id": 3, "vertices": [[184.64101615137756, 130.0], [184.64101615137756, 170.0], [150.0, 190.0], [115.35898384862244, 170.0], [115.35898384862246, 130.0], [150.0, 110.0]], "area_mm2": 4156.921938165305}, {"id": 4, "vertices": [[184.64101615137756, 130.0], [150.0, 110.0], [177.5, 62.36860279185587], [212.14101615137756, 82.36860279185586]], "area_mm2": 2200.000000000001}, {"id": 5, "vertices": [[184.64101615137756, 170.0], [212.14101615137756, 217.63139720814414], [177.5, 237.63139720814414], [150.0, 190.0]], "area_mm2": 2200.0}, {"id": 6, "vertices": [[212.14101615137756, 217.63139720814414], [217.00409421321226, 235.6544954924154], [206.37076581449594, 258.8370304522737], [189.74646096908265, 254.0428898195045], [177.5, 237.63139720814414]], "area_mm2": 915.2512000000024}, {"id": 7, "vertices": [[150.0, 190.0], [122.5, 237.63139720814414], [87.85898384862244, 217.63139720814414], [115.35898384862244, 170.0]], "area_mm2": 2200.000000000001}, {"id": 8, "vertices": [[122.5, 237.63139720814414], [109.32307806183469, 250.8544954924154], [83.92974966311837, 253.2370304522737], [79.76944481770511, 236.44288981950447], [87.85898384862244, 217.63139720814414]], "area_mm2": 915.2512000000006}, {"id": 9, "vertices": [[115.35898384862244, 170.0], [60.358983848622444, 169.99999999999997], [60.35898384862246, 129.99999999999997], [115.35898384862246, 130.0]], "area_mm2": 2200.0}, {"id": 10, "vertices": [[60.358983848622444, 169.99999999999997], [42.318983848622445, 165.19999999999996], [27.558983848622454, 144.39999999999998], [40.02298384862246, 132.39999999999998], [60.35898384862246, 129.99999999999997]], "area_mm2": 915.2511999999999}, {"id": 11, "vertices": [[115.35898384862246, 130.0], [87.85898384862246, 82.36860279185588], [122.5, 62.36860279185588], [150.0, 110.0]], "area_mm2": 2200.0000000000005}, {"id": 12, "vertices": [[87.85898384862246, 82.36860279185588], [82.99590578678777, 64.3455045075846], [93.62923418550409, 41.1629695477263], [110.25353903091735, 45.95711018049554], [122.5, 62.36860279185588]], "area_mm2": 915.2511999999997}, {"id": 13, "vertices": [[177.5, 62.36860279185587], [190.67692193816532, 49.1455045075846], [216.07025033688166, 46.76296954772627], [220.23055518229492, 63.55711018049551], [212.14101615137756, 82.36860279185586]], "area_mm2": 915.2512000000006}], "root": 3, "hinges": [{"parent": 3, "child": 1, "axis": [[184.64101615137756, 130.0], [184.64101615137756, 170.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 3, "child": 5, "axis": [[184.64101615137756, 170.0], [150.0, 190.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 3, "child": 7, "axis": [[150.0, 190.0], [115.35898384862244, 170.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 3, "child": 9, "axis": [[115.35898384862244, 170.0], [115.35898384862246, 130.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 3, "child": 11, "axis": [[115.35898384862246, 130.0], [150.0, 110.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 3, "child": 4, "axis": [[150.0, 110.0], [184.64101615137756, 130.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 1, "child": 0, "axis": [[239.64101615137756, 130.0], [239.64101615137756, 170.0]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 1, "child": 2, "axis": [[184.64101615137756, 130.0], [239.64101615137756, 130.0]], "angle_deg": 60.0, "crease_type": "CREASE"}, {"parent": 5, "child": 6, "axis": [[212.14101615137756, 217.63139720814414], [177.5, 237.63139720814414]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 7, "child": 8, "axis": [[122.5, 237.63139720814414], [87.85898384862244, 217.63139720814414]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 9, "child": 10, "axis": [[60.358983848622444, 169.99999999999997], [60.35898384862246, 129.99999999999997]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 11, "child": 12, "axis": [[87.85898384862246, 82.36860279185588], [122.5, 62.36860279185588]], "angle_deg": 90.0, "crease_type": "CREASE"}, {"parent": 4, "child": 13, "axis": [[177.5, 62.36860279185587], [212.14101615137756, 82.36860279185586]], "angle_deg": 90.0, "crease_type": "CREASE"}], "non_tree_folds": [], "cut_edges": [[[239.64101615137756, 130.0], [257.68101615137755, 134.8]], [[257.68101615137755, 134.8], [272.44101615137754, 155.6]], [[272.44101615137754, 155.6], [259.97701615137754, 167.6]], [[259.97701615137754, 167.6], [239.64101615137756, 170.0]], [[184.64101615137756, 130.0], [191.84101615137754, 118.0]], [[191.84101615137754, 118.0], [232.44101615137757, 118.0]], [[239.64101615137756, 130.0], [232.44101615137757, 118.0]], [[239.64101615137756, 170.0], [184.64101615137756, 170.0]], [[212.14101615137756, 217.63139720814414], [217.00409421321226, 235.6544954924154]], [[217.00409421321226, 235.6544954924154], [206.37076581449594, 258.8370304522737]], [[206.37076581449594, 258.8370304522737], [189.74646096908265, 254.0428898195045]], [[189.74646096908265, 254.0428898195045], [177.5, 237.63139720814414]], [[184.64101615137756, 170.0], [212.14101615137756, 217.63139720814414]], [[177.5, 237.63139720814414], [150.0, 190.0]], [[122.5, 237.63139720814414], [109.32307806183469, 250.8544954924154]], [[109.32307806183469, 250.8544954924154], [83.92974966311837, 253.2370304522737]], [[83.92974966311837, 253.2370304522737], [79.76944481770511, 236.44288981950447]], [[79.76944481770511, 236.44288981950447], [87.85898384862244, 217.63139720814414]], [[150.0, 190.0], [122.5, 237.63139720814414]], [[87.85898384862244, 217.63139720814414], [115.35898384862244, 170.0]], [[60.358983848622444, 169.99999999999997], [42.318983848622445, 165.19999999999996]], [[42.318983848622445, 165.19999999999996], [27.558983848622454, 144.39999999999998]], [[27.558983848622454, 144.39999999999998], [40.02298384862246, 132.39999999999998]], [[40.02298384862246, 132.39999999999998], [60.35898384862246, 129.99999999999997]], [[115.35898384862244, 170.0], [60.358983848622444, 169.99999999999997]], [[60.35898384862246, 129.99999999999997], [115.35898384862246, 130.0]], [[87.85898384862246, 82.36860279185588], [82.99590578678777, 64.3455045075846]], [[82.99590578678777, 64.3455045075846], [93.62923418550409, 41.1629695477263]], [[93.62923418550409, 41.1629695477263], [110.25353903091735, 45.95711018049554]], [[110.25353903091735, 45.95711018049554], [122.5, 62.36860279185588]], [[115.35898384862246, 130.0], [87.85898384862246, 82.36860279185588]], [[122.5, 62.36860279185588], [150.0, 110.0]], [[177.5, 62.36860279185587], [190.67692193816532, 49.1455045075846]], [[190.67692193816532, 49.1455045075846], [216.07025033688166, 46.76296954772627]], [[216.07025033688166, 46.76296954772627], [220.23055518229492, 63.55711018049551]], [[220.23055518229492, 63.55711018049551], [212.14101615137756, 82.36860279185586]], [[150.0, 110.0], [177.5, 62.36860279185587]], [[184.64101615137756, 130.0], [212.14101615137756, 82.36860279185586]]], "continuity": {"valid": true, "tolerance_mm": 0.5, "samples": [0.25, 0.5, 0.75, 1.0], "checked_edges": 13, "max_gap_mm": 6.87625433923236e-08, "worst": {"progress": 1.0, "faces": [0, 1], "endpoint": [239.6410162, 130.0]}}}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+function createFoldScene(model, viewport) {
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color('#FFFFFF');
+  const camera = new THREE.OrthographicCamera();
+  camera.up.set(0, 0, 1);
+  const renderer = new THREE.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.domElement.setAttribute('role', 'img');
+  renderer.domElement.setAttribute('aria-label', 'Dieline-derived rigid fold preview');
+  viewport.appendChild(renderer.domElement);
+  const meshes = new Map();
+  const front = new THREE.MeshBasicMaterial({color: '#F4F4F6', side: THREE.FrontSide});
+  const back = new THREE.MeshBasicMaterial({color: '#EEF0F4', side: THREE.BackSide});
+  const line = new THREE.LineBasicMaterial({color: '#898992'});
+  const points = ring => ring.map(p => new THREE.Vector2(p[0], p[1]));
+  for (const face of model.faces) {
+    const shape = new THREE.Shape(points(face.vertices));
+    for (const hole of face.holes || []) shape.holes.push(new THREE.Path(points(hole)));
+    const geometry = new THREE.ShapeGeometry(shape);
+    const group = new THREE.Group();
+    group.matrixAutoUpdate = false;
+    group.add(new THREE.Mesh(geometry, front), new THREE.Mesh(geometry, back));
+    // Ring outlines retain holes and avoid exposing triangulation diagonals.
+    for (const ring of [face.vertices, ...(face.holes || [])]) {
+      const vertices = [...ring, ring[0]].map(p => new THREE.Vector3(p[0], p[1], 0));
+      group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(vertices), line));
+    }
+    meshes.set(face.id, group);
+    scene.add(group);
+  }
+  function matrices(t) {
+    const result = new Map([[model.root, new THREE.Matrix4()]]);
+    for (const hinge of model.hinges) {
+      const a = hinge.axis[0], b = hinge.axis[1];
+      const axis = new THREE.Vector3(b[0]-a[0], b[1]-a[1], 0).normalize();
+      const rotation = new THREE.Matrix4().makeTranslation(a[0], a[1], 0)
+        .multiply(new THREE.Matrix4().makeRotationAxis(axis, t*hinge.angle_deg*Math.PI/180))
+        .multiply(new THREE.Matrix4().makeTranslation(-a[0], -a[1], 0));
+      result.set(hinge.child, result.get(hinge.parent).clone().multiply(rotation));
+    }
+    return result;
+  }
+  const bounds = new THREE.Box3();
+  const target = new THREE.Sphere(), displayedCenter = new THREE.Vector3();
+  const startCenter = new THREE.Vector3(), direction = new THREE.Vector3(1, -1, 1.3).normalize();
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let displayedRadius = 0, startRadius = 0, startedAt = 0, frame = null;
+
+// Camera-only navigation for the public generated demo.
+let viewZoom = 1, yaw = -Math.PI/4, pitch = Math.atan(1.3/Math.sqrt(2));
+const viewPan = new THREE.Vector3();
+function changeView(action) {
+  const step = Math.max(target.radius, 1)*0.12;
+  if (action === 'left') yaw -= 0.15;
+  if (action === 'right') yaw += 0.15;
+  if (action === 'up') pitch = Math.min(1.5, pitch+0.15);
+  if (action === 'down') pitch = Math.max(-1.5, pitch-0.15);
+  if (action === 'pan-left') viewPan.x -= step;
+  if (action === 'pan-right') viewPan.x += step;
+  if (action === 'pan-up') viewPan.z += step;
+  if (action === 'pan-down') viewPan.z -= step;
+  if (action === 'in') viewZoom = Math.min(4, viewZoom*1.15);
+  if (action === 'out') viewZoom = Math.max(0.5, viewZoom/1.15);
+  if (action === 'reset') {
+    yaw = -Math.PI/4; pitch = Math.atan(1.3/Math.sqrt(2)); viewZoom = 1; viewPan.set(0,0,0);
+  }
+  direction.set(Math.cos(pitch)*Math.cos(yaw), Math.cos(pitch)*Math.sin(yaw), Math.sin(pitch));
+  render();
+}
+document.querySelectorAll('[data-view]').forEach(button => {
+  button.disabled = false;
+  button.addEventListener('click', () => changeView(button.dataset.view));
+});
+let drag = null;
+renderer.domElement.addEventListener('pointerdown', event => {
+  if (event.pointerType !== 'mouse') return;
+  drag = {x:event.clientX, y:event.clientY};
+  renderer.domElement.setPointerCapture(event.pointerId);
+});
+renderer.domElement.addEventListener('pointermove', event => {
+  if (!drag) return;
+  const dx = event.clientX-drag.x, dy = event.clientY-drag.y;
+  drag = {x:event.clientX, y:event.clientY};
+  if (event.shiftKey) {
+    viewPan.x -= dx*target.radius/200; viewPan.z += dy*target.radius/200;
+  } else {
+    yaw -= dx/150; pitch = Math.max(-1.5, Math.min(1.5, pitch+dy/150));
+  }
+  changeView('drag');
+});
+renderer.domElement.addEventListener('pointerup', () => { drag = null; });
+renderer.domElement.addEventListener('pointercancel', () => { drag = null; });
+renderer.domElement.addEventListener('wheel', event => {
+  // Require explicit focus before intercepting page scroll.
+  if (document.activeElement !== renderer.domElement) return;
+  event.preventDefault(); changeView(event.deltaY < 0 ? 'in' : 'out');
+}, {passive:false});
+renderer.domElement.tabIndex = 0;
+renderer.domElement.setAttribute('aria-label', 'Folded model. Use camera buttons below to rotate, pan or zoom.');
+
+
+  function render() {
+    const width = Math.max(1, viewport.clientWidth), height = Math.max(1, viewport.clientHeight);
+    // The current sphere plus center offset encloses every vertex even during
+    // easing or a large slider jump. Safety expansion is immediate; zoom-in eases.
+    const radius = Math.max(displayedRadius, target.radius + target.center.distanceTo(displayedCenter), 1e-7);
+    const aspect = width/height, halfHeight = radius*1.05*Math.max(1, 1/aspect)/viewZoom;
+    const viewCenter = displayedCenter.clone().add(viewPan);
+    camera.position.copy(viewCenter).addScaledVector(direction, 3*radius);
+    camera.near = radius/1000; camera.far = 6*radius;
+    camera.lookAt(viewCenter); camera.updateMatrixWorld(true);
+    camera.left = -halfHeight*aspect; camera.right = halfHeight*aspect;
+    camera.top = halfHeight; camera.bottom = -halfHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height, false);
+    renderer.render(scene, camera);
+  }
+  function settleCamera() {
+    if (frame !== null) cancelAnimationFrame(frame);
+    frame = null; displayedCenter.copy(target.center); displayedRadius = target.radius;
+    render();
+  }
+  function easeCamera(now) {
+    frame = null;
+    const progress = Math.min(1, Math.max(0, (now-startedAt)/180));
+    const eased = 1-Math.pow(1-progress, 3);
+    displayedCenter.lerpVectors(startCenter, target.center, eased);
+    displayedRadius = startRadius+(target.radius-startRadius)*eased;
+    render();
+    if (progress < 1) frame = requestAnimationFrame(easeCamera);
+  }
+  function setFold(t) {
+    const transforms = matrices(t);
+    for (const [id, matrix] of transforms) meshes.get(id).matrix.copy(matrix);
+    bounds.makeEmpty();
+    for (const face of model.faces) {
+      for (const ring of [face.vertices, ...(face.holes || [])]) for (const p of ring)
+        bounds.expandByPoint(new THREE.Vector3(p[0], p[1], 0).applyMatrix4(transforms.get(face.id)));
+    }
+    bounds.getBoundingSphere(target);
+    if (!displayedRadius || motion.matches) { settleCamera(); return; }
+    startCenter.copy(displayedCenter); startRadius = displayedRadius; startedAt = performance.now();
+    render();
+    if (frame === null) frame = requestAnimationFrame(easeCamera);
+  }
+  function motionState() { if (motion.matches) settleCamera(); }
+  motion.addEventListener('change', motionState);
+  setFold(0);
+  const observer = new ResizeObserver(render);
+  observer.observe(viewport);
+  return {setFold, matrices, renderer, bounds, stop: () => {
+    observer.disconnect(); if (frame !== null) cancelAnimationFrame(frame);
+    motion.removeEventListener('change', motionState);
+  }};
+}
+
+
+(() => {
+  const model = JSON.parse(document.getElementById('fold-model').textContent);
+  const viewport = document.getElementById('three-viewport');
+  const slider = document.getElementById('fold-slider');
+  const percent = document.getElementById('fold-percent');
+  const play = document.getElementById('play-btn');
+  const reset = document.getElementById('reset-btn');
+  const status = document.getElementById('fold-status');
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let scene, value = 0, playing = false, frame = null, previous = null, failed = false;
+  function pause() {
+    playing = false; previous = null;
+    if (frame !== null) cancelAnimationFrame(frame);
+    frame = null; play.textContent = 'Play'; play.setAttribute('aria-pressed', 'false');
+  }
+  function fail(message) {
+    document.querySelectorAll('[data-view]').forEach(button => { button.disabled = true; });
+    const canvas = viewport.querySelector('canvas');
+    if (canvas) { canvas.tabIndex = -1; canvas.style.pointerEvents = 'none'; }
+    failed = true;
+    if (scene) scene.stop();
+    pause(); slider.setAttribute('aria-disabled', 'true'); slider.tabIndex = -1;
+    play.disabled = true; reset.disabled = true;
+    viewport.setAttribute('aria-busy', 'false');
+    status.setAttribute('aria-live', 'assertive'); status.textContent = message;
+  }
+  function setValue(next) {
+    if (slider.getAttribute('aria-disabled') === 'true') return;
+    value = Math.max(0, Math.min(100, next));
+    slider.style.setProperty('--progress', `${value}%`);
+    slider.setAttribute('aria-valuenow', String(Math.round(value)));
+    slider.setAttribute('aria-valuetext', `${Math.round(value)} percent`);
+    percent.textContent = `${Math.round(value)}%`;
+    try { scene.setFold(value/100); }
+    catch (error) { fail('3D fold preview failed. Reload to retry; the 2D dieline remains available.'); }
+  }
+  if (!model.available) { fail(model.status); return; }
+  if (typeof THREE === 'undefined') {
+    fail('3D library could not load. Check your connection and reload; the 2D dieline remains available.');
+    return;
+  }
+  try { scene = createFoldScene(model, viewport); }
+  catch (error) {
+    viewport.replaceChildren();
+    fail('WebGL fold preview unavailable. Enable WebGL and reload; the 2D dieline remains available.');
+    return;
+  }
+  slider.setAttribute('aria-disabled', 'false'); slider.tabIndex = 0;
+  reset.disabled = false; viewport.setAttribute('aria-busy', 'false');
+  function motionState() {
+    if (failed) return;
+    if (motion.matches) pause();
+    play.disabled = motion.matches;
+    status.textContent = motion.matches ? 'Reduced motion: use the fold slider.' : '';
+  }
+  motion.addEventListener('change', motionState); motionState();
+  scene.renderer.domElement.addEventListener('webglcontextlost', event => {
+    event.preventDefault();
+    fail('WebGL connection lost. Reload to retry; the 2D dieline remains available.');
+  });
+  slider.addEventListener('keydown', event => {
+    const values = {ArrowLeft: value-1, ArrowDown: value-1, ArrowRight: value+1,
+      ArrowUp: value+1, Home: 0, End: 100};
+    if (Object.prototype.hasOwnProperty.call(values, event.key)) {
+      event.preventDefault(); pause(); setValue(values[event.key]);
+    }
+  });
+  function pointerValue(event) {
+    const track = slider.querySelector('.slider-track').getBoundingClientRect();
+    setValue((event.clientX-track.left)/track.width*100);
+  }
+  slider.addEventListener('pointerdown', event => {
+    if (slider.getAttribute('aria-disabled') === 'true' || event.button !== 0) return;
+    event.preventDefault(); pause(); slider.focus();
+    slider.setPointerCapture(event.pointerId); pointerValue(event);
+  });
+  slider.addEventListener('pointermove', event => {
+    if (slider.hasPointerCapture(event.pointerId)) pointerValue(event);
+  });
+  slider.addEventListener('pointerup', event => {
+    if (slider.hasPointerCapture(event.pointerId)) slider.releasePointerCapture(event.pointerId);
+  });
+  function tick(timestamp) {
+    frame = null;
+    if (!playing || motion.matches) { pause(); return; }
+    if (previous !== null) setValue(value+(timestamp-previous)/60);
+    previous = timestamp;
+    if (value >= 100) pause();
+    if (playing) frame = requestAnimationFrame(tick);
+  }
+  play.addEventListener('click', () => {
+    if (playing) { pause(); return; }
+    if (motion.matches || play.disabled) return;
+    if (value >= 100) setValue(0);
+    playing = true; previous = null;
+    play.textContent = 'Pause'; play.setAttribute('aria-pressed', 'true');
+    frame = requestAnimationFrame(tick);
+  });
+  reset.addEventListener('click', () => { pause(); setValue(0); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
+  window.addEventListener('pagehide', pause);
+})();
+</script>
+<script>
+if (window.parent !== window) {
+  const notify = () => parent.postMessage({type:'origami-viewer-height',height:document.documentElement.scrollHeight}, '*');
+  new ResizeObserver(notify).observe(document.body); addEventListener('load',notify);
+}
+</script></body>
+</html>

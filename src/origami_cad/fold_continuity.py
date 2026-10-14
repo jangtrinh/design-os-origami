@@ -3,6 +3,9 @@ import math
 from collections import defaultdict
 from origami_cad.fold_kinematics import fold_matrices
 
+TOLERANCE_MM = .5
+GATE_SAMPLES = [.25, .5, .75, 1.0]
+
 
 def _edge_key(axis):
     return tuple(sorted(tuple(round(v, 7) for v in point) for point in axis))
@@ -31,13 +34,16 @@ def _seams(model):
     return sorted(seams)
 
 
-def continuity_report(model):
+def continuity_report(model, samples=None):
     """Check both endpoint copies at the required four progress samples.
 
     Passing is bounded continuity evidence, not collision or physical closure.
     CUT slits separate material and are deliberately not continuity constraints.
+    Callers may pass a denser sample list; the tolerance never changes.
     """
-    samples = [.25, .5, .75, 1.0]
+    samples = list(GATE_SAMPLES if samples is None else samples)
+    if not samples:
+        raise ValueError('Continuity needs at least one progress sample')
     seams = _seams(model)
     maximum, worst = 0.0, None
     for t in samples:
@@ -53,6 +59,6 @@ def continuity_report(model):
                 if gap > maximum:
                     maximum = gap
                     worst = dict(progress=t, faces=[a, b], endpoint=list(point))
-    return dict(valid=model['available'] and maximum <= .5, tolerance_mm=.5,
-                samples=samples, checked_edges=len(seams), max_gap_mm=maximum,
+    return dict(valid=model['available'] and maximum <= TOLERANCE_MM,
+                tolerance_mm=TOLERANCE_MM, samples=samples, checked_edges=len(seams), max_gap_mm=maximum,
                 worst=worst)

@@ -1,0 +1,47 @@
+name: Product and skill checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  stdlib:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Product and skill contracts
+        env:
+          PYTHONPATH: src
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          python3 -B -m unittest discover -s tests -v
+          python3 -B scripts/skill_contract.py --check
+          python3 -B scripts/sync_host_bundles.py --check
+  examples:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Explicit browser dependency setup in user cache
+        run: |
+          cache="$HOME/.cache/design-os-origami/browser"
+          mkdir -p "$cache"
+          npm install --prefix "$cache" --no-save --package-lock=false playwright@1.62.1
+          node "$cache/node_modules/playwright/cli.js" install --with-deps chromium
+          node -e 'const fs=require("fs"),p=require(process.argv[1]+"/node_modules/playwright");fs.writeFileSync(process.argv[1]+"/browser.json",JSON.stringify({executable_path:p.chromium.executablePath()}))' "$cache"
+          curl -fsSL https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js -o "$cache/three-r128.min.js"
+          printf '9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2  %s\n' "$cache/three-r128.min.js" | sha256sum --check
+      - name: Both real example builds, validation and offline sheets
+        run: python3 -B scripts/check_host_bundle_release.py --browser-cache "$HOME/.cache/design-os-origami/browser" --evidence-dir "$RUNNER_TEMP/origami-release"
+      - name: Preserve sheets and receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: origami-example-sheets
+          path: ${{ runner.temp }}/origami-release

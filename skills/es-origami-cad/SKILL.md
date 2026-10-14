@@ -1,120 +1,109 @@
 ---
 name: es-origami-cad
-description: "Origami mathematics, crease patterns & parametric CAD dielines for packaging engineering. Covers FEFCO/ECMA, caliper deductions, 3D kinematics, and 305+ creative packaging catalog."
+description: "Use when generating parametric packaging dielines, preparing printer exchange files, validating exports, or inspecting source-derived fold previews."
 metadata:
   author: DESIGN:OS
-  version: "1.0.0"
   qualification: experimental-unqualified
 ---
 
-# Origami CAD & Packaging Engineering (`es-origami-cad`)
+# DESIGN:OS Origami CAD
 
-Experimental guidance for mathematical origami crease patterns, parametric packaging dielines (2D DXF/SVG), and illustrative folding previews.
+One workflow: Concept → Build → Check → Hand over → Adjust.
+Use an existing product checkout as `--repo-root`; installed skill copies contain
+entrypoints and guidance, not the engine. Python ≥3.10; runtime uses stdlib.
 
-## Evidence and Qualification Limits
+## 1. Concept
 
-Knowledge documents have mixed provenance and uncalibrated material constants.
-Unsupported source claims have been removed; treat design rules as draft guidance. The catalog contains application ideas, not independently
-validated CAD models. Source lint and local geometry tests do not establish
-physical fit, global foldability, printer/plotter acceptance, or prepress approval.
-The viewer derives real rigid-panel fold motion from the generated net when
-the sampled continuity gate passes. Unsupported patterns retain their 2D
-dielines and explicitly report 3D preview unavailable. The preview does not
-certify physical assembly, continuous-time motion or collision avoidance.
+Read [concepts.md](concepts.md) and choose one buildable request. The executable
+[contract.md](contract.md) owns family choices, parameters, defaults and outputs.
+Read the numbered [rules.md](rules.md) before editing inputs. Caliper and dimensions
+are explicit; material qualification is separate from geometry generation.
 
-SVG preserves M/V direction as `data-fold` metadata; DXF collapses it into
-`CREASE`. Do not infer a manufacturing profile from the display styling.
+| Need | Choose | Limit |
+| --- | --- | --- |
+| Carton blank or cutter display | Presentation | SVG/R12 DXF/viewer; no recipient approval |
+| Printer exchange | Presentation + printer | PDF/R2000 DXF; recipient import still required |
+| Local mathematical research | Presentation-only research types | No printer/physical acceptance |
+| Preview of unsupported motion | Permit unavailable | Preserve 2D and honest status |
 
-## When to Activate
+When NOT to use: production release without physical fold/fit and recipient
+approval, food-contact or load certification, or an unimplemented catalogue idea
+represented as an existing generator. No hosted service or remote connector.
 
-- Designing packaging boxes, folding cartons, or origami gift containers
-- Generating laser die-cutter dielines (CUT, CREASE, PERFORATE, GLUE layers)
-- Calculating paperboard thickness score allowances ($\Delta L = 0.5 \cdot t$)
-- Evaluating flat-foldability with Kawasaki's and Maekawa's theorems
-- Building 3D folding animations in WebGL / Three.js
+## 2. Build
 
-## Philosophy & Core Principles
+Start from [tuck-box-printer.json](examples/tuck-box-printer.json) or
+[hex-petal-presentation.json](examples/hex-petal-presentation.json). Use a fresh
+output directory; change only declarative inputs, never executable commands.
 
-1. **Geometry Over Magic**: Kawasaki ($\sum (-1)^i \theta_i = 0$) and Maekawa ($|M - V| = 2$) constrain interior single-vertex flat folds under their assumptions. Boundary vertices and cartons that fold to a volume need different checks; local conditions do not prove global folding or collision avoidance.
-2. **Caliper Reality**: Paper has non-zero thickness $t$. Panel dimensions must include bend allowances; zero-thickness CAD will tear or jam upon assembly.
-3. **Retrieval-Augmented CAD (RA-CAD)**: Use the catalog as concept guidance and the implemented generators as experimental geometry. Catalog entries do not certify a corresponding validated net.
-4. **Layer Separation**: Local conventions are CUT (Red), CREASE (Green dashed), PERFORATE (Blue), GLUE (Magenta). Display colors and dash patterns are not a recipient-approved machine or prepress contract.
-
-## Pattern Selection Decision Matrix
-
-| Packaging Archetype | Primary Industry | Origami Topology | Key Mechanism | Glue Required? |
-| :--- | :--- | :--- | :--- | :--- |
-| **Straight/Reverse Tuck** | Pharma, Tech, Retail | ECMA A20 / A55 | $3^\circ$ tapered tuck tab | Yes (Side seam) |
-| **Hexagonal Petal Box** | Cosmetics, Luxury Gifts | Blooming Petal | Interlocking flower crown | Optional (Base only) |
-| **Diamond Faceted Box** | Jewelry, Perfume | Polyhedral / Yoshimura | Diagonal buckle facets | Yes (Side seam) |
-| **Zero-Glue Masu Tray** | Gourmet Food, Eco Retail | Rollover Wall Gusset | $45^\circ$ self-locking corners | **No (100% Zero-Glue)** |
-| **Miura-Ori Sleeve** | Wine, Fragile Electronics | Rigid Tessellation | 1-DOF shock absorber | No (Continuous sleeve) |
-
-## Caliper & Score Allowance Table
-
-Legacy illustrative values below are uncalibrated, not a material/tooling recipe.
-The executable allowance is owned by `OrigamiCreasePattern.calculate_score_allowance`;
-its default is 0.45t at 90°, which differs from the approximate 0.5t guidance.
-
-| Material Type | Caliper ($t$) | $90^\circ$ Fold Allowance ($\Delta L$) | Neutral Axis $K$ | Typical Style |
-| :--- | :--- | :--- | :--- | :--- |
-| **Solid Bleached Sulfate (SBS)** | $0.35 - 0.50\text{ mm}$ | $+0.18 - 0.25\text{ mm}$ | $0.45$ | Cosmetics, Medicine |
-| **Folding Boxboard (FBB)** | $0.50 - 0.70\text{ mm}$ | $+0.25 - 0.35\text{ mm}$ | $0.42$ | Retail Food, Hardware |
-| **E-Flute Corrugated** | $1.20 - 1.60\text{ mm}$ | $+0.60 - 0.80\text{ mm}$ | $0.40$ | E-commerce Mailer (FEFCO 0427) |
-| **B-Flute Corrugated** | $2.80 - 3.20\text{ mm}$ | $+1.40 - 1.60\text{ mm}$ | $0.38$ | Shipping Box (FEFCO 0201) |
-
-## Right vs Wrong Code Examples
-
-### 1. Panel Dimension Calculation
-```python
-# ❌ WRONG: Zero-thickness assumption (carton will bulge and tuck tab will tear)
-outer_width = inner_width
-outer_depth = inner_depth
-
-# ✅ RIGHT: Explicit score allowance per 90-degree fold
-c_allow = (90.0 / 180.0) * (k_factor * 2.0 * thickness_mm)  # approx 0.5 * t
-outer_width = inner_width + c_allow
-outer_depth = inner_depth + c_allow
+```sh
+python3 skills/es-origami-cad/build.py --repo-root . \
+  --spec skills/es-origami-cad/examples/tuck-box-printer.json \
+  --output-dir /absolute/new-run
 ```
 
-### 2. Interior Vertex Flat-Foldability
-```python
-# ❌ WRONG: Arbitrary 3-crease interior junction
-cp.add_crease(v, p1, CreaseType.CREASE)
-cp.add_crease(v, p2, CreaseType.CREASE)
-cp.add_crease(v, p3, CreaseType.CREASE)  # Violates Maekawa: degree 3 cannot fold flat!
+[build.py](build.py) prints the completed output path. It delegates to the product,
+records source/contract/artifact hashes and refuses an existing destination.
+Read the receipt; a failed build is not a deliverable.
 
-# ✅ RIGHT: Even-degree vertex satisfying Kawasaki alternating angle sum
-# Angles: 60°, 110°, 120°, 70° -> (60+120=180°) and (110+70=180°)
-for ang in [0.0, 60.0, 170.0, 290.0]:
-    cp.add_crease(v, point_at_angle(v, ang, r), CreaseType.CREASE)
+## 3. Check
+
+Run [validate.py](validate.py) against that run. Read [look.md](look.md), then run
+[look.py](look.py) with an explicitly prepared browser cache.
+
+```sh
+python3 skills/es-origami-cad/validate.py --repo-root . --output-dir /absolute/new-run
+python3 skills/es-origami-cad/look.py --repo-root . --output-dir /absolute/new-run \
+  --browser-cache /absolute/user-cache --sheet /absolute/new-run/evidence/look-sheet.png
 ```
 
-## Quickstart CLI Commands
+Validate/look: exit 0 = checked, 1 = rejected, 2 = could not run. Validate is
+offline; look blocks external requests except the pinned cached Three.js asset.
+Neither downloads dependencies nor installs into the skill. Inspect the sheet.
+Machine checks do not grade visual clarity or physical assembly.
 
-```bash
-# Generate Standard Tuck Box (ECMA A20)
-python3 -m origami_cad.cli generate --type tuck-box --width 80 --depth 50 --height 120 --thickness 0.5
+## 4. Hand over
 
-# Generate Luxury Hexagonal Petal Flower Box
-python3 -m origami_cad.cli generate --type hex-petal --radius 45 --height 60 --thickness 0.4
+Use these fields, preserving failures and missing checks:
 
-# Generate Eco Zero-Glue Interlocking Tray
-python3 -m origami_cad.cli generate --type zero-glue-tray --width 100 --depth 70 --thickness 0.5
-
-# Run Geometric Unit Tests
-PYTHONPATH=src python3 -m unittest discover tests
+```text
+OUTPUT: <absolute run directory and artifact paths>
+BUILD: <command, exit, source and contract hashes>
+VALIDATE: <exit and actual diagnostics or ok>
+LOOK: <exit, sheet path, numbered observations>
+PHYSICAL_FOLD_FIT: NOT VERIFIED.
+RECIPIENT_IMPORT: NOT VERIFIED.
+LIMITS: <preview availability, checks not run, material assumptions>
 ```
 
-## Failure Modes & Common Pitfalls
+Without a browser use exactly:
+`LOOK: NOT RUN — browser runtime or pinned cache is unavailable.`
+Do not say “should work”. Sampled continuity does not prove continuous motion,
+collision avoidance, physical fit, or compliance with a recipient's tooling.
+The current allowance is a heuristic (0.45t at 90°), not π(R + Kt)/2;
+packaging this engine does not resolve that known formula conflict.
 
-1. **Flap Jamming**: Omission of $3^\circ-5^\circ$ taper angle on dust flaps and tuck tabs causes corners to catch upon insertion.
-2. **Layer Bleed**: Combining CUT and CREASE lines into a single DXF layer causes CNC laser cutters to slice through fold hinges.
-3. **Rigid Loop Tearing**: Simulating 3D folding across closed kinematic loops without unrooted trees introduces cumulative rotational drift.
+## 5. Adjust
 
-## References Index
+Edit the concept/spec, build into another new directory, rerun checks, inspect
+fresh evidence. Keep the previous run for comparison. Do not hand-edit generated
+outputs, the [contract](contract.md), or host bundle copies.
 
-- [Origami Mathematics](references/origami-mathematics.md): Huzita axioms, Kawasaki condition, Maekawa theorem.
-- [Thickness Mechanics](references/packaging-thickness-mechanics.md): Caliper deductions, grain orientation, laser die rules.
-- [Creative Catalog Taxonomy](references/creative-catalog-taxonomy.md): illustrative application concepts across packaging families.
-- [3D Kinematic Folding](references/kinematic-folding-3d.md): Rodrigues' rotation formula and Three.js dual-pane simulation.
+| What goes wrong | Do this instead |
+| --- | --- |
+| `input` | Use applicable finite positive inputs; rules 2 and concepts |
+| `contract` / `artifact-receipt` | Rebuild from matching checkout; rules 1, 4 |
+| `svg-layers` / `dxf-layers` | Regenerate separated layer exports; rules 5, 8 |
+| `printer-spots` / `printer-exchange` | Restore distinct spots/units; rules 9, 10 |
+| `preview-status` | Preserve source-derived unavailable state; rule 11 |
+| Missing browser | Record NOT RUN; look.md without-browser clause |
+
+## Knowledge routing
+
+| Reference | Read when |
+| --- | --- |
+| [Origami mathematics](references/origami-mathematics.md) | Local vertex conditions and limits |
+| [Thickness mechanics](references/packaging-thickness-mechanics.md) | Caliper, allowance and layer semantics |
+| [Creative catalogue](references/creative-catalog-taxonomy.md) | Selecting an implemented family versus a concept |
+| [Kinematic folding](references/kinematic-folding-3d.md) | Source-derived hinges and preview qualification |
+| [Attribution](ATTRIBUTION.md) | Source provenance and permission boundaries |

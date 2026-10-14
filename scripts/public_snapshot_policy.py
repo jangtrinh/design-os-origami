@@ -6,10 +6,15 @@ from pathlib import Path
 import re
 import subprocess
 
-TREES = ("src", "tests", "docs", "knowledge", "skills")
+TREES = ("src", "tests", "docs", "knowledge", "skills", "bundles")
 ROOT_FILES = ("README.md", "LICENSE", "pyproject.toml", ".gitignore")
 PUBLIC_SCRIPTS = ("build_public_snapshot.py", "e2e_figurative_gate.py",
-                  "public_snapshot_policy.py", "public_snapshot_links.py", "public_manifest.txt")
+                  "public_snapshot_policy.py", "public_snapshot_links.py", "public_manifest.txt",
+                  "skill_contract.py", "sync_host_bundles.py", "host_config.py",
+                  "run_mcp.py", "capture-viewer.cjs", "check_host_bundle_release.py")
+PUBLIC_FIXED = (".claude-plugin/marketplace.json", ".agents/plugins/marketplace.json",
+                ".grok-plugin/marketplace.json", ".github/workflows/ci.yml")
+HIDDEN_ROOTS = (".claude-plugin", ".agents", ".grok-plugin", ".github")
 MANIFEST = Path("scripts/public_manifest.txt")
 EXCLUDED = {"plans", ".brv", "AGENTS.md", "CONTEXT.md", "HANDOFF.md", "__pycache__"}
 # Fragment assembly lets the policy and its tests undergo the same raw-byte scan.
@@ -68,7 +73,7 @@ def tracked_paths(source):
 
 
 def public_path(path):
-    return (path in map(Path, ROOT_FILES) or path.parts[0] in TREES or
+    return (path in map(Path, (*ROOT_FILES, *PUBLIC_FIXED)) or path.parts[0] in TREES or
             path.as_posix() in {"scripts/" + name for name in PUBLIC_SCRIPTS})
 
 
@@ -94,8 +99,10 @@ def collect(source):
     for path in source.iterdir():
         if credential_name(Path(path.name)):
             raise SnapshotError("Credential-like root filename")
-    for name in (*TREES, "scripts"):
+    for name in (*TREES, "scripts", *HIDDEN_ROOTS):
         root = source / name
+        if name in HIDDEN_ROOTS and not root.exists() and not root.is_symlink():
+            continue
         if root.is_symlink() or not root.is_dir():
             raise SnapshotError(f"Required directory missing or linked: {name}")
         for base, dirs, files in os.walk(root, followlinks=False):

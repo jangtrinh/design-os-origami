@@ -1,4 +1,4 @@
-# 7 blanks. 4 previews.
+# 12 blanks. 12 with 3D.
 
 **DESIGN:OS Origami** · Python ≥3.10 · [MIT](LICENSE)
 
@@ -10,7 +10,7 @@ One generated tuck blank. 100% fold progress. A rigid-panel visualization does n
 
 Source: `TuckBox_80x50x120` · blank 275.9 × 250.45 mm · caliper 0.5 mm.
 
-Fold gate: 4 / 4 samples pass (25%, 50%, 75%, 100%). Twelve shared edges stay within a 0.5 mm gap tolerance. Three catalogue defaults retain 2D with no qualified preview. [Measured catalogue](docs/assets/catalog.json).
+Fold gate: 4 / 4 samples pass (25%, 50%, 75%, 100%). Twelve shared edges stay within a 0.5 mm gap tolerance. All 12 catalogue blanks have a qualified 3D preview. [Measured catalogue](docs/assets/catalog.json).
 
 ## Choose the workflow for the job
 
@@ -25,11 +25,43 @@ Use a recipient-qualified CAD/prepress workflow for accepted manufacturing excha
 
 ## One blank, multiple outputs
 
-- Generate seven parametric carton dielines as SVG and presentation DXF.
+- Generate 11 parametric carton products as 12 separate SVG and presentation DXF blanks.
 - Export a printer profile with five named spots, 1 pt PDF strokes, a legend and 3 mm default bleed.
 - Inspect source-derived rigid-panel motion when the sampled continuity gate permits a 3D preview.
 
 The topology tests check a single CUT contour, connectivity and slit attachment. These structural checks do not establish physical foldability.
+
+## Use with your AI agent
+
+Install a generated local package for [Claude Code](docs/ai-hosts/claude-code.md),
+[Codex CLI](docs/ai-hosts/codex-cli.md), [Gemini CLI](docs/ai-hosts/gemini-cli.md),
+or [Grok Build CLI](docs/ai-hosts/grok-build.md). [Claude Desktop](docs/ai-hosts/claude-desktop.md)
+and [Cursor](docs/ai-hosts/cursor.md) use manual local stdio MCP configuration.
+Start with [local setup](docs/ai-hosts/local-setup.md), then the selected host guide.
+
+Gemini CLI installation and discovery were observed; execution was blocked by
+Gemini sign-in on the test machine. Gemini support remains unqualified.
+
+```sh
+python3 scripts/skill_contract.py --check
+python3 scripts/sync_host_bundles.py --check
+python3 scripts/host_config.py --host codex --workspace "$HOME/OrigamiRuns" \
+  --browser-cache "$HOME/.cache/origami-cad-browser"
+```
+
+The renderer prints resolved configuration; it does not write host settings.
+Each host guide supplies its install command. The canonical
+[es-origami-cad skill](skills/es-origami-cad/SKILL.md) follows Concept → Build →
+Check → Hand over → Adjust through the same product engine. Bundles are generated
+regular-file copies, never independent engines or hand-edited mirrors.
+
+Run the [host smoke](docs/ai-hosts/verification.md) after installation. Tool
+discovery and manifest validation alone do not establish host support. Desktop
+and Cursor GUI acceptance are owner-manual; Grok Build requires the official
+binary. No hosted server, remote MCP or ChatGPT/Grok consumer connector is shipped.
+Physical fold/fit and recipient import remain NOT VERIFIED. The current default
+0.45t allowance at 90° differs from the mandated π(R + Kt)/2; this packaging does
+not resolve that known formula conflict.
 
 ## Quickstart from a checkout
 
@@ -57,63 +89,96 @@ output/TuckBox_80x50x120_viewer.html
 2. Generate the printer profile and inspect its PDF legend, spot names, bleed and dimensions at 100% scale.
 3. Open the generated viewer, inspect available fold motion, then qualify RIP/CAD import and physical fold/fit with the recipient before manufacturing.
 
-## Seven cartons. Every blank visible.
+## 11 products. 12 blanks.
 
-Individual source-generated examples, with full SVGs and separate printer PDF/DXF downloads. Dimensions below describe the shown blank, not the finished carton.
+Each blank has its own source-generated SVG and separate printer PDF/DXF. Sleeve + tray is a two-piece product: separate sleeve and four-wall tray files, no sheet nesting or assembly fusion. Dimensions below describe each shown blank.
 
-| Carton / CLI type | Shown blank / caliper | 3D preview | Source SVG | Printer PDF / DXF |
+| Product / CLI type | Shown blank / caliper | 3D preview | Source SVG | Printer PDF / DXF |
 | --- | --- | --- | --- | --- |
-| Tuck box / `tuck-box` | 275.9 × 250.45 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/tuck-box.svg) | [PDF](docs/assets/models/tuck-box.pdf) / [DXF](docs/assets/models/tuck-box.dxf) |
-| Hexagonal petal box / `hex-petal` | 235.3 × 203.8 mm / 0.4 mm | 3D preview available | [SVG](docs/assets/models/hex-petal.svg) | [PDF](docs/assets/models/hex-petal.pdf) / [DXF](docs/assets/models/hex-petal.dxf) |
-| Diamond faceted box / `diamond-box` | 240.0 × 80.0 mm / 0.45 mm | 3D preview unavailable | [SVG](docs/assets/models/diamond-box.svg) | [PDF](docs/assets/models/diamond-box.pdf) / [DXF](docs/assets/models/diamond-box.dxf) |
-| Zero-glue tray / `zero-glue-tray` | 220.0 × 190.0 mm / 0.5 mm | 3D preview unavailable | [SVG](docs/assets/models/zero-glue-tray.svg) | [PDF](docs/assets/models/zero-glue-tray.pdf) / [DXF](docs/assets/models/zero-glue-tray.dxf) |
-| Gable handle box / `gable-box` | 567.9 × 281.6 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/gable-box.svg) | [PDF](docs/assets/models/gable-box.pdf) / [DXF](docs/assets/models/gable-box.dxf) |
-| Pillow box / `pillow-box` | 272.9 × 110.0 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/pillow-box.svg) | [PDF](docs/assets/models/pillow-box.pdf) / [DXF](docs/assets/models/pillow-box.dxf) |
-| Crash-lock box / `crash-lock-box` | 295.9 × 196.4 mm / 0.5 mm | 3D preview unavailable | [SVG](docs/assets/models/crash-lock-box.svg) | [PDF](docs/assets/models/crash-lock-box.pdf) / [DXF](docs/assets/models/crash-lock-box.dxf) |
+| Tuck box / `tuck-box` | 275.9 × 250.4 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/tuck-box.svg) | [PDF](docs/assets/models/tuck-box.pdf) / [DXF](docs/assets/models/tuck-box.dxf) |
+| Hexagonal petal box / `hex-petal` | 244.9 × 217.7 mm / 0.4 mm | 3D preview available | [SVG](docs/assets/models/hex-petal.svg) | [PDF](docs/assets/models/hex-petal.pdf) / [DXF](docs/assets/models/hex-petal.dxf) |
+| Diamond faceted box / `diamond-box` | 252.0 × 140.0 mm / 0.45 mm | 3D preview available | [SVG](docs/assets/models/diamond-box.svg) | [PDF](docs/assets/models/diamond-box.pdf) / [DXF](docs/assets/models/diamond-box.dxf) |
+| Zero-glue tray / `zero-glue-tray` | 220.0 × 190.0 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/zero-glue-tray.svg) | [PDF](docs/assets/models/zero-glue-tray.pdf) / [DXF](docs/assets/models/zero-glue-tray.dxf) |
+| Gable handle box / `gable-box` | 567.9 × 304.6 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/gable-box.svg) | [PDF](docs/assets/models/gable-box.pdf) / [DXF](docs/assets/models/gable-box.dxf) |
+| Pillow box / `pillow-box` | 272.9 × 135.4 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/pillow-box.svg) | [PDF](docs/assets/models/pillow-box.pdf) / [DXF](docs/assets/models/pillow-box.dxf) |
+| Crash-lock box / `crash-lock-box` | 295.9 × 196.4 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/crash-lock-box.svg) | [PDF](docs/assets/models/crash-lock-box.pdf) / [DXF](docs/assets/models/crash-lock-box.dxf) |
+| FEFCO 0201 RSC / `fefco-0201` | 730.9 × 270.2 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/fefco-0201.svg) | [PDF](docs/assets/models/fefco-0201.pdf) / [DXF](docs/assets/models/fefco-0201.dxf) |
+| FEFCO 0427 mailer / `fefco-0427` | 478.5 × 468.2 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/fefco-0427.svg) | [PDF](docs/assets/models/fefco-0427.pdf) / [DXF](docs/assets/models/fefco-0427.dxf) |
+| Sleeve + tray · sleeve / `sleeve-tray` | 336.9 × 81.0 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/sleeve-tray-sleeve.svg) | [PDF](docs/assets/models/sleeve-tray-sleeve.pdf) / [DXF](docs/assets/models/sleeve-tray-sleeve.dxf) |
+| Sleeve + tray · tray / `sleeve-tray` | 190.2 × 150.2 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/sleeve-tray-tray.svg) | [PDF](docs/assets/models/sleeve-tray-tray.pdf) / [DXF](docs/assets/models/sleeve-tray-tray.dxf) |
+| Hinged food box / `food-box` | 300.2 × 405.4 mm / 0.5 mm | 3D preview available | [SVG](docs/assets/models/food-box.svg) | [PDF](docs/assets/models/food-box.pdf) / [DXF](docs/assets/models/food-box.dxf) |
 
 ### Tuck box
 
-![Tuck box full source dieline with CUT, CREASE and GLUE paths](docs/assets/models/tuck-box.svg)
+![Tuck box full source dieline](docs/assets/models/tuck-box.svg)
 
-Blank 275.9 × 250.45 mm · caliper 0.5 mm. 3D preview available.
+275.9 × 250.4 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=tuck-box).
 
 ### Hexagonal petal box
 
-![Hexagonal petal box full source dieline with CUT, CREASE and GLUE paths](docs/assets/models/hex-petal.svg)
+![Hexagonal petal box full source dieline](docs/assets/models/hex-petal.svg)
 
-Blank 235.3 × 203.8 mm · caliper 0.4 mm. 3D preview available.
+244.9 × 217.7 mm blank · 0.4 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=hex-petal).
 
 ### Diamond faceted box
 
-![Diamond faceted box full source dieline with CUT, CREASE and GLUE paths](docs/assets/models/diamond-box.svg)
+![Diamond faceted box full source dieline](docs/assets/models/diamond-box.svg)
 
-Blank 240.0 × 80.0 mm · caliper 0.45 mm. 3D preview unavailable.
+252.0 × 140.0 mm blank · 0.45 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=diamond-box).
 
 ### Zero-glue tray
 
-![Zero-glue tray full source dieline with CUT, CREASE and GLUE paths](docs/assets/models/zero-glue-tray.svg)
+![Zero-glue tray full source dieline](docs/assets/models/zero-glue-tray.svg)
 
-Blank 220.0 × 190.0 mm · caliper 0.5 mm. 3D preview unavailable.
+220.0 × 190.0 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=zero-glue-tray).
 
 ### Gable handle box
 
-![Gable handle box full source dieline with CUT, CREASE and GLUE paths](docs/assets/models/gable-box.svg)
+![Gable handle box full source dieline](docs/assets/models/gable-box.svg)
 
-Blank 567.9 × 281.6 mm · caliper 0.5 mm. 3D preview available.
+567.9 × 304.6 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=gable-box).
 
 ### Pillow box
 
-![Pillow box full source dieline with CUT, CREASE and GLUE paths](docs/assets/models/pillow-box.svg)
+![Pillow box full source dieline](docs/assets/models/pillow-box.svg)
 
-Blank 272.9 × 110.0 mm · caliper 0.5 mm. 3D preview available.
+272.9 × 135.4 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=pillow-box).
 
 ### Crash-lock box
 
-![Crash-lock box full source dieline with CUT, CREASE and GLUE paths](docs/assets/models/crash-lock-box.svg)
+![Crash-lock box full source dieline](docs/assets/models/crash-lock-box.svg)
 
-Blank 295.9 × 196.4 mm · caliper 0.5 mm. 3D preview unavailable.
+295.9 × 196.4 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=crash-lock-box).
 
-These catalogue examples record their own dimensions and caliper in [catalog.json](docs/assets/catalog.json); they are not a promise that every parameter combination folds. Miura-ori and deer-base are separate research patterns, outside this carton catalogue.
+### FEFCO 0201 RSC
+
+![FEFCO 0201 RSC full source dieline](docs/assets/models/fefco-0201.svg)
+
+730.9 × 270.2 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=fefco-0201).
+
+### FEFCO 0427 mailer
+
+![FEFCO 0427 mailer full source dieline](docs/assets/models/fefco-0427.svg)
+
+478.5 × 468.2 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=fefco-0427).
+
+### Sleeve + tray · sleeve
+
+![Sleeve + tray · sleeve full source dieline](docs/assets/models/sleeve-tray-sleeve.svg)
+
+336.9 × 81.0 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=sleeve-tray-sleeve).
+
+### Sleeve + tray · tray
+
+![Sleeve + tray · tray full source dieline](docs/assets/models/sleeve-tray-tray.svg)
+
+190.2 × 150.2 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=sleeve-tray-tray).
+
+### Hinged food box
+
+![Hinged food box full source dieline](docs/assets/models/food-box.svg)
+
+300.2 × 405.4 mm blank · 0.5 mm caliper. 3D preview available. [Preview](docs/demo/index.html?model=food-box).
 
 ## A handoff with named paths
 
@@ -139,14 +204,13 @@ The legend uses all five spots even when a particular blank has no paths of a gi
 
 Inspect source-derived rigid-panel motion when the sampled continuity gate permits a 3D preview.
 
-[Open the standalone tuck-box viewer](docs/demo/tuck-box.html). Rotate, pan and zoom the actual generated viewer; use its fold controls to inspect progress. The 2D drawing remains available if JavaScript, the Three.js r128 CDN or WebGL is unavailable.
+[Open the model switcher](docs/demo/index.html). Rotate, pan and zoom the actual generated viewer; use its fold controls to inspect progress. The 2D drawing remains available if JavaScript, the Three.js r128 CDN or WebGL is unavailable.
 
 ## What is NOT verified
 
 - Recipient RIP/CAD import and prepress acceptance are not verified.
 - Physical fold/fit, material, grain, tooling and manufacturing tolerances are not verified.
-- Crash-lock box, zero-glue tray and diamond faceted box have no qualified 3D preview.
-- Continuity is sampled at 25%, 50%, 75% and 100% with a 0.5 mm tolerance; continuous-time motion and collision avoidance are not verified.
+- The baseline samples four positions; coordinated motion also passes 101 samples and endpoint/loop closure checks, with the same 0.5 mm seam tolerance. Continuous-time motion, automatic locking and collision avoidance are not verified.
 
 Score allowances are uncalibrated heuristics. Knowledge documents have mixed provenance; structural lint does not establish their engineering claims.
 
@@ -155,14 +219,14 @@ Score allowances are uncalibrated heuristics. Knowledge documents have mixed pro
 <details>
 <summary>What does DESIGN:OS Origami generate?</summary>
 
-It generates seven parametric carton styles as SVG and presentation DXF, a standalone viewer, and a separate printer profile with spot-colour PDF and R2000 DXF. Miura-ori and deer-base are separate research patterns.
+It generates 11 parametric carton products as 12 separate SVG and presentation DXF blanks, standalone viewers, and a separate printer profile with spot-colour PDF and R2000 DXF. Sleeve + tray uses two separately named blanks and one file per blank. Miura-ori and deer-base are separate research patterns.
 
 </details>
 
 <details>
 <summary>Which cartons have a 3D fold preview?</summary>
 
-The shown tuck box, hexagonal petal box, gable handle box and pillow box pass the sampled continuity gate. Diamond faceted box, zero-glue tray and crash-lock box retain their 2D dielines with no 3D fold preview. Availability depends on the generated geometry.
+All 12 shown catalogue blanks (Tuck box, Hexagonal petal box, Diamond faceted box, Zero-glue tray, Gable handle box, Pillow box, Crash-lock box, FEFCO 0201 RSC, FEFCO 0427 mailer, Sleeve + tray · sleeve, Sleeve + tray · tray, Hinged food box) have qualified source-derived 3D previews. Availability depends on the generated geometry; it does not prove physical fold/fit.
 
 </details>
 
@@ -183,7 +247,7 @@ Use Python 3.10 or newer from a checkout and run the Quickstart commands. Presen
 <details>
 <summary>Does the preview prove the carton will fold and fit?</summary>
 
-No. Continuity is checked at 25%, 50%, 75% and 100% fold progress with a 0.5 mm tolerance. The preview does not prove continuous-time motion, collision avoidance, material behaviour, glue closure or physical fold/fit.
+No. The baseline checks continuity at 25%, 50%, 75% and 100% with a 0.5 mm tolerance. Coordinated crash-lock motion must additionally pass 101 samples and endpoint/loop closure checks. The preview does not prove continuous-time motion, collision avoidance, material behaviour, glue closure or physical fold/fit.
 
 </details>
 

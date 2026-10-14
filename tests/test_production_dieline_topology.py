@@ -98,7 +98,8 @@ class ProductionTopology(unittest.TestCase):
     def test_registry_covers_every_packaging_generator(self):
         generators = {f for n, f in inspect.getmembers(packaging, inspect.isfunction)
                       if n.startswith("generate_") and n != "generate_miura_ori_sleeve"}
-        self.assertEqual(generators, set(MODELS.values()))
+        from origami_cad.product_registry import PRODUCTS
+        self.assertEqual(generators, {getattr(packaging, function) for _, _, function in PRODUCTS})
 
     def test_tuck_box(self): self.check_model("tuck-box")
     def test_zero_glue_tray(self): self.check_model("zero-glue-tray")

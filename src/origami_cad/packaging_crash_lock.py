@@ -1,4 +1,5 @@
 """Scored bottom tube geometry with explicitly named flap slits."""
+from origami_cad.packaging_constraints import validate_glue_flap
 from origami_cad.geometry import OrigamiCreasePattern, Point2D, CreaseType
 
 
@@ -17,6 +18,7 @@ def generate_crash_lock_box(
     cp = OrigamiCreasePattern(name=f"CrashLockBox_{int(width)}x{int(depth)}x{int(height)}", thickness_mm=thickness)
     c_allow = cp.calculate_score_allowance(90.0)
     w, d, h = width + c_allow, depth + c_allow, height
+    validate_glue_flap(glue_flap_width, w)
 
     # Panels along X: Glue -> Left (D) -> Front (W) -> Right (D) -> Back (W)
     xs = [0.0, glue_flap_width]

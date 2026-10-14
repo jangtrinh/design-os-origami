@@ -58,3 +58,70 @@ def fold_vertices(model, t):
     return {f['id']: [[sum(matrices[f['id']][i][j]*v for j, v in
                           enumerate([*p, 0.0, 1.0])) for i in range(3)]
                       for p in f['vertices']] for f in model['faces']}
+
+
+def _scheduled_matrices(model, schedule, t):
+    hinges = [dict(h, angle_deg=float(a)) for h, a in zip(model['hinges'], schedule)]
+    return fold_matrices(dict(model, hinges=hinges), t)
+
+
+def transform_point(matrix, point):
+    return [sum(matrix[i][j]*v for j, v in enumerate([*point, 0.0, 1.0])) for i in range(3)]
+
+
+def _solve(matrix, rhs):
+    n = len(rhs)
+    rows = [row[:] + [rhs[i]] for i, row in enumerate(matrix)]
+    for c in range(n):
+        pivot = max(range(c, n), key=lambda r: abs(rows[r][c]))
+        if abs(rows[pivot][c]) <= 1e-12:
+            raise ArithmeticError('Singular normal equations')
+        rows[c], rows[pivot] = rows[pivot], rows[c]
+        for r in range(n):
+            if r != c:
+                factor = rows[r][c]/rows[c][c]
+                rows[r] = [v-factor*w for v, w in zip(rows[r], rows[c])]
+    return [rows[i][n]/rows[i][i] for i in range(n)]
+
+
+def least_squares_schedule(model, seams, start, free, weight=.05, iterations=40):
+    """Levenberg-Marquardt on free hinge angles: seam gaps at 100% plus weak pull to source."""
+    source = [h['angle_deg'] for h in model['hinges']]
+
+    def residuals(x):
+        schedule = list(start)
+        for k, i in enumerate(free):
+            schedule[i] = x[k]
+        matrices = _scheduled_matrices(model, schedule, 1.0)
+        r = [pa-pb for a, b, axis in seams for p in axis
+             for pa, pb in zip(transform_point(matrices[a], p), transform_point(matrices[b], p))]
+        r.extend(weight*(x[k]-source[i])/90 for k, i in enumerate(free))
+        return schedule, r
+    x = [start[i] for i in free]
+    schedule, r = residuals(x)
+    cost, damping = sum(v*v for v in r), 1e-3
+    for _ in range(iterations):
+        columns = []
+        for k in range(len(x)):
+            probe = list(x)
+            probe[k] += 1e-4
+            columns.append([(a-b)/1e-4 for a, b in zip(residuals(probe)[1], r)])
+        normal = [[sum(ci*cj for ci, cj in zip(columns[i], columns[j])) for j in range(len(x))]
+                  for i in range(len(x))]
+        gradient = [sum(ci*ri for ci, ri in zip(columns[i], r)) for i in range(len(x))]
+        try:
+            step = _solve([[v+(damping*v if i == j else 0) for j, v in enumerate(row)]
+                           for i, row in enumerate(normal)], [-g for g in gradient])
+        except ArithmeticError:
+            damping *= 10
+            continue
+        trial = [a+b for a, b in zip(x, step)]
+        trial_schedule, trial_r = residuals(trial)
+        trial_cost = sum(v*v for v in trial_r)
+        if trial_cost < cost:
+            x, schedule, r, cost, damping = trial, trial_schedule, trial_r, trial_cost, damping/3
+            if max(map(abs, step)) < 1e-9:
+                break
+        else:
+            damping *= 10
+    return schedule

@@ -1,0 +1,10 @@
+{
+  "name": "design-os-origami",
+  "version": "0.1.0",
+  "description": "Local parametric packaging dielines and validation.",
+  "author": {
+    "name": "DESIGN:OS"
+  },
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
+}

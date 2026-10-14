@@ -30,40 +30,47 @@ def generate_zero_glue_tray(
     cp.add_crease(Point2D(bx2, by2), Point2D(bx1, by2), CreaseType.CREASE, 90.0, "Base_Bottom")
     cp.add_crease(Point2D(bx1, by2), Point2D(bx1, by1), CreaseType.CREASE, 90.0, "Base_Left")
 
-    # 2. Outer rollover walls (first wall + rollover inner wall)
+    # 2. Outer rollover walls (first wall + 180-degree rollover inner wall)
     # Top wall
-    cp.add_crease(Point2D(bx1, by1 - h), Point2D(bx2, by1 - h), CreaseType.CREASE, 90.0, "TopWall_Rollover")
+    cp.add_crease(Point2D(bx1, by1 - h), Point2D(bx2, by1 - h), CreaseType.CREASE, 180.0, "TopWall_Rollover")
     cp.add_crease(Point2D(bx1, by1 - 2*h), Point2D(bx2, by1 - 2*h), CreaseType.CUT, 0.0, "TopWall_Edge")
 
     # Bottom wall
-    cp.add_crease(Point2D(bx1, by2 + h), Point2D(bx2, by2 + h), CreaseType.CREASE, 90.0, "BottomWall_Rollover")
+    cp.add_crease(Point2D(bx1, by2 + h), Point2D(bx2, by2 + h), CreaseType.CREASE, 180.0, "BottomWall_Rollover")
     cp.add_crease(Point2D(bx1, by2 + 2*h), Point2D(bx2, by2 + 2*h), CreaseType.CUT, 0.0, "BottomWall_Edge")
 
     # Left wall
-    cp.add_crease(Point2D(bx1 - h, by1), Point2D(bx1 - h, by2), CreaseType.CREASE, 90.0, "LeftWall_Rollover")
+    cp.add_crease(Point2D(bx1 - h, by1), Point2D(bx1 - h, by2), CreaseType.CREASE, 180.0, "LeftWall_Rollover")
     cp.add_crease(Point2D(bx1 - 2*h, by1), Point2D(bx1 - 2*h, by2), CreaseType.CUT, 0.0, "LeftWall_Edge")
 
     # Right wall
-    cp.add_crease(Point2D(bx2 + h, by1), Point2D(bx2 + h, by2), CreaseType.CREASE, 90.0, "RightWall_Rollover")
+    cp.add_crease(Point2D(bx2 + h, by1), Point2D(bx2 + h, by2), CreaseType.CREASE, 180.0, "RightWall_Rollover")
     cp.add_crease(Point2D(bx2 + 2*h, by1), Point2D(bx2 + 2*h, by2), CreaseType.CUT, 0.0, "RightWall_Edge")
 
-    # Close each rollover strip at both ends, retaining the square gusset outlines.
-    for cx, cy, sx, sy in [(bx1, by1, -1, -1), (bx2, by1, 1, -1),
-                           (bx2, by2, 1, 1), (bx1, by2, -1, 1)]:
+    cp.cut_slits = {f"CornerSlit_{i}": "Separates corner locking gusset tab from top/bottom wall so tab folds inside rollover wall."
+                    for i in range(4)}
+
+    # Close each rollover strip at both ends and attach 45-degree corner gussets to Left/Right walls.
+    corners = [(bx1, by1, -1, -1), (bx2, by1, 1, -1), (bx2, by2, 1, 1), (bx1, by2, -1, 1)]
+    for i, (cx, cy, sx, sy) in enumerate(corners):
         cp.add_crease(Point2D(cx, cy + sy * h), Point2D(cx, cy + sy * 2 * h),
                       CreaseType.CUT, 0.0, "RolloverSide")
+        cp.add_crease(Point2D(cx + sx * h, cy), Point2D(cx + sx * h, cy + sy * h),
+                      CreaseType.CUT, 0.0, "CornerCut")
         cp.add_crease(Point2D(cx + sx * h, cy), Point2D(cx + sx * 2 * h, cy),
                       CreaseType.CUT, 0.0, "RolloverSide")
-
-    # 3. 45-degree corner gussets (origami corner folds)
-    corners = [(bx1, by1, -1, -1), (bx2, by1, 1, -1), (bx2, by2, 1, 1), (bx1, by2, -1, 1)]
-    for cx, cy, sx, sy in corners:
+        cp.add_crease(Point2D(cx, cy + sy * h), Point2D(cx + sx * h, cy + sy * h),
+                      CreaseType.CUT, 0.0, "CornerCut")
+        # Relief slit along horizontal top/bottom wall edge; 90-deg hinge along Left/Right wall edge
+        cp.add_crease(Point2D(cx, cy), Point2D(cx, cy + sy * h),
+                      CreaseType.CUT, 0.0, f"CornerSlit_{i}")
+        cp.add_crease(Point2D(cx, cy), Point2D(cx + sx * h, cy),
+                      CreaseType.CREASE, 90.0, f"CornerHinge_{i}")
+        # 45-degree corner gusset creases meeting at the corner square center
         p_c = Point2D(cx, cy)
-        p_diag = Point2D(cx + sx * h, cy + sy * h)
-        cp.add_crease(p_c, p_diag, CreaseType.VALLEY, -90.0, "CornerGusset")
-        # Corner outline cut
-        cp.add_crease(Point2D(cx + sx * h, cy), p_diag, CreaseType.CUT, 0.0)
-        cp.add_crease(Point2D(cx, cy + sy * h), p_diag, CreaseType.CUT, 0.0)
+        p_mid = Point2D(cx + sx * h * 0.5, cy + sy * h * 0.5)
+        cp.add_crease(p_c, p_mid, CreaseType.VALLEY, -90.0, "CornerGusset")
+        cp.add_crease(Point2D(cx + sx * h, cy), p_mid, CreaseType.MOUNTAIN, 90.0, "CornerGussetLock")
 
     # Base facet
     cp.add_facet("TrayBase", [Point2D(bx1, by1), Point2D(bx2, by1), Point2D(bx2, by2), Point2D(bx1, by2)], fold_angle_deg=0.0)
