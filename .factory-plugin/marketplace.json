@@ -1,0 +1,15 @@
+{
+  "name": "design-os-origami",
+  "metadata": {
+    "description": "Parametric packaging dielines, Kawasaki/Maekawa foldability verification, spot-color print PDFs/DXFs, and source-derived 3D fold previews."
+  },
+  "owner": {
+    "name": "Jang Trinh"
+  },
+  "plugins": [
+    {
+      "name": "design-os-origami",
+      "source": "./"
+    }
+  ]
+}
