@@ -197,7 +197,7 @@ class SkillLookTests(unittest.TestCase):
 
     @unittest.skipUnless(os.environ.get('ORIGAMI_BROWSER_CACHE'), 'explicit cached browser not supplied')
     def test_actual_browser_preserves_unavailable(self):
-        self.create_run('diamond-box')
+        self.create_run('miura-ori')
         captured = self.browser_capture()
         self.assertEqual(captured.returncode, 0, captured.stderr)
         result = json.loads(captured.stdout)
