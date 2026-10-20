@@ -2,7 +2,7 @@
 
 > DESIGN:OS Origami generates parametric carton dielines, printer exchange files and source-derived folding previews from Python.
 
-Python ≥3.10 · MIT. 11 carton CLI choices: tuck-box, hex-petal, diamond-box, zero-glue-tray, gable-box, pillow-box, crash-lock-box, fefco-0201, fefco-0427, sleeve-tray, food-box. Miura-ori and deer-base are separate research patterns.
+Python ≥3.10 · PolyForm Shield 1.0.0. 11 carton CLI choices: tuck-box, hex-petal, diamond-box, zero-glue-tray, gable-box, pillow-box, crash-lock-box, fefco-0201, fefco-0427, sleeve-tray, food-box. Miura-ori and deer-base are separate research patterns.
 
 Presentation mode writes SVG, R12 DXF and viewer HTML. Printer mode writes a five-spot PDF (CutContour, CreaseLine, Perforation, Bleed, GlueArea), with 1 pt strokes, a legend and 3 mm default bleed, plus R2000 mm/y-up DXF.
 
