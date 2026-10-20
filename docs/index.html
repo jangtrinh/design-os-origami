@@ -34,7 +34,7 @@
       "codeRepository": "https://github.com/jangtrinh/design-os-origami",
       "programmingLanguage": "Python",
       "runtimePlatform": "Python >=3.10",
-      "license": "https://spdx.org/licenses/MIT.html"
+      "license": "https://polyformproject.org/licenses/shield/1.0.0"
     },
     {
       "@type": "FAQPage",
@@ -84,7 +84,7 @@
           "name": "What are the license and browser requirements?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Original repository work is MIT licensed; third-party references retain their own rights. The static landing page has no analytics, cookies or widgets. The embedded viewer requires JavaScript, WebGL and the pinned Three.js r128 CDN; its 2D dieline remains available when 3D cannot load."
+            "text": "Original repository work is licensed under PolyForm Shield 1.0.0 (free to use and modify, including for paid work; you may not resell it or ship a competing product from it); third-party references retain their own rights. The static landing page has no analytics, cookies or widgets. The embedded viewer requires JavaScript, WebGL and the pinned Three.js r128 CDN; its 2D dieline remains available when 3D cannot load."
           }
         }
       ]
@@ -169,7 +169,7 @@
 <details id="faq-3"><summary>What is in the printer profile?</summary><p>The defaults are CutContour, CreaseLine, Perforation, Bleed and GlueArea, with 1 pt PDF strokes, a five-spot legend and 3 mm bleed. Printer DXF is R2000 with millimetre units and y-up coordinates. Recipient RIP/CAD import is not verified.</p></details>
 <details id="faq-4"><summary>How do I run it?</summary><p>Use Python 3.10 or newer from a checkout and run the Quickstart commands. Presentation mode writes SVG, DXF and viewer HTML; printer mode writes a separate PDF and DXF.</p></details>
 <details id="faq-5"><summary>Does the preview prove the carton will fold and fit?</summary><p>No. The baseline checks continuity at 25%, 50%, 75% and 100% with a 0.5 mm tolerance. Coordinated crash-lock motion must additionally pass 101 samples and endpoint/loop closure checks. The preview does not prove continuous-time motion, collision avoidance, material behaviour, glue closure or physical fold/fit.</p></details>
-<details id="faq-6"><summary>What are the license and browser requirements?</summary><p>Original repository work is MIT licensed; third-party references retain their own rights. The static landing page has no analytics, cookies or widgets. The embedded viewer requires JavaScript, WebGL and the pinned Three.js r128 CDN; its 2D dieline remains available when 3D cannot load.</p></details></div></div></section>
+<details id="faq-6"><summary>What are the license and browser requirements?</summary><p>Original repository work is licensed under PolyForm Shield 1.0.0 (free to use and modify, including for paid work; you may not resell it or ship a competing product from it); third-party references retain their own rights. The static landing page has no analytics, cookies or widgets. The embedded viewer requires JavaScript, WebGL and the pinned Three.js r128 CDN; its 2D dieline remains available when 3D cannot load.</p></details></div></div></section>
     <section class="section quickstart" id="quickstart" aria-labelledby="quickstart-title">
       <h2 id="quickstart-title">Generate your first blank.</h2><p>From the repository checkout, with Python ≥3.10. The first command uses presentation mode; the second adds the printer profile.</p>
       <pre><code>PYTHONPATH=src python3 -m origami_cad.cli generate --type tuck-box --output-dir output
@@ -187,7 +187,7 @@ output/TuckBox_80x50x120_viewer.html</code></pre>
       <div class="read-next"><h3>Read the contracts.</h3><ul class="link-list"><li><a href="printer-profile.md">Printer profile: spots, bleed, scale and exchange limits</a></li><li><a href="fold-preview.md">Fold preview: extraction, continuity and motion limits</a></li><li><a href="ai-hosts/index.md">Use with your local AI host</a></li><li><a href="https://github.com/jangtrinh/design-os-origami#readme">README</a></li></ul><p class="publication-note">The public repository name and canonical URL are prepared for publication. Remote availability is not verified.</p></div>
     </section>
   </main>
-  <footer class="wrap"><a href="https://github.com/jangtrinh/design-os-origami">GitHub</a><a href="https://github.com/jangtrinh/design-os-origami/blob/main/LICENSE">MIT license</a><a href="#top">Back to top</a></footer>
+  <footer class="wrap"><a href="https://github.com/jangtrinh/design-os-origami">GitHub</a><a href="https://github.com/jangtrinh/design-os-origami/blob/main/LICENSE">PolyForm Shield license</a><a href="#top">Back to top</a></footer>
 <script src="assets/viewer-embed.js"></script>
 </body>
 </html>

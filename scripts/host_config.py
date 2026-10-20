@@ -60,7 +60,7 @@ def expected_manifests(root, version):
     """Generate manifest bytes only; source paths follow each host specification."""
     identity = {'name': 'design-os-origami', 'version': version,
                 'description': 'Local parametric packaging dielines and validation.',
-                'author': {'name': 'DESIGN:OS'}, 'license': 'MIT'}
+                'author': {'name': 'DESIGN:OS'}, 'license': 'LicenseRef-PolyForm-Shield-1.0.0'}
     expected = {}
     for host in ("claude-code", "codex", "gemini", "grok-build"):
         base = Path('bundles') / host
